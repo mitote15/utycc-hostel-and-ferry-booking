@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTYCC Smart Campus Enterprise Portal - Ferry & Hostel Management</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #0284c7;
+            --primary-hover: #0369a1;
+            --accent-teal: #0d9488;
+            --accent-emerald: #059669;
+            --accent-amber: #d97706;
+            --bg-light: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.82);
+            --border-glass: rgba(14, 165, 233, 0.18);
+            --border-glow: rgba(2, 132, 199, 0.35);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --shadow-glass: 0 10px 30px -5px rgba(2, 132, 199, 0.08);
+            --shadow-glow: 0 12px 35px rgba(2, 132, 199, 0.18);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6, .brand-font {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-main);
+        }
+
+        /* --- Page Load Fade In Animation --- */
+        @keyframes pageLoadFade {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            animation: pageLoadFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- Aurora Mesh Gradient Background --- */
+        .mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #f0fdf4 100%);
+        }
+
+        .aurora-glow-1 {
+            position: absolute;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(13, 148, 136, 0.06) 50%, transparent 70%);
+            top: -200px;
+            left: -150px;
+            border-radius: 50%;
+            animation: auroraMove 16s ease-in-out infinite alternate;
+            filter: blur(60px);
+        }
+
+        .aurora-glow-2 {
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.12) 0%, rgba(2, 132, 199, 0.05) 50%, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            border-radius: 50%;
+            animation: auroraMove2 18s ease-in-out infinite alternate;
+            filter: blur(70px);
+        }
+
+        @keyframes auroraMove {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(150px, 180px) scale(1.1); }
+        }
+
+        @keyframes auroraMove2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-180px, -150px) scale(1.15); }
+        }
+
+        /* --- Scroll Reveal Animations --- */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Floating Glass Navigation Bar --- */
+        .navbar-enterprise {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-glass);
+            border-radius: 20px;
+            margin: 12px 1rem 0 1rem;
+            width: calc(100% - 2rem);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: var(--text-muted) !important;
+            font-weight: 500;
+            transition: color 0.25 ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-blue) !important;
+        }
+
+        /* --- Hero Section & Ocean Waves Animation --- */
+        .hero-enterprise {
+            position: relative;
+            padding: 9rem 0 7rem 0;
+            overflow: hidden;
+        }
+
+        .water-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C150,90 350,-40 500,40 C650,120 900,20 1200,60 L1200,120 L0,120 Z" fill="rgba(14, 165, 233, 0.08)"></path></svg>') repeat-x;
+            animation: waveMove 12s linear infinite;
+        }
+
+        @keyframes waveMove {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1200px; }
+        }
+
+        .ferry-illustration {
+            position: absolute;
+            bottom: 25px;
+            left: -150px;
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            animation: sailAcross 20s linear infinite;
+            z-index: 2;
+            opacity: 0.85;
+        }
+
+        @keyframes sailAcross {
+            0% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(calc(100vw + 200px)) translateY(-4px); }
+            100% { transform: translateX(calc(100vw + 400px)) translateY(0); }
+        }
+
+        /* --- Glassmorphism Cards --- */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glass);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-glow);
+            box-shadow: var(--shadow-glow), var(--shadow-glass);
+        }
+
+        /* --- Icon Box Styling --- */
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.1), rgba(13, 148, 136, 0.12));
+            border: 1px solid rgba(2, 132, 199, 0.2);
+            color: var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card:hover .icon-box {
+            transform: scale(1.08) rotate(4deg);
+        }
+
+        /* --- Glowing & Glass Buttons --- */
+        .btn-glow {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 50px;
+            padding: 0.65rem 1.8rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.28);
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.42);
+            color: white;
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            border-radius: 50px;
+            padding: 0.65rem 1.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass:hover {
+            background: #ffffff;
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        /* --- Status Badges --- */
+        .status-badge-active {
+            background-color: rgba(5, 150, 105, 0.12);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .status-badge-none {
+            background-color: rgba(239, 68, 68, 0.12);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* --- Floating Scroll to Top Button --- */
+        .scroll-fade-effect {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            font-size: 1.6rem;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.35);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-40px);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .scroll-fade-effect:hover {
+            transform: translateY(-4px) scale(1.1) !important;
+            box-shadow: 0 15px 30px rgba(2, 132, 199, 0.55);
+        }
+
+        /* --- Offcanvas Drawer --- */
+        .offcanvas {
+            background-color: #ffffff !important;
+            color: var(--text-main);
+            border-left: 1px solid var(--border-glass);
+        }
+
+        /* --- Star Rating Elements --- */
+        .star-rating {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            display: inline-flex;
+            gap: 6px;
+        }
+
+        .star-rating i.active {
+            color: #f59e0b;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: rgba(2, 132, 199, 0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-blue); }
+    </style>
+</head>
+
+<body>
+
+    <!-- Aurora Mesh Background -->
+    <div class="mesh-background">
+        <div class="aurora-glow-1"></div>
+        <div class="aurora-glow-2"></div>
+    </div>
+
+    <!-- Floating Glass Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-enterprise fixed-top px-3 py-2">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="#">
+                <i class="bi bi-hexagon-fill text-primary"></i> UTYCC Smart Portal
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <i class="bi bi-list text-dark fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto gap-3 align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hostel.html">Hostels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ferry.html">Ferries</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stats">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Support</a></li>
+                    
+                    <li class="nav-item" id="loginBtn">
+                        <a class="btn btn-glow btn-sm" href="login.html"><i class="bi bi-shield-lock me-1"></i> Secure Login</a>
+                    </li>
+
+                    <li class="nav-item dropdown d-none" id="profileMenu">
+                        <a class="btn btn-outline-secondary btn-sm rounded-pill px-3 d-flex align-items-center gap-2 dropdown-toggle text-dark text-decoration-none" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle fs-6 text-primary"></i>
+                            <span id="userName" class="fw-semibold">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2">
+                            <li><a class="dropdown-item rounded-2" href="#" data-bs-toggle="offcanvas" data-bs-target="#userProfileDrawer"><i class="bi bi-person me-2"></i>Profile Drawer</a></li>
+                            <li><a class="dropdown-item rounded-2" href="profile.html"><i class="bi bi-speedometer2 me-2"></i>Profile Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger rounded-2" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Terminate Session</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating Bus/Ferry Scroll to Top Icon -->
+    <div id="jsFerryScrollBtn" class="scroll-fade-effect" title="Back to Top">
+        <i class="bi bi-bus-front"></i>
+    </div>
+
+    <!-- Student Profile Slide-in Drawer (Offcanvas) -->
+    <div class="offcanvas offcanvas-end shadow-lg" tabindex="-1" id="userProfileDrawer">
+        <div class="offcanvas-header border-bottom px-4 py-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 52px; height: 52px; background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));">
+                    <i class="bi bi-person-fill fs-3"></i>
+                </div>
+                <div>
+                    <h5 class="offcanvas-title fw-bold text-dark m-0" id="drawerName">Student Profile</h5>
+                    <small class="text-muted" id="drawerStudentId">Roll ID: Syncing...</small>
+                </div>
+            </div>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+            <div>
+                <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.7rem; letter-spacing: 1px;">Security & Contact Metadata</h6>
+                <div class="glass-card p-3 mb-4">
+                    <div class="mb-2 d-flex align-items-center text-dark"><i class="bi bi-telephone text-primary me-2"></i><span id="drawerPhone" class="small">Phone: -</span></div>
+                </div>
+
+                <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.7rem; letter-spacing: 1px;">Live Allocation Status</h6>
+                
+                <div class="glass-card p-3 mb-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold text-dark small"><i class="bi bi-house-door text-primary me-1"></i> Hostel Slot</div>
+                        <div id="hostelDetail" class="text-muted" style="font-size: 0.75rem;">Status inactive</div>
+                    </div>
+                    <span id="hostelBadge" class="status-badge-none">Unallocated</span>
+                </div>
+
+                <div class="glass-card p-3 mb-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold text-dark small"><i class="bi bi-bus-front text-success me-1"></i> Ferry Route Token</div>
+                        <div id="ferryDetail" class="text-muted" style="font-size: 0.75rem;">No active routes booked</div>
+                    </div>
+                    <span id="ferryBadge" class="status-badge-none">Unassigned</span>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn btn-outline-danger w-100 rounded-pill py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i> Terminate Session
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero-enterprise text-center reveal-element">
+        <div class="ferry-illustration"><i class="bi bi-water"></i> <i class="bi bi-ship-fill"></i></div>
+        <div class="water-waves"></div>
+
+        <div class="container py-4 position-relative" style="z-index: 3;">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill glass-card mb-3">
+                <i class="bi bi-mortarboard-fill text-primary fs-5"></i>
+                <span class="small fw-bold text-uppercase tracking-wide text-dark opacity-90">University of Technology (Yadanarpon Cyber City)</span>
+            </div>
+            <h1 class="display-4 text-dark fw-bold mb-3 tracking-tight">Smart Campus Logistics Central</h1>
+            <p class="lead text-muted max-w-2xl mx-auto mb-4" style="max-width: 680px;">
+                Instantly manage university housing arrangements, track ocean-inspired ferry schedules, and securely manage digital transit tokens with an enterprise eco-portal interface.
+            </p>
+            <div class="row justify-content-center mb-4">
+                <div class="col-xl-6 col-lg-8 col-md-10">
+                    <div class="input-group glass-card p-2 rounded-pill shadow-lg border">
+                        <span class="input-group-text border-0 bg-transparent text-muted px-3">
+                            <i class="bi bi-search text-primary"></i>
+                        </span>
+                        <input type="text" id="portalSearch" class="form-control border-0 bg-transparent text-dark shadow-none"
+                            placeholder="Search campus services (hostel, ferry, tokens, bookings)..."
+                            onkeyup="filterFeatures()">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#services" class="btn btn-glow px-4 py-2">Explore Services <i class="bi bi-arrow-down-short ms-1"></i></a>
+                <a href="#contact" class="btn btn-glass px-4 py-2">Contact Support</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 position-relative">
+        <div class="container py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 reveal-element">
+                <div>
+                    <h3 class="fw-bold m-0 text-dark">Available Services</h3>
+                    <span class="text-muted small" id="match-count">Showing all services</span>
+                </div>
+            </div>
+            <div class="row g-4" id="servicesGrid">
+                <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="hostels rooms housing dorm accommodation thiri shwe daung">
+                    <a href="hostel.html" class="glass-card p-4 text-decoration-none d-flex flex-column h-100">
+                        <div class="icon-box"><i class="bi bi-house-fill"></i></div>
+                        <h4 class="fw-bold fs-5 mb-2 text-dark">Hostels Portal</h4>
+                        <p class="text-muted small mb-4 flex-grow-1">Browse vacancy tracking lists, room layouts parameters, and lodge accommodation updates directly.</p>
+                        <span class="text-primary fw-semibold small d-inline-flex align-items-center gap-1 mt-auto">Manage Housing <i class="bi bi-arrow-right-short"></i></span>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="ferries buses transport routes shuttle times stop lines">
+                    <a href="ferry.html" class="glass-card p-4 text-decoration-none d-flex flex-column h-100">
+                        <div class="icon-box" style="background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(14, 165, 233, 0.15)); border-color: rgba(13, 148, 136, 0.2); color: var(--accent-teal);"><i class="bi bi-water"></i></div>
+                        <h4 class="fw-bold fs-5 mb-2 text-dark">Ferry Tracking</h4>
+                        <p class="text-muted small mb-4 flex-grow-1">Examine interactive tracking maps, monitor departure schedules, and choose matching regional lines.</p>
+                        <span class="fw-semibold small d-inline-flex align-items-center gap-1 mt-auto" style="color: var(--accent-teal);">View Routes <i class="bi bi-arrow-right-short"></i></span>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="tickets passes purchase billing tokens payment renewal">
+                    <a href="#" class="glass-card p-4 text-decoration-none d-flex flex-column h-100">
+                        <div class="icon-box" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(245, 158, 11, 0.15)); border-color: rgba(217, 119, 6, 0.2); color: var(--accent-amber);"><i class="bi bi-ticket-perforated"></i></div>
+                        <h4 class="fw-bold fs-5 mb-2 text-dark">Digital Token Desk</h4>
+                        <p class="text-muted small mb-4 flex-grow-1">Acquire transit tokens, secure dining codes, and execute standard student account credit checkups.</p>
+                        <span class="fw-semibold small d-inline-flex align-items-center gap-1 mt-auto" style="color: var(--accent-amber);">Open Desk <i class="bi bi-arrow-right-short"></i></span>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="my bookings schedule active registration logs calendar history profile">
+                    <a href="#" class="glass-card p-4 text-decoration-none d-flex flex-column h-100">
+                        <div class="icon-box" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(185, 28, 28, 0.15)); border-color: rgba(239, 68, 68, 0.2); color: #dc2626;"><i class="bi bi-bookmark-star"></i></div>
+                        <h4 class="fw-bold fs-5 mb-2 text-dark">My Operations</h4>
+                        <p class="text-muted small mb-4 flex-grow-1">Inspect ongoing assignments, review active housing receipts, and modify scheduling properties.</p>
+                        <span class="text-danger fw-semibold small d-inline-flex align-items-center gap-1 mt-auto">View History <i class="bi bi-arrow-right-short"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div id="noResults" class="glass-card border text-center mt-4 d-none p-4" role="alert">
+                <i class="bi bi-search text-muted fs-4 d-block mb-2"></i>
+                No services match your search. Try keywords like "hostel", "ferry", or "ticket".
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Ecosystem Section -->
+    <section id="about" class="py-5 border-top border-bottom reveal-element" style="background: rgba(241, 245, 249, 0.5);">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center mb-5 reveal-element">
+                <div class="col-lg-7">
+                    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary px-3 py-2 rounded-pill mb-3 text-uppercase tracking-wider">
+                        <i class="bi bi-shield-check me-1"></i> UTYCC Smart Campus Portal
+                    </span>
+                    <h2 class="display-5 fw-bold text-dark mb-3">Streamlining Student Life &amp; Operations</h2>
+                    <p class="text-muted lead fs-6">An enterprise-grade, integrated digital ecosystem designed for the University of Technology, Yadanarpon Cyber City, delivering seamless campus services under one roof.</p>
+                </div>
+            </div>
+            <div class="row align-items-center gy-5">
+                <div class="col-lg-6 reveal-element">
+                    <div class="about-image-container position-relative pe-lg-4">
+                        <div class="image-wrapper shadow-lg rounded-4 overflow-hidden border">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80"
+                                alt="UTYCC Campus Management System" class="img-fluid w-100 object-fit-cover"
+                                style="height: 420px;">
+                        </div>
+                        <div class="glass-card p-3 rounded-4 border position-absolute bottom-0 end-0 translate-middle-y me-n4 d-none d-sm-flex align-items-center gap-3 shadow-lg">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm"
+                                style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));">
+                                <i class="bi bi-award fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0 text-dark">100% Digital</h5>
+                                <p class="text-muted small mb-0">Automated Workflow</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row g-4 ps-lg-3">
+                        <div class="col-md-6 reveal-element">
+                            <div class="glass-card h-100 p-4">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-center mb-3"
+                                    style="width: 50px; height: 50px;"><i class="bi bi-house-door-fill fs-5"></i></div>
+                                <h5 class="fw-bold text-dark mb-2">Hostel Management</h5>
+                                <p class="text-muted small mb-0">Streamlined room allocations, check-ins, and residency record management for students.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 reveal-element">
+                            <div class="glass-card h-100 p-4">
+                                <div class="bg-success bg-opacity-10 text-success rounded-3 d-flex align-items-center justify-content-center mb-3"
+                                    style="width: 50px; height: 50px;"><i class="bi bi-water fs-5"></i></div>
+                                <h5 class="fw-bold text-dark mb-2">Ferry Services</h5>
+                                <p class="text-muted small mb-0">Reliable scheduling, seat reservations, and route tracking for safe daily student transport.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 reveal-element">
+                            <div class="glass-card h-100 p-4">
+                                <div class="bg-warning bg-opacity-10 text-warning rounded-3 d-flex align-items-center justify-content-center mb-3"
+                                    style="width: 50px; height: 50px;"><i class="bi bi-journal-check fs-5"></i></div>
+                                <h5 class="fw-bold text-dark mb-2">Smart Registration</h5>
+                                <p class="text-muted small mb-0">Fast, paperless application processing for semesters, facilities, and campus clearances.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 reveal-element">
+                            <div class="glass-card h-100 p-4">
+                                <div class="bg-info bg-opacity-10 text-info rounded-3 d-flex align-items-center justify-content-center mb-3"
+                                    style="width: 50px; height: 50px;"><i class="bi bi-credit-card-2-front-fill fs-5"></i></div>
+                                <h5 class="fw-bold text-dark mb-2">Borrow &amp; Payments</h5>
+                                <p class="text-muted small mb-0">Transparent tracking of equipment loans alongside secure electronic fee settlements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Counter Grid -->
+            <div id="stats" class="row mt-5 pt-5 border-top text-center reveal-element">
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="2500">0</span>+</h3>
+                    <p class="text-muted small mb-0 text-uppercase fw-semibold">Active Students</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="40">0</span>+</h3>
+                    <p class="text-muted small mb-0 text-uppercase fw-semibold">Ferry Schedules</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="12">0</span></h3>
+                    <p class="text-muted small mb-0 text-uppercase fw-semibold">Hostel Buildings</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="99">0</span>%</h3>
+                    <p class="text-muted small mb-0 text-uppercase fw-semibold">Uptime Reliability</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support / Contact Section -->
+    <section id="contact" class="py-5 reveal-element">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-7">
+                    <span class="text-primary fw-bold text-uppercase tracking-wider small d-block mb-2">Get In Touch</span>
+                    <h2 class="display-6 fw-bold text-dark mb-3">Campus Service Support Center</h2>
+                    <p class="text-muted">Have questions or issues regarding hostel accommodations, ferry schedules, item borrowing, registration, or secure payments? Select a service category and send us a message below.</p>
+                </div>
+            </div>
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <div class="contact-info glass-card p-4 p-lg-5 h-100">
+                        <h4 class="fw-bold text-dark mb-4">Support Channels</h4>
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3 fs-5 d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 50px; height: 50px; flex-shrink: 0;"><i class="bi bi-geo-alt-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-semibold text-dark mb-1">Campus Location</h6>
+                                <p class="text-muted small mb-0">University of Technology, Yadanarpon Cyber City (UTYCC), Myanmar</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3 fs-5 d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 50px; height: 50px; flex-shrink: 0;"><i class="bi bi-envelope-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-semibold text-dark mb-1">Support Email</h6>
+                                <p class="text-muted small mb-0">support@utycc.edu.mm</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3 fs-5 d-flex align-items-center justify-content-center shadow-sm"
+                                style="width: 50px; height: 50px; flex-shrink: 0;"><i class="bi bi-telephone-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-semibold text-dark mb-1">Helpline Phone</h6>
+                                <p class="text-muted small mb-0">+95 9 123 456 789</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="glass-card p-4 p-lg-5">
+                        <form id="contactForm" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="fullName" class="form-label small fw-semibold text-muted">Full Name</label>
+                                    <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="fullName" placeholder="Mg Mg" required>
+                                    <div class="invalid-feedback text-danger">Please enter your name.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="studentId" class="form-label small fw-semibold text-muted">Student ID / Roll No</label>
+                                    <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentId" placeholder="UTYCC-12345" required>
+                                    <div class="invalid-feedback text-danger">Please enter your student ID.</div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="serviceCategory" class="form-label small fw-semibold text-muted">Service Inquiry Category</label>
+                                    <select class="form-select bg-white text-dark border rounded-3 shadow-none" id="serviceCategory" required>
+                                        <option value="" selected disabled>Select the related system category...</option>
+                                        <option value="hostel">Hostel Accommodation</option>
+                                        <option value="ferry">Ferry Booking &amp; Routes</option>
+                                        <option value="borrow">Borrow System (Assets &amp; Equipment)</option>
+                                        <option value="registration">Registration Services</option>
+                                        <option value="payments">Secure Payments &amp; Billing</option>
+                                        <option value="other">General Inquiry</option>
+                                    </select>
+                                    <div class="invalid-feedback text-danger">Please select a category.</div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label small fw-semibold text-muted">Your Message / Issue Details</label>
+                                    <textarea class="form-control bg-white text-dark border rounded-3 shadow-none" id="message" rows="4" placeholder="Describe your issue or request clearly..." required></textarea>
+                                    <div class="invalid-feedback text-danger">Please write a message.</div>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-glow w-100 py-2">Submit Inquiry</button>
+                                </div>
+                            </div>
+                            <div id="formSuccessAlert" class="alert alert-success mt-3 mb-0 rounded-3 d-none bg-success bg-opacity-10 text-success border border-success" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i> Your message has been successfully submitted! Our team will respond shortly.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-5 reveal-element" style="background: rgba(241, 245, 249, 0.7);">
+        <div class="container py-4">
+            <div class="row g-4 align-items-center mb-5">
+                <div class="col-lg-6">
+                    <div class="glass-card p-4">
+                        <h4 class="fw-bold text-dark mb-4">Rating Breakdown</h4>
+                        <div class="d-flex flex-column gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold small text-muted" style="width: 60px;">FIVE</span>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="progress flex-grow-1 bg-light border">
+                                    <div class="progress-bar bg-warning" id="bar-5" style="width: 0%;"></div>
+                                </div>
+                                <span class="small text-muted text-end" id="count-5" style="width: 50px;">0</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold small text-muted" style="width: 60px;">FOUR</span>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="progress flex-grow-1 bg-light border">
+                                    <div class="progress-bar bg-warning" id="bar-4" style="width: 0%;"></div>
+                                </div>
+                                <span class="small text-muted text-end" id="count-4" style="width: 50px;">0</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold small text-muted" style="width: 60px;">THREE</span>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="progress flex-grow-1 bg-light border">
+                                    <div class="progress-bar bg-warning" id="bar-3" style="width: 0%;"></div>
+                                </div>
+                                <span class="small text-muted text-end" id="count-3" style="width: 50px;">0</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold small text-muted" style="width: 60px;">TWO</span>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="progress flex-grow-1 bg-light border">
+                                    <div class="progress-bar bg-warning" id="bar-2" style="width: 0%;"></div>
+                                </div>
+                                <span class="small text-muted text-end" id="count-2" style="width: 50px;">0</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold small text-muted" style="width: 60px;">ONE</span>
+                                <i class="bi bi-star-fill text-warning small"></i>
+                                <div class="progress flex-grow-1 bg-light border">
+                                    <div class="progress-bar bg-warning" id="bar-1" style="width: 0%;"></div>
+                                </div>
+                                <span class="small text-muted text-end" id="count-1" style="width: 50px;">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="glass-card p-4 text-center">
+                        <h1 class="display-3 fw-extrabold text-warning mb-1" id="avgRatingDisplay">0.0</h1>
+                        <div class="rating-stars mb-2 fs-5 text-warning" id="avgStarsDisplay">
+                            <i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                        </div>
+                        <p class="text-muted small mb-0" id="totalReviewsCount">0 Validated Student Ratings</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h3 class="fw-bold text-dark mb-4">Recent Feedbacks</h3>
+                    <div class="d-flex flex-column gap-3" id="recentReviewsContainer">
+                        <div class="text-center p-3 text-muted"><div class="spinner-border spinner-border-sm text-primary me-2"></div> Loading reviews...</div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="fw-bold text-dark mb-4">Add a Review</h3>
+                    <form id="reviewForm" class="glass-card p-4">
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-semibold">Satisfaction Score</label>
+                            <div class="star-rating d-block" id="rating-stars">
+                                <i class="bi bi-star-fill active" data-rating="1"></i>
+                                <i class="bi bi-star-fill active" data-rating="2"></i>
+                                <i class="bi bi-star-fill active" data-rating="3"></i>
+                                <i class="bi bi-star-fill active" data-rating="4"></i>
+                                <i class="bi bi-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="rating-value" value="4">
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewerName" class="form-label small fw-semibold text-muted">Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control bg-white text-dark border shadow-none" id="reviewerName" placeholder="John Doe" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewerEmail" class="form-label small fw-semibold text-muted">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control bg-white text-dark border shadow-none" id="reviewerEmail" placeholder="JohnDoe@gmail.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="reviewerText" class="form-label small fw-semibold text-muted">Write Your Review <span class="text-danger">*</span></label>
+                            <textarea class="form-control bg-white text-dark border shadow-none" id="reviewerText" rows="4" placeholder="Write here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-glow w-100 py-2" id="submitReviewBtn">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Footer -->
+    <footer class="py-4 text-center border-top bg-white bg-opacity-80">
+        <div class="container">
+            <p class="text-muted small mb-0">&copy; 2026 UTYCC Transport &amp; Accommodation Board. Built with accessibility and high-end SaaS UX standards.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
+
+        function filterFeatures() {
+            const input = document.getElementById('portalSearch').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.service-item');
+            const noResults = document.getElementById('noResults');
+            const matchCount = document.getElementById('match-count');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const keywords = item.getAttribute('data-keywords').toLowerCase();
+                if (keywords.includes(input) || input === "") {
+                    item.classList.remove('d-none');
+                    visibleCount++;
+                } else {
+                    item.classList.add('d-none');
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.classList.remove('d-none');
+                matchCount.textContent = 'No matching services';
+            } else {
+                noResults.classList.add('d-none');
+                matchCount.textContent = input === '' ? 'Showing all services' : `Showing ${visibleCount} service${visibleCount > 1 ? 's' : ''}`;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            checkAuthAndLoadProfile();
+
+            // Intersection Observer for Scroll Animations
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            document.querySelectorAll('.reveal-element').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // Ferry Scroll to Top Button Logic
+            const ferryScrollBtn = document.getElementById('jsFerryScrollBtn');
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+
+                if (scrollY > 150) {
+                    ferryScrollBtn.style.opacity = '1';
+                    ferryScrollBtn.style.visibility = 'visible';
+                    ferryScrollBtn.style.transform = 'translateY(0)';
+                } else {
+                    ferryScrollBtn.style.opacity = '0';
+                    ferryScrollBtn.style.visibility = 'hidden';
+                    ferryScrollBtn.style.transform = 'translateY(-40px)';
+                }
+            });
+
+            ferryScrollBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Stats Counter Logic
+            const counters = document.querySelectorAll(".counter");
+            const speed = 200;
+
+            const runCounter = (counter) => {
+                const target = +counter.getAttribute("data-target");
+                const count = +counter.innerText;
+                const increment = target / speed;
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => runCounter(counter), 10);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            const counterObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        runCounter(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => counterObserver.observe(counter));
+
+            // Contact Form Logic
+            const form = document.getElementById("contactForm");
+            const successAlert = document.getElementById("formSuccessAlert");
+            if (form) {
+                form.addEventListener("submit", (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (form.checkValidity() === false) {
+                        form.classList.add("was-validated");
+                        successAlert.classList.add("d-none");
+                    } else {
+                        form.classList.remove("was-validated");
+                        successAlert.classList.remove("d-none");
+                        form.reset();
+                        setTimeout(() => successAlert.classList.add("d-none"), 5000);
+                    }
+                });
+            }
+
+            // Star Rating Logic
+            const starContainer = document.getElementById('rating-stars');
+            if (starContainer) {
+                const starIcons = starContainer.querySelectorAll('i');
+                const ratingHiddenInput = document.getElementById('rating-value');
+
+                starIcons.forEach((star) => {
+                    star.addEventListener('click', function () {
+                        const selectedValue = parseInt(this.getAttribute('data-rating'));
+                        ratingHiddenInput.value = selectedValue;
+                        starIcons.forEach((s) => {
+                            const ratingValue = parseInt(s.getAttribute('data-rating'));
+                            if (ratingValue <= selectedValue) {
+                                s.classList.remove('bi-star');
+                                s.classList.add('bi-star-fill', 'active');
+                            } else {
+                                s.classList.remove('bi-star-fill', 'active');
+                                s.classList.add('bi-star');
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Review Submission Logic
+            fetchReviews();
+
+            const reviewForm = document.getElementById("reviewForm");
+            if (reviewForm) {
+                reviewForm.addEventListener("submit", async function (e) {
+                    e.preventDefault();
+
+                    const name = document.getElementById("reviewerName").value.trim();
+                    const email = document.getElementById("reviewerEmail").value.trim();
+                    const rating = parseInt(document.getElementById("rating-value").value) || 5;
+                    const reviewText = document.getElementById("reviewerText").value.trim();
+
+                    if (!name || !email || !reviewText) {
+                        alert("ကျေးဇူးပြု၍ အချက်အလက်များ ပြည့်စုံစွာ ဖြည့်စွက်ပေးပါ။");
+                        return;
+                    }
+
+                    const submitBtn = document.getElementById("submitReviewBtn");
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+
+                    try {
+                        const res = await fetch(`${API_BASE_URL}/api/reviews`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                name: name,
+                                email: email,
+                                rating: rating,
+                                review_text: reviewText
+                            })
+                        });
+
+                        const data = await res.json();
+
+                        if (data.success) {
+                            alert("ကျေးဇူးတင်ပါသည်။ သင်၏ Review ကို MySQL Database သို့ သိမ်းဆည်းပြီးပါပြီ။");
+                            reviewForm.reset();
+                            const ratingHiddenInput = document.getElementById('rating-value');
+                            if (ratingHiddenInput) ratingHiddenInput.value = "4";
+                            
+                            // Re-fetch reviews to update the page in real time
+                            fetchReviews();
+                        } else {
+                            alert(data.message || "Review ရေးသားခြင်း မအောင်မြင်ပါ။");
+                        }
+                    } catch (err) {
+                        console.error("Submit review error:", err);
+                        alert("Network Error! Flask Server (app.py) နှင့် MySQL run ထားခြင်း ရှိ/မရှိ စစ်ဆေးပါ။");
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Review';
+                    }
+                });
+            }
+        });
+
+        async function fetchReviews() {
+            const container = document.getElementById('recentReviewsContainer');
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/reviews`);
+                const data = await res.json();
+
+                if (data.success) {
+                    renderReviewsStats(data);
+                    renderRecentReviews(data.reviews);
+                } else {
+                    container.innerHTML = `<p class="text-muted small">No reviews found.</p>`;
+                }
+            } catch (err) {
+                console.error("Fetch reviews error:", err);
+                container.innerHTML = `<p class="text-muted small">Reviews ကို ဆွဲယူရာတွင် အမှားအယွင်းရှိပါသည် (Flask Server ကို စစ်ဆေးပါ)</p>`;
+            }
+        }
+
+        function renderReviewsStats(data) {
+            const avg = data.avg_rating || 0;
+            const total = data.total_count || 0;
+
+            const avgDisplay = document.getElementById('avgRatingDisplay');
+            const totalDisplay = document.getElementById('totalReviewsCount');
+
+            if (avgDisplay) avgDisplay.textContent = avg.toFixed(1);
+            if (totalDisplay) totalDisplay.textContent = `${total} Validated Student Ratings`;
+
+            const starsContainer = document.getElementById('avgStarsDisplay');
+            if (starsContainer) {
+                let starsHtml = '';
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= Math.floor(avg)) {
+                        starsHtml += '<i class="bi bi-star-fill"></i>';
+                    } else if (i - avg < 1 && i - avg > 0) {
+                        starsHtml += '<i class="bi bi-star-half"></i>';
+                    } else {
+                        starsHtml += '<i class="bi bi-star"></i>';
+                    }
+                }
+                starsContainer.innerHTML = starsHtml;
+            }
+
+            const counts = data.breakdown || { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+            for (let r = 1; r <= 5; r++) {
+                const cnt = counts[r] || 0;
+                const pct = total > 0 ? (cnt / total) * 100 : 0;
+                const bar = document.getElementById(`bar-${r}`);
+                const txt = document.getElementById(`count-${r}`);
+                if (bar) bar.style.width = `${pct}%`;
+                if (txt) txt.textContent = cnt;
+            }
+        }
+
+        function renderRecentReviews(reviews) {
+            const container = document.getElementById('recentReviewsContainer');
+            if (!container) return;
+
+            if (!reviews || reviews.length === 0) {
+                container.innerHTML = `<p class="text-muted small">မှတ်တမ်း မရှိသေးပါ။ ပထမဆုံး Review ရေးသားနိုင်ပါသည်။</p>`;
+                return;
+            }
+
+            container.innerHTML = reviews.map(rev => {
+                let stars = '';
+                for (let i = 1; i <= 5; i++) {
+                    stars += i <= rev.rating ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>';
+                }
+                const avatarImg = rev.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(rev.name)}&background=0284c7&color=fff`;
+
+                return `
+                    <div class="glass-card p-3">
+                        <div class="d-flex gap-3 align-items-start">
+                            <img src="${avatarImg}" alt="User" class="avatar-img rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <h6 class="fw-bold mb-0 text-dark">${escapeHtml(rev.name)}</h6>
+                                    <div class="text-warning fs-6">${stars}</div>
+                                </div>
+                                <p class="text-muted small mb-0">${escapeHtml(rev.review_text)}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        async function checkAuthAndLoadProfile() {
+            const userJson = localStorage.getItem('user');
+            const loginBtn = document.getElementById('loginBtn');
+            const profileMenu = document.getElementById('profileMenu');
+
+            if (userJson) {
+                const user = JSON.parse(userJson);
+
+                if (loginBtn) loginBtn.classList.add('d-none');
+                if (profileMenu) profileMenu.classList.remove('d-none');
+                
+                const userName = document.getElementById('userName');
+                if (userName) userName.textContent = user.name || 'Student';
+
+                const drawerName = document.getElementById('drawerName');
+                if (drawerName) drawerName.textContent = user.name || 'Student';
+                
+                const drawerStudentId = document.getElementById('drawerStudentId');
+                if (drawerStudentId) drawerStudentId.textContent = `Roll ID: ${user.student_id || 'N/A'}`;
+                
+                const drawerPhone = document.getElementById('drawerPhone');
+                if (drawerPhone) drawerPhone.textContent = `Phone: ${user.phone || 'N/A'}`;
+
+                if (user.name) {
+                    const revName = document.getElementById('reviewerName');
+                    if (revName) revName.value = user.name;
+                }
+                if (user.email) {
+                    const revEmail = document.getElementById('reviewerEmail');
+                    if (revEmail) revEmail.value = user.email;
+                }
+
+                if (user.student_id) {
+                    fetchUserStatus(user.student_id);
+                }
+            } else {
+                if (loginBtn) loginBtn.classList.remove('d-none');
+                if (profileMenu) profileMenu.classList.add('d-none');
+            }
+        }
+
+                async function fetchUserStatus(studentId) {
+            try {
+                const res = await fetch(API_BASE_URL + '/api/user-status/' + encodeURIComponent(studentId));
+                const data = await res.json();
+
+                if (data.success) {
+                    const hostelBadge = document.getElementById('hostelBadge');
+                    const hostelDetail = document.getElementById('hostelDetail');
+                    const hostelActionBtn = document.getElementById('hostelActionBtn');
+
+                    if (data.has_hostel && data.hostel) {
+                        const h = data.hostel;
+                        const isPending = h.payment_status === 'Pending' || h.status === 'Pending Approval';
+                        const isRejected = h.status === 'Rejected' || h.payment_status === 'Rejected';
+
+                        if (hostelBadge) {
+                            if (isPending) {
+                                hostelBadge.className = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-2";
+                                hostelBadge.textContent = "Payment Verification Pending";
+                            } else if (isRejected) {
+                                hostelBadge.className = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-2";
+                                hostelBadge.textContent = "Payment Rejected";
+                            } else {
+                                hostelBadge.className = "badge bg-success-subtle text-success rounded-pill px-3 py-2";
+                                hostelBadge.textContent = "Allocated";
+                            }
+                        }
+
+                        if (hostelDetail) {
+                            if (isPending) {
+                                hostelDetail.textContent = 'Block: ' + h.hostel_name + ' (Txn: ' + (h.transaction_id || 'Submitted') + ')';
+                            } else {
+                                hostelDetail.textContent = 'Block: ' + h.hostel_name + ' (' + (h.room_number || '') + ')';
+                            }
+                        }
+
+                        if (hostelActionBtn) {
+                            hostelActionBtn.className = "btn btn-sm btn-outline-danger rounded-pill px-2 py-1 ms-2";
+                            hostelActionBtn.innerHTML = '<i class="bi bi-x-circle me-1"></i>Cancel';
+                            hostelActionBtn.style.display = "inline-block";
+                            hostelActionBtn.onclick = () => cancelHostelBooking(studentId);
+                        }
+                    } else {
+                        if (hostelBadge) {
+                            hostelBadge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-2";
+                            hostelBadge.textContent = "Unallocated";
+                        }
+                        if (hostelDetail) hostelDetail.textContent = "No hostel reservation found";
+                        if (hostelActionBtn) {
+                            hostelActionBtn.className = "btn btn-sm btn-outline-primary rounded-pill px-2 py-1 ms-2";
+                            hostelActionBtn.innerHTML = '<i class="bi bi-plus-circle me-1"></i>Book';
+                            hostelActionBtn.style.display = "inline-block";
+                            hostelActionBtn.onclick = () => window.location.href = "hostel.html";
+                        }
+                    }
+
+                    const ferryBadge = document.getElementById('ferryBadge');
+                    const ferryDetail = document.getElementById('ferryDetail');
+                    const ferryActionBtn = document.getElementById('ferryActionBtn');
+
+                    if (data.has_ferry && data.ferry) {
+                        const f = data.ferry;
+                        const isPending = f.payment_status === 'Pending' || f.status === 'Pending Approval';
+                        const isRejected = f.status === 'Rejected' || f.payment_status === 'Rejected';
+
+                        if (ferryBadge) {
+                            if (isPending) {
+                                ferryBadge.className = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-2";
+                                ferryBadge.textContent = "Payment Verification Pending";
+                            } else if (isRejected) {
+                                ferryBadge.className = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-2";
+                                ferryBadge.textContent = "Payment Rejected";
+                            } else {
+                                ferryBadge.className = "badge bg-success-subtle text-success rounded-pill px-3 py-2";
+                                ferryBadge.textContent = "Assigned";
+                            }
+                        }
+
+                        if (ferryDetail) {
+                            if (isPending) {
+                                ferryDetail.textContent = 'Line: ' + f.ferry_name + ' (Txn: ' + (f.transaction_id || 'Submitted') + ')';
+                            } else {
+                                ferryDetail.textContent = 'Line: ' + f.ferry_name;
+                            }
+                        }
+
+                        if (ferryActionBtn) {
+                            ferryActionBtn.className = "btn btn-sm btn-outline-danger rounded-pill px-2 py-1 ms-2";
+                            ferryActionBtn.innerHTML = '<i class="bi bi-x-circle me-1"></i>Cancel';
+                            ferryActionBtn.style.display = "inline-block";
+                            ferryActionBtn.onclick = () => cancelFerryBooking(studentId);
+                        }
+                    } else {
+                        if (ferryBadge) {
+                            ferryBadge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-2";
+                            ferryBadge.textContent = "Unassigned";
+                        }
+                        if (ferryDetail) ferryDetail.textContent = "No active transit tokens";
+                        if (ferryActionBtn) {
+                            ferryActionBtn.className = "btn btn-sm btn-outline-primary rounded-pill px-2 py-1 ms-2";
+                            ferryActionBtn.innerHTML = '<i class="bi bi-plus-circle me-1"></i>Reserve';
+                            ferryActionBtn.style.display = "inline-block";
+                            ferryActionBtn.onclick = () => window.location.href = "ferry.html";
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("User status fetch error:", err);
+            }
+        }
+
+        async function cancelHostelBooking(studentId) {
+            if (!confirm("Are you sure you want to cancel your hostel booking?")) return;
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/cancel-hostel`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ student_id: studentId })
+                });
+                const data = await res.json();
+                alert(data.message || "Hostel booking cancelled.");
+                fetchUserStatus(studentId);
+            } catch (err) {
+                alert("Error cancelling booking.");
+            }
+        }
+
+        async function cancelFerryBooking(studentId) {
+            if (!confirm("Are you sure you want to cancel your ferry reservation?")) return;
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/cancel-ferry`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ student_id: studentId })
+                });
+                const data = await res.json();
+                alert(data.message || "Ferry reservation cancelled.");
+                fetchUserStatus(studentId);
+            } catch (err) {
+                alert("Error cancelling booking.");
+            }
+        }
+
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>

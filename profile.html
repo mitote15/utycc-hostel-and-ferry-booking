@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTYCC Smart Campus Portal - Profile Dashboard</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0284c7;
+            --primary-hover: #0369a1;
+            --accent-teal: #0d9488;
+            --bg-light: #f8fafc;
+            --border-glass: rgba(14, 165, 233, 0.18);
+            --text-main: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, h5, h6, .brand-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .navbar-enterprise {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.08);
+        }
+
+        .avatar-picker {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-picker:hover {
+            opacity: 0.85;
+            transform: scale(1.05);
+        }
+
+        .status-badge-pending {
+            background-color: #fef3c7;
+            color: #d97706;
+            border: 1px solid #f59e0b;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .status-badge-confirmed {
+            background-color: #dcfce7;
+            color: #16a34a;
+            border: 1px solid #22c55e;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .status-badge-rejected {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #ef4444;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-enterprise sticky-top px-3 py-2">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="home.html">
+                <div class="bg-primary text-white rounded-3 px-2 py-1 fs-6 fw-bold">UTYCC</div>
+                <span class="brand-font fs-5 fw-bold text-dark">Profile Dashboard</span>
+            </a>
+            <div class="d-flex align-items-center gap-3 ms-auto">
+                <a href="home.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1.5 fw-semibold">
+                    <i class="bi bi-house me-1"></i>Back to Home
+                </a>
+                <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1.5 fw-semibold" onclick="logout()">
+                    <i class="bi bi-box-arrow-right me-1"></i>Sign Out
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <div class="row g-4">
+            <!-- Left Column: Customize Profile Card -->
+            <div class="col-12 col-lg-4">
+                <div class="glass-card p-4 text-center">
+                    <h5 class="fw-bold text-dark mb-4"><i class="bi bi-person-gear text-primary me-2"></i>Profile Customization</h5>
+                    
+                    <div class="position-relative d-inline-block mb-3">
+                        <img id="profileAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Avatar" class="avatar-picker shadow">
+                        <span class="position-absolute bottom-0 end-0 bg-primary text-white p-1 rounded-circle border border-white" title="Change Avatar" style="font-size: 0.8rem;">
+                            <i class="bi bi-camera-fill"></i>
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted d-block text-start">Preset Profile Picture</label>
+                        <div class="d-flex justify-content-center gap-2">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="rounded-circle border" style="width:36px; height:36px; cursor:pointer;" onclick="selectPresetAvatar(this.src)">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="rounded-circle border" style="width:36px; height:36px; cursor:pointer;" onclick="selectPresetAvatar(this.src)">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" class="rounded-circle border" style="width:36px; height:36px; cursor:pointer;" onclick="selectPresetAvatar(this.src)">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" class="rounded-circle border" style="width:36px; height:36px; cursor:pointer;" onclick="selectPresetAvatar(this.src)">
+                        </div>
+                    </div>
+
+                    <form id="profileForm" onsubmit="event.preventDefault(); saveProfileInfo();">
+                        <div class="mb-3 text-start">
+                            <label class="form-label small fw-semibold text-muted">Full Name</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="profName" required>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label class="form-label small fw-semibold text-muted">Student Roll ID</label>
+                            <input type="text" class="form-control bg-light text-dark border rounded-3 shadow-none" id="profStudentId" readonly>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label class="form-label small fw-semibold text-muted">Email Address</label>
+                            <input type="email" class="form-control bg-white text-dark border rounded-3 shadow-none" id="profEmail" required>
+                        </div>
+                        <div class="mb-4 text-start">
+                            <label class="form-label small fw-semibold text-muted">Phone Number</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="profPhone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2.5 rounded-pill fw-bold shadow-sm" id="saveProfBtn">
+                            <i class="bi bi-check-circle me-1"></i>Save Profile Changes
+                        </button>
+                        <button type="button" class="btn btn-outline-danger w-100 py-2.5 rounded-pill fw-bold mt-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                            <i class="bi bi-key-fill me-1"></i>Change Password (စကားဝှက် ပြောင်းရန်)
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column: My Bookings & Modifications -->
+            <div class="col-12 col-lg-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold text-dark mb-0"><i class="bi bi-journal-bookmark text-primary me-2"></i>My Bookings & Reservations</h4>
+                    <span class="badge bg-primary bg-opacity-10 text-primary border border-primary px-3 py-1.5 rounded-pill fw-semibold">Real-time Admin Sync Enabled</span>
+                </div>
+
+                <!-- Hostel Reservation Section -->
+                <div class="glass-card p-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-building fs-4 text-primary"></i>
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0">Hostel Allocation</h5>
+                                <p class="text-muted small mb-0">Campus Housing Reservation Status</p>
+                            </div>
+                        </div>
+                        <span id="hostelStatusBadge" class="status-badge-pending">Checking Status...</span>
+                    </div>
+                    <div id="hostelBookingDetails">
+                        <p class="text-muted py-3 text-center">Loading hostel booking information...</p>
+                    </div>
+                </div>
+
+                <!-- Ferry Reservation Section -->
+                <div class="glass-card p-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-bus-front fs-4 text-info"></i>
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0">Ferry Seat Token</h5>
+                                <p class="text-muted small mb-0">Daily Transport Shuttle Line</p>
+                            </div>
+                        </div>
+                        <span id="ferryStatusBadge" class="status-badge-pending">Checking Status...</span>
+                    </div>
+                    <div id="ferryBookingDetails">
+                        <p class="text-muted py-3 text-center">Loading ferry ticket information...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: Edit Hostel Booking Details -->
+    <div class="modal fade" id="editHostelModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-card border-0 shadow-lg">
+                <div class="modal-header border-0 pt-4 px-4 pb-0">
+                    <h5 class="modal-title fw-bold text-dark"><i class="bi bi-pencil-square text-primary me-2"></i>Edit Hostel Booking</h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editHostelForm" onsubmit="event.preventDefault(); submitEditHostelBooking();">
+                        <input type="hidden" id="editHostelBookingId">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Select Hostel Block</label>
+                            <select class="form-select bg-white text-dark border rounded-3 shadow-none" id="editHostelSelect" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Student Name</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editHostelStudentName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Academic Year</label>
+                            <select class="form-select bg-white text-dark border rounded-3 shadow-none" id="editHostelYear" required>
+                                <option value="First Year">First Year</option>
+                                <option value="Second Year">Second Year</option>
+                                <option value="Third Year">Third Year</option>
+                                <option value="Final Year">Final Year</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">NRC ID</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editHostelNrc" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold text-muted">KBZPay / Slip Transaction ID</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editHostelTxnId" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2.5 rounded-pill fw-bold" id="submitEditHostelBtn">
+                            <i class="bi bi-check-circle me-1"></i>Update Hostel Booking (Sync Admin)
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Edit Ferry Booking Details -->
+    <div class="modal fade" id="editFerryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-card border-0 shadow-lg">
+                <div class="modal-header border-0 pt-4 px-4 pb-0">
+                    <h5 class="modal-title fw-bold text-dark"><i class="bi bi-pencil-square text-info me-2"></i>Edit Ferry Ticket Details</h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editFerryForm" onsubmit="event.preventDefault(); submitEditFerryBooking();">
+                        <input type="hidden" id="editFerryBookingId">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Select Ferry Line</label>
+                            <select class="form-select bg-white text-dark border rounded-3 shadow-none" id="editFerrySelect" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Student Name</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editFerryStudentName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Academic Year</label>
+                            <select class="form-select bg-white text-dark border rounded-3 shadow-none" id="editFerryYear" required>
+                                <option value="First Year">First Year</option>
+                                <option value="Second Year">Second Year</option>
+                                <option value="Third Year">Third Year</option>
+                                <option value="Final Year">Final Year</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Phone Number</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editFerryPhone" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold text-muted">KBZPay / Slip Transaction ID</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editFerryTxnId" required>
+                        </div>
+                        <button type="submit" class="btn btn-info text-white w-100 py-2.5 rounded-pill fw-bold" id="submitEditFerryBtn">
+                            <i class="bi bi-check-circle me-1"></i>Update Ferry Ticket (Sync Admin)
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-card border-0 shadow-lg">
+                <div class="modal-header border-0 pt-4 px-4 pb-0">
+                    <h5 class="modal-title fw-bold text-dark"><i class="bi bi-shield-lock text-primary me-2"></i>Change Password</h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="modalChangePasswordForm" onsubmit="event.preventDefault(); changePasswordModalSubmit();">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Current Password (လက်ရှိ စကားဝှက်)</label>
+                            <input type="password" class="form-control bg-white text-dark border rounded-3 shadow-none" id="mCurrPassword" required placeholder="••••••••">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">New Password (စကားဝှက်အသစ်)</label>
+                            <input type="password" class="form-control bg-white text-dark border rounded-3 shadow-none" id="mNewPassword" required placeholder="••••••••">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Confirm New Password (စကားဝှက်အသစ် အတည်ပြု)</label>
+                            <input type="password" class="form-control bg-white text-dark border rounded-3 shadow-none" id="mConfirmPassword" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2.5 rounded-pill fw-bold shadow-sm" id="mChangePassBtn">
+                            <i class="bi bi-key me-1"></i>Update Password Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center border-top bg-white bg-opacity-80 mt-auto">
+        <div class="container">
+            <p class="text-muted small mb-0">&copy; 2026 UTYCC Transport &amp; Accommodation Board.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
+        let currentUser = null;
+        let userStatusData = null;
+        let allHostelsList = [];
+        let allFerriesList = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            checkAuth();
+            loadAllOptions();
+        });
+
+        function checkAuth() {
+            const userJson = localStorage.getItem('user');
+            if (!userJson) {
+                alert("ကျေးဇူးပြု၍ Login အရင်ဝင်ပေးပါရန်။");
+                window.location.href = "login.html";
+                return;
+            }
+            currentUser = JSON.parse(userJson);
+            document.getElementById("profName").value = currentUser.name || '';
+            document.getElementById("profStudentId").value = currentUser.student_id || '';
+            document.getElementById("profEmail").value = currentUser.email || '';
+            document.getElementById("profPhone").value = currentUser.phone || '';
+            if (currentUser.avatar) {
+                document.getElementById("profileAvatar").src = currentUser.avatar;
+            }
+            fetchUserDashboardData();
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = "login.html";
+        }
+
+        function selectPresetAvatar(src) {
+            document.getElementById("profileAvatar").src = src;
+            if (currentUser) {
+                currentUser.avatar = src;
+            }
+        }
+
+        async function saveProfileInfo() {
+            const name = document.getElementById("profName").value.trim();
+            const email = document.getElementById("profEmail").value.trim();
+            const phone = document.getElementById("profPhone").value.trim();
+            const avatar = document.getElementById("profileAvatar").src;
+
+            if (!name || !email || !phone) {
+                alert("အချက်အလက်များကို ပြည့်စုံစွာ ဖြည့်စွက်ပါ။");
+                return;
+            }
+
+            const btn = document.getElementById("saveProfBtn");
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(API_BASE_URL + '/api/user/update-profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        student_id: currentUser.student_id,
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        avatar: avatar
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("Profile ပြင်ဆင်မှု အောင်မြင်ပါသည်။");
+                    currentUser.name = name;
+                    currentUser.email = email;
+                    currentUser.phone = phone;
+                    currentUser.avatar = avatar;
+                    localStorage.setItem('user', JSON.stringify(currentUser));
+                    fetchUserDashboardData();
+                } else {
+                    alert(data.message || "Profile update failed.");
+                }
+            } catch (err) {
+                console.error("Save profile error:", err);
+                alert("Network error.");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function changePasswordModalSubmit() {
+            const currentPass = document.getElementById("mCurrPassword").value.trim();
+            const newPass = document.getElementById("mNewPassword").value.trim();
+            const confirmPass = document.getElementById("mConfirmPassword").value.trim();
+
+            if (!currentPass || !newPass || !confirmPass) {
+                alert("ကျေးဇူးပြု၍ စကားဝှက်များကို အပြည့်အစုံ ဖြည့်သွင်းပါ။");
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert("စကားဝှက်အသစ်နှင့် အတည်ပြုစကားဝှက် တူညီမှုမရှိပါ။");
+                return;
+            }
+
+            if (newPass.length < 4) {
+                alert("စကားဝှက်အသစ်သည် အနည်းဆုံး ၄ လုံး ရှိရပါမည်။");
+                return;
+            }
+
+            const btn = document.getElementById("mChangePassBtn");
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(API_BASE_URL + '/api/user/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        student_id: currentUser.student_id,
+                        current_password: currentPass,
+                        new_password: newPass
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("စကားဝှက် အောင်မြင်စွာ ပြောင်းလဲပြီးပါပြီ။");
+                    document.getElementById("modalChangePasswordForm").reset();
+                    bootstrap.Modal.getInstance(document.getElementById("changePasswordModal")).hide();
+                } else {
+                    alert(data.message || "စကားဝှက် ပြောင်းလဲခြင်း မအောင်မြင်ပါ။");
+                }
+            } catch (err) {
+                console.error("Change password error:", err);
+                alert("Network error.");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function loadAllOptions() {
+            try {
+                const hRes = await fetch(API_BASE_URL + '/api/hostels');
+                const hData = await hRes.json();
+                allHostelsList = hData.hostels || hData.data || [];
+
+                const fRes = await fetch(API_BASE_URL + '/api/ferries');
+                const fData = await fRes.json();
+                allFerriesList = fData.ferries || fData.data || [];
+            } catch (err) {
+                console.error("Load options error:", err);
+            }
+        }
+
+        async function fetchUserDashboardData() {
+            if (!currentUser || !currentUser.student_id) return;
+            try {
+                const res = await fetch(API_BASE_URL + '/api/user-status/' + encodeURIComponent(currentUser.student_id));
+                const data = await res.json();
+                userStatusData = data;
+                renderHostelSection(data);
+                renderFerrySection(data);
+            } catch (err) {
+                console.error("Fetch status error:", err);
+            }
+        }
+
+        function renderHostelSection(data) {
+            const badge = document.getElementById("hostelStatusBadge");
+            const container = document.getElementById("hostelBookingDetails");
+
+            if (data.has_hostel && data.hostel) {
+                const h = data.hostel;
+                const isPending = h.payment_status === 'Pending' || h.status === 'Pending Approval';
+                const isRejected = h.status === 'Rejected' || h.payment_status === 'Rejected';
+
+                if (isPending) {
+                    badge.className = "status-badge-pending";
+                    badge.textContent = "Pending Payment Approval";
+                } else if (isRejected) {
+                    badge.className = "status-badge-rejected";
+                    badge.textContent = "Payment Rejected";
+                } else {
+                    badge.className = "status-badge-confirmed";
+                    badge.textContent = "Confirmed / Allocated";
+                }
+
+                container.innerHTML = `
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Hostel Block</span>
+                            <span class="fw-bold text-dark">${escapeHtml(h.hostel_name)} (${escapeHtml(h.room_number || '')})</span>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Student Name</span>
+                            <span class="fw-bold text-dark">${escapeHtml(currentUser.name || h.student_name || '-')}</span>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Transaction ID</span>
+                            <span class="font-monospace text-primary fw-bold">${escapeHtml(h.transaction_id || 'N/A')}</span>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Payment Status</span>
+                            <span class="fw-bold text-dark">${escapeHtml(h.payment_status || 'Pending')}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 mt-4 pt-3 border-top">
+                        <button class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1.5 fw-bold" onclick="openEditHostelModal()">
+                            <i class="bi bi-pencil-square me-1"></i>Edit Booking Details
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1.5 fw-bold" onclick="cancelHostelBooking()">
+                            <i class="bi bi-x-circle me-1"></i>Cancel Reservation
+                        </button>
+                    </div>
+                `;
+            } else {
+                badge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5";
+                badge.textContent = "No Active Booking";
+                container.innerHTML = `
+                    <div class="text-center py-3 text-muted">
+                        <p class="mb-2 small">သင်သည် Hostel Room ဘွတ်ကင် မပြုလုပ်ရသေးပါ။</p>
+                        <a href="hostel.html" class="btn btn-sm btn-primary rounded-pill px-4 fw-semibold"><i class="bi bi-plus-circle me-1"></i>Book Hostel Room Now</a>
+                    </div>
+                `;
+            }
+        }
+
+        function renderFerrySection(data) {
+            const badge = document.getElementById("ferryStatusBadge");
+            const container = document.getElementById("ferryBookingDetails");
+
+            if (data.has_ferry && data.ferry) {
+                const f = data.ferry;
+                const isPending = f.payment_status === 'Pending' || f.status === 'Pending Approval';
+                const isRejected = f.status === 'Rejected' || f.payment_status === 'Rejected';
+
+                if (isPending) {
+                    badge.className = "status-badge-pending";
+                    badge.textContent = "Pending Payment Approval";
+                } else if (isRejected) {
+                    badge.className = "status-badge-rejected";
+                    badge.textContent = "Payment Rejected";
+                } else {
+                    badge.className = "status-badge-confirmed";
+                    badge.textContent = "Assigned / Active";
+                }
+
+                container.innerHTML = `
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Ferry Line</span>
+                            <span class="fw-bold text-dark">${escapeHtml(f.ferry_name)}</span>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Route Details</span>
+                            <span class="fw-bold text-dark">${escapeHtml(f.route_name || '-')}</span>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Transaction ID</span>
+                            <span class="font-monospace text-primary fw-bold">${escapeHtml(f.transaction_id || 'N/A')}</span>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <span class="small text-muted d-block">Payment Status</span>
+                            <span class="fw-bold text-dark">${escapeHtml(f.payment_status || 'Pending')}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 mt-4 pt-3 border-top">
+                        <button class="btn btn-sm btn-outline-info rounded-pill px-3 py-1.5 fw-bold" onclick="openEditFerryModal()">
+                            <i class="bi bi-pencil-square me-1"></i>Edit Ticket Details
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1.5 fw-bold" onclick="cancelFerryBooking()">
+                            <i class="bi bi-x-circle me-1"></i>Cancel Ticket Token
+                        </button>
+                    </div>
+                `;
+            } else {
+                badge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5";
+                badge.textContent = "No Active Token";
+                container.innerHTML = `
+                    <div class="text-center py-3 text-muted">
+                        <p class="mb-2 small">သင်သည် Ferry Ticket ဘွတ်ကင် ရယူထားခြင်း မရှိသေးပါ။</p>
+                        <a href="ferry.html" class="btn btn-sm btn-info text-white rounded-pill px-4 fw-semibold"><i class="bi bi-plus-circle me-1"></i>Reserve Ferry Token Now</a>
+                    </div>
+                `;
+            }
+        }
+
+        function openEditHostelModal() {
+            if (!userStatusData || !userStatusData.hostel) return;
+            const h = userStatusData.hostel;
+            document.getElementById("editHostelBookingId").value = h.booking_id;
+            document.getElementById("editHostelStudentName").value = currentUser.name || h.student_name || '';
+            document.getElementById("editHostelNrc").value = h.national_id || '';
+            document.getElementById("editHostelTxnId").value = h.transaction_id || '';
+
+            const select = document.getElementById("editHostelSelect");
+            select.innerHTML = allHostelsList.map(item => `<option value="${item.hostel_id}" ${item.hostel_id === h.hostel_id ? 'selected' : ''}>${escapeHtml(item.hostel_name)} (${escapeHtml(item.room_number)})</option>`
+            ).join('');
+
+            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("editHostelModal"));
+            modal.show();
+        }
+
+        async function submitEditHostelBooking() {
+            const bId = document.getElementById("editHostelBookingId").value;
+            const hId = document.getElementById("editHostelSelect").value;
+            const sName = document.getElementById("editHostelStudentName").value.trim();
+            const year = document.getElementById("editHostelYear").value;
+            const nrc = document.getElementById("editHostelNrc").value.trim();
+            const txn = document.getElementById("editHostelTxnId").value.trim();
+
+            const btn = document.getElementById("submitEditHostelBtn");
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(API_BASE_URL + '/api/hostel/update-booking', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        booking_id: bId,
+                        hostel_id: hId,
+                        student_name: sName,
+                        student_year: year,
+                        student_id: currentUser.student_id,
+                        national_id: nrc,
+                        transaction_id: txn
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("Hostel Booking ပြင်ဆင်ပြီးပါပြီ။ Admin Dashboard တွင် အလိုအလျောက် ပြောင်းလဲသွားပါမည်။");
+                    bootstrap.Modal.getInstance(document.getElementById("editHostelModal")).hide();
+                    fetchUserDashboardData();
+                } else {
+                    alert(data.message || "Update failed.");
+                }
+            } catch (err) {
+                console.error("Edit hostel booking error:", err);
+                alert("Network error.");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function openEditFerryModal() {
+            if (!userStatusData || !userStatusData.ferry) return;
+            const f = userStatusData.ferry;
+            document.getElementById("editFerryBookingId").value = f.booking_id;
+            document.getElementById("editFerryStudentName").value = currentUser.name || f.student_name || '';
+            document.getElementById("editFerryPhone").value = currentUser.phone || f.student_phone || '';
+            document.getElementById("editFerryTxnId").value = f.transaction_id || '';
+
+            const select = document.getElementById("editFerrySelect");
+            select.innerHTML = allFerriesList.map(item => `<option value="${item.ferry_id}" ${item.ferry_id === f.ferry_id ? 'selected' : ''}>${escapeHtml(item.ferry_name)} - ${escapeHtml(item.route_name)}</option>`
+            ).join('');
+
+            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("editFerryModal"));
+            modal.show();
+        }
+
+        async function submitEditFerryBooking() {
+            const bId = document.getElementById("editFerryBookingId").value;
+            const fId = document.getElementById("editFerrySelect").value;
+            const sName = document.getElementById("editFerryStudentName").value.trim();
+            const year = document.getElementById("editFerryYear").value;
+            const phone = document.getElementById("editFerryPhone").value.trim();
+            const txn = document.getElementById("editFerryTxnId").value.trim();
+
+            const btn = document.getElementById("submitEditFerryBtn");
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(API_BASE_URL + '/api/ferry/update-booking', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        booking_id: bId,
+                        ferry_id: fId,
+                        student_name: sName,
+                        student_year: year,
+                        student_id: currentUser.student_id,
+                        student_phone: phone,
+                        transaction_id: txn
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("Ferry Ticket ပြင်ဆင်ပြီးပါပြီ။ Admin Dashboard တွင် အလိုအလျောက် ပြောင်းလဲသွားပါမည်။");
+                    bootstrap.Modal.getInstance(document.getElementById("editFerryModal")).hide();
+                    fetchUserDashboardData();
+                } else {
+                    alert(data.message || "Update failed.");
+                }
+            } catch (err) {
+                console.error("Edit ferry booking error:", err);
+                alert("Network error.");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function cancelHostelBooking() {
+            if (!confirm("သင်၏ Hostel Booking ကို ဖျက်ပစ်ရန် သေချာပါသလား?")) return;
+            try {
+                const res = await fetch(API_BASE_URL + '/api/cancel-hostel', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ student_id: currentUser.student_id })
+                });
+                const data = await res.json();
+                alert(data.message || "Cancelled.");
+                fetchUserDashboardData();
+            } catch (err) {
+                alert("Error cancelling.");
+            }
+        }
+
+        async function cancelFerryBooking() {
+            if (!confirm("သင်၏ Ferry Ticket ဘွတ်ကင်ကို ဖျက်ပစ်ရန် သေချာပါသလား?")) return;
+            try {
+                const res = await fetch(API_BASE_URL + '/api/cancel-ferry', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ student_id: currentUser.student_id })
+                });
+                const data = await res.json();
+                alert(data.message || "Cancelled.");
+                fetchUserDashboardData();
+            } catch (err) {
+                alert("Error cancelling.");
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
