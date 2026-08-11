@@ -1,1497 +1,1396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UTYCC Smart Campus Enterprise Portal - Admin Dashboard</title>
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #0284c7;
-            --primary-hover: #0369a1;
-            --accent-teal: #0d9488;
-            --bg-light: #f8fafc;
-            --text-main: #0f172a;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, h4, h5, h6, .brand-font {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .navbar-glass {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-        }
-
-        .card-glass {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        .nav-pills .nav-link {
-            color: #64748b;
-            border-radius: 0.75rem;
-            padding: 0.6rem 1.2rem;
-            transition: all 0.2s ease;
-        }
-
-        .nav-pills .nav-link.active {
-            background-color: var(--primary-blue);
-            color: white;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
-        }
-
-        .status-badge-pending {
-            background-color: #fef3c7;
-            color: #d97706;
-            padding: 0.35rem 0.85rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .status-badge-confirmed {
-            background-color: #dcfce7;
-            color: #16a34a;
-            padding: 0.35rem 0.85rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .status-badge-rejected {
-            background-color: #fee2e2;
-            color: #dc2626;
-            padding: 0.35rem 0.85rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTYCC Smart Campus Enterprise Portal - Admin Dashboard</title>
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0284c7;
+      --primary-hover: #0369a1;
+      --accent-teal: #0d9488;
+      --bg-light: #f8fafc;
+      --text-main: #0f172a;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+    h1, h2, h3, h4, h5, h6, .brand-font {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .navbar-glass {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .card-glass {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    }
+    .nav-pills .nav-link {
+      color: #64748b;
+      border-radius: 0.75rem;
+      padding: 0.6rem 1.2rem;
+      transition: all 0.2s ease;
+    }
+    .nav-pills .nav-link.active {
+      background-color: var(--primary-blue);
+      color: white;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+    .status-badge-pending {
+      background-color: #fef3c7;
+      color: #d97706;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-badge-confirmed {
+      background-color: #dcfce7;
+      color: #16a34a;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-badge-rejected {
+      background-color: #fee2e2;
+      color: #dc2626;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-glass sticky-top py-3">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="home.html">
-                <div class="bg-primary text-white rounded-3 px-2 py-1 fs-6 fw-bold">UTYCC</div>
-                <span class="brand-font text-dark" id="headerTitle">Enterprise Admin Console</span>
-            </a>
-            <div class="d-flex align-items-center gap-3 ms-auto">
-                <div class="text-end d-none d-md-block me-1">
-                    <div class="fw-bold text-dark small" id="adminNameDisplay">Administrator</div>
-                    <div class="text-muted small" id="adminEmailDisplay">admin@utycc.edu.mm</div>
-                </div>
-                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-medium" id="adminRoleBadge">
-                    <i class="bi bi-shield-lock-fill me-1"></i><span id="adminRoleText">Super Admin</span>
-                </span>
-                <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1.5 fw-medium" onclick="adminLogout()">
-                    <i class="bi bi-box-arrow-right me-1"></i>Logout
-                </button>
-            </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-glass sticky-top py-3">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="home.html">
+        <div class="bg-primary text-white rounded-3 px-2 py-1 fs-6 fw-bold">UTYCC</div>
+        <span class="brand-font text-dark" id="headerTitle">Enterprise Admin Console</span>
+      </a>
+      <div class="d-flex align-items-center gap-3 ms-auto">
+        <div class="text-end d-none d-md-block me-1">
+          <div class="fw-bold text-dark small" id="adminNameDisplay">Administrator</div>
+          <div class="text-muted small" id="adminEmailDisplay">admin@utycc.edu.mm</div>
         </div>
-    </nav>
+        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-medium" id="adminRoleBadge">
+          <i class="bi bi-shield-lock-fill me-1"></i><span id="adminRoleText">Super Admin</span>
+        </span>
+        <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1.5 fw-medium" onclick="adminLogout()">
+          <i class="bi bi-box-arrow-right me-1"></i>Logout
+        </button>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Main Container -->
-    <main class="container-fluid px-4 py-4">
-        <!-- Metric Stat Cards -->
-        <div class="row g-3 mb-4" id="statCardsRow">
-            <div class="col-12 col-sm-6 col-xl-3" id="cardPendingPayments">
-                <div class="card card-glass p-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small fw-medium">Pending Payment Verification</div>
-                            <div class="fs-3 fw-bold text-warning" id="statPendingPayments">0</div>
-                        </div>
-                        <div class="bg-warning bg-opacity-10 text-warning rounded-3 p-3">
-                            <i class="bi bi-qr-code-scan fs-4"></i>
-                        </div>
-                    </div>
-                </div>
+  <!-- Main Container -->
+  <main class="container-fluid px-4 py-4">
+    <!-- Metric Stat Cards -->
+    <div class="row g-3 mb-4" id="statCardsRow">
+      <div class="col-12 col-sm-6 col-xl-3" id="cardTotalHostels">
+        <div class="card card-glass p-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <div class="text-muted small fw-medium">My Owned Hostels</div>
+              <div class="fs-3 fw-bold text-dark" id="statHostels">0</div>
             </div>
-            <div class="col-12 col-sm-6 col-xl-3" id="cardTotalHostels">
-                <div class="card card-glass p-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small fw-medium">My Owned Hostels</div>
-                            <div class="fs-3 fw-bold text-dark" id="statHostels">0</div>
-                        </div>
-                        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
-                            <i class="bi bi-building fs-4"></i>
-                        </div>
-                    </div>
-                </div>
+            <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
+              <i class="bi bi-building fs-4"></i>
             </div>
-            <div class="col-12 col-sm-6 col-xl-3" id="cardTotalFerries">
-                <div class="card card-glass p-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small fw-medium">My Owned Ferries</div>
-                            <div class="fs-3 fw-bold text-dark" id="statFerries">0</div>
-                        </div>
-                        <div class="bg-info bg-opacity-10 text-info rounded-3 p-3">
-                            <i class="bi bi-bus-front fs-4"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-xl-3" id="cardTotalStudents">
-                <div class="card card-glass p-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small fw-medium">Registered Students</div>
-                            <div class="fs-3 fw-bold text-dark" id="statStudents">0</div>
-                        </div>
-                        <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
-                            <i class="bi bi-people fs-4"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-
-        <!-- Navigation Tabs -->
-        <ul class="nav nav-pills bg-white p-2 rounded-3 card-glass mb-4 gap-2" id="adminNavTabs" role="tablist">
-            <li class="nav-item" id="navItemPending">
-                <button class="nav-link active fw-bold text-warning border-0 d-flex align-items-center gap-1.5" id="tabPendingBtn" data-bs-toggle="pill" data-bs-target="#tab-pending-pay">
-                    <i class="bi bi-shield-check fs-6"></i> Payment Verification <span class="badge bg-danger rounded-pill ms-1" id="pendingPayBadge">0</span>
-                </button>
-            </li>
-            <li class="nav-item" id="navItemHostels"><button class="nav-link fw-semibold" id="tabHostelsBtn" data-bs-toggle="pill" data-bs-target="#tab-hostels"><i class="bi bi-building me-1"></i> Hostel Management</button></li>
-            <li class="nav-item" id="navItemFerries"><button class="nav-link fw-semibold" id="tabFerriesBtn" data-bs-toggle="pill" data-bs-target="#tab-ferries"><i class="bi bi-bus-front me-1"></i> Ferry Management</button></li>
-            <li class="nav-item" id="navItemHostelBookings"><button class="nav-link fw-semibold" id="tabHostelBookingsBtn" data-bs-toggle="pill" data-bs-target="#tab-hostel-bookings"><i class="bi bi-journal-check me-1"></i> Hostel Bookings</button></li>
-            <li class="nav-item" id="navItemFerryBookings"><button class="nav-link fw-semibold" id="tabFerryBookingsBtn" data-bs-toggle="pill" data-bs-target="#tab-ferry-bookings"><i class="bi bi-ticket-detailed me-1"></i> Ferry Bookings</button></li>
-            <li class="nav-item" id="navItemInquiries"><button class="nav-link fw-semibold" id="tabInquiriesBtn" data-bs-toggle="pill" data-bs-target="#tab-inquiries"><i class="bi bi-envelope-paper me-1"></i> Inquiries</button></li>
-            <li class="nav-item" id="navItemStudents"><button class="nav-link fw-semibold" id="tabStudentsBtn" data-bs-toggle="pill" data-bs-target="#tab-students"><i class="bi bi-people me-1"></i> Registered Students</button></li>
-            <li class="nav-item" id="navItemAdmins"><button class="nav-link fw-semibold text-danger" id="tabAdminsBtn" data-bs-toggle="pill" data-bs-target="#tab-admins"><i class="bi bi-shield-person me-1"></i> Admin Directory</button></li>
-        </ul>
-
-        <!-- Tab Content Panes -->
-        <div class="tab-content" id="adminTabContent">
-            <!-- Pending Payment Approvals Tab -->
-            <div class="tab-pane fade show active" id="tab-pending-pay">
-                <div class="card card-glass p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                        <div>
-                            <h5 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
-                                <i class="bi bi-qr-code-scan text-success fs-5"></i>Pending Payment Approvals (KBZPay / Slip Verification)
-                            </h5>
-                            <p class="text-muted small mb-0">မိမိပိုင်ဆိုင်သော အဆောင်/ဖယ်ရီများအတွက် ကျောင်းသားများ ပေးပို့ထားသော Slip Transaction ID များကို စစ်ဆေး၍ အတည်ပြုပေးပါရန်</p>
-                        </div>
-                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning px-3 py-2 rounded-pill font-monospace fw-bold">Requires Admin Confirmation</span>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Student Name & ID</th>
-                                    <th>Item Reserved</th>
-                                    <th>Amount</th>
-                                    <th>Method</th>
-                                    <th>Slip / Transaction ID</th>
-                                    <th>Booking Date</th>
-                                    <th class="text-center">Admin Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pendingPaymentsTableBody">
-                                <tr><td colspan="8" class="text-center text-muted py-4">Loading pending payment requests...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+      </div>
+      <div class="col-12 col-sm-6 col-xl-3" id="cardTotalFerries">
+        <div class="card card-glass p-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <div class="text-muted small fw-medium">My Owned Ferries</div>
+              <div class="fs-3 fw-bold text-dark" id="statFerries">0</div>
             </div>
-
-            <!-- Hostels Tab -->
-            <div class="tab-pane fade" id="tab-hostels">
-                <div class="card card-glass p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-building text-primary me-2"></i>My Owned Hostel Blocks</h5>
-                        <button class="btn btn-primary btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addHostelModal">
-                            <i class="bi bi-plus-lg me-1"></i> Add New Hostel Block
-                        </button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Hostel Block Name</th>
-                                    <th>Room No</th>
-                                    <th>Gender</th>
-                                    <th>Available Beds</th>
-                                    <th>Owner KPay Scanner</th>
-                                    <th>Status</th>
-                                    <th class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="hostelsTableBody">
-                                <tr><td colspan="8" class="text-center text-muted py-4">Loading hostels...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="bg-info bg-opacity-10 text-info rounded-3 p-3">
+              <i class="bi bi-bus-front fs-4"></i>
             </div>
-
-            <!-- Ferries Tab -->
-            <div class="tab-pane fade" id="tab-ferries">
-                <div class="card card-glass p-4 mb-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-diagram-3 text-info me-2"></i>Ferry Route Groups</h5>
-                        <button class="btn btn-outline-info btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addFerryGroupModal">
-                            <i class="bi bi-plus-circle me-1"></i> Add Ferry Group
-                        </button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Group ID</th>
-                                    <th>Group Name</th>
-                                    <th>Description</th>
-                                    <th class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ferryGroupsTableBody">
-                                <tr><td colspan="4" class="text-center text-muted py-3">Loading ferry groups...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="card card-glass p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-bus-front text-info me-2"></i>My Owned Ferry Routes</h5>
-                        <button class="btn btn-info text-white btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addFerryModal">
-                            <i class="bi bi-plus-lg me-1"></i> Add New Ferry Route
-                        </button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Ferry Name</th>
-                                    <th>Route Name</th>
-                                    <th>Departure Time</th>
-                                    <th>Available Seats</th>
-                                    <th>Owner KPay Scanner</th>
-                                    <th>Status</th>
-                                    <th class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ferriesTableBody">
-                                <tr><td colspan="8" class="text-center text-muted py-4">Loading ferries...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hostel Bookings Tab -->
-            <div class="tab-pane fade" id="tab-hostel-bookings">
-                <div class="card card-glass p-4">
-                    <h5 class="fw-bold text-dark mb-4"><i class="bi bi-journal-check text-success me-2"></i>Hostel Reservation Records</h5>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Booking ID</th>
-                                    <th>Hostel Name & Room</th>
-                                    <th>Student Name & Roll ID</th>
-                                    <th>Method</th>
-                                    <th>Slip / Txn ID</th>
-                                    <th>Amount</th>
-                                    <th>Payment Status</th>
-                                    <th>Allocation Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="hostelBookingsTableBody">
-                                <tr><td colspan="9" class="text-center text-muted py-4">Loading hostel records...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ferry Bookings Tab -->
-            <div class="tab-pane fade" id="tab-ferry-bookings">
-                <div class="card card-glass p-4">
-                    <h5 class="fw-bold text-dark mb-4"><i class="bi bi-ticket-detailed text-primary me-2"></i>Ferry Transit Tokens</h5>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Booking ID</th>
-                                    <th>Ferry Line & Route</th>
-                                    <th>Student Name & Roll ID</th>
-                                    <th>Method</th>
-                                    <th>Slip / Txn ID</th>
-                                    <th>Amount</th>
-                                    <th>Payment Status</th>
-                                    <th>Token Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ferryBookingsTableBody">
-                                <tr><td colspan="9" class="text-center text-muted py-4">Loading ferry records...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Inquiries Tab -->
-            <div class="tab-pane fade" id="tab-inquiries">
-                <div class="card card-glass p-4">
-                    <h5 class="fw-bold text-dark mb-4"><i class="bi bi-envelope-paper text-warning me-2"></i>Support & Inquiry Tickets</h5>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Roll ID</th>
-                                    <th>Category</th>
-                                    <th>Message</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inquiriesTableBody">
-                                <tr><td colspan="7" class="text-center text-muted py-4">Loading support tickets...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Students Tab -->
-            <div class="tab-pane fade" id="tab-students">
-                <div class="card card-glass p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-people text-secondary me-2"></i>Registered Campus Users (Super Admin Only)</h5>
-                        <button class="btn btn-danger btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                            <i class="bi bi-person-plus-fill me-1"></i> Create Admin Account
-                        </button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Student Name</th>
-                                    <th>Roll ID</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Role</th>
-                                </tr>
-                            </thead>
-                            <tbody id="studentsTableBody">
-                                <tr><td colspan="6" class="text-center text-muted py-4">Loading user directory...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Admins Directory Tab (Super Admin) -->
-            <div class="tab-pane fade" id="tab-admins">
-                <div class="card card-glass p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-shield-person text-danger me-2"></i>Registered Admin Directory (Super Admin Only)</h5>
-                        <button class="btn btn-danger btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-                            <i class="bi bi-person-plus-fill me-1"></i> Create Admin Account
-                        </button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Full Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Assigned Role</th>
-                                    <th>Registered Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminsTableBody">
-                                <tr><td colspan="6" class="text-center text-muted py-4">Loading admin directory...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </main>
-
-    <!-- Modal 1: Add Hostel Block -->
-    <div class="modal fade" id="addHostelModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 card-glass p-3">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold text-dark"><i class="bi bi-building text-primary me-2"></i>Add New Hostel Block</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addHostelForm" onsubmit="submitAddHostel(event)">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Hostel Block Name</label>
-                            <input type="text" id="hostelNameInput" class="form-control" placeholder="e.g. Thiri Hostel Block A" required>
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Room Number</label>
-                                <input type="text" id="hostelRoomInput" class="form-control" placeholder="e.g. Room 101" required>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Gender Type</label>
-                                <select id="hostelGenderInput" class="form-select">
-                                    <option value="Boys">Boys</option>
-                                    <option value="Girls">Girls</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Capacity</label>
-                                <input type="number" id="hostelCapInput" class="form-control" value="4" min="1" required>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Available Beds</label>
-                                <input type="number" id="hostelBedsInput" class="form-control" value="4" min="0" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-primary">Owner KBZPay Scanner QR Image URL (တိုက်ရိုက်ငွေဝင်ရန်)</label>
-                            <input type="text" id="hostelKpayQrInput" class="form-control" placeholder="e.g. qrcode.jpg သို့မဟုတ် https://..." value="qrcode.jpg">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Description</label>
-                            <textarea id="hostelDescInput" class="form-control" rows="2" placeholder="Hostel facilities and location details..."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Hostel Image URL (Optional)</label>
-                            <input type="url" id="hostelImgInput" class="form-control" placeholder="https://...">
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-3">Save Hostel Block</button>
-                    </form>
-                </div>
+      </div>
+      <div class="col-12 col-sm-6 col-xl-3" id="cardPendingPayments">
+        <div class="card card-glass p-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <div class="text-muted small fw-medium">Pending Verifications</div>
+              <div class="fs-3 fw-bold text-warning" id="statPendingPayments">0</div>
             </div>
+            <div class="bg-warning bg-opacity-10 text-warning rounded-3 p-3">
+              <i class="bi bi-shield-check fs-4"></i>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-12 col-sm-6 col-xl-3" id="cardTotalStudents">
+        <div class="card card-glass p-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <div class="text-muted small fw-medium">Registered Students</div>
+              <div class="fs-3 fw-bold text-dark" id="statStudents">0</div>
+            </div>
+            <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
+              <i class="bi bi-people fs-4"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Modal 2: Edit Hostel Block -->
-    <div class="modal fade" id="editHostelModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 card-glass p-3">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold text-dark"><i class="bi bi-pencil-square text-primary me-2"></i>Edit Hostel Block</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editHostelForm" onsubmit="submitEditHostel(event)">
-                        <input type="hidden" id="editHostelId">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Hostel Block Name</label>
-                            <input type="text" id="editHostelNameInput" class="form-control" required>
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Room Number</label>
-                                <input type="text" id="editHostelRoomInput" class="form-control" required>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Gender Type</label>
-                                <select id="editHostelGenderInput" class="form-select">
-                                    <option value="Boys">Boys</option>
-                                    <option value="Girls">Girls</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Capacity</label>
-                                <input type="number" id="editHostelCapInput" class="form-control" min="1" required>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Available Beds</label>
-                                <input type="number" id="editHostelBedsInput" class="form-control" min="0" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-primary">Owner KBZPay Scanner QR Image URL (တိုက်ရိုက်ငွေဝင်ရန်)</label>
-                            <input type="text" id="editHostelKpayQrInput" class="form-control" placeholder="e.g. qrcode.jpg သို့မဟုတ် https://..." required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Status</label>
-                            <select id="editHostelStatusSelect" class="form-select">
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Description</label>
-                            <textarea id="editHostelDescInput" class="form-control" rows="2"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Hostel Image URL (Optional)</label>
-                            <input type="url" id="editHostelImgInput" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-3">Update Hostel Information</button>
-                    </form>
-                </div>
-            </div>
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-pills bg-white p-2 rounded-3 card-glass mb-4 gap-2" id="adminNavTabs" role="tablist">
+      <li class="nav-item" id="navItemHostels"><button class="nav-link active fw-semibold" id="tabHostelsBtn" data-bs-toggle="pill" data-bs-target="#tab-hostels"><i class="bi bi-building me-1"></i> Hostel Management</button></li>
+      <li class="nav-item" id="navItemFerries"><button class="nav-link fw-semibold" id="tabFerriesBtn" data-bs-toggle="pill" data-bs-target="#tab-ferries"><i class="bi bi-bus-front me-1"></i> Ferry Management</button></li>
+      <li class="nav-item" id="navItemPaymentVerification"><button class="nav-link fw-semibold text-warning" id="tabPaymentVerificationBtn" data-bs-toggle="pill" data-bs-target="#tab-payment-verification"><i class="bi bi-shield-check me-1"></i> Payment Verification <span class="badge bg-warning text-dark rounded-pill ms-1" id="pendingBadgeCount">0</span></button></li>
+      <li class="nav-item" id="navItemHostelBookings"><button class="nav-link fw-semibold" id="tabHostelBookingsBtn" data-bs-toggle="pill" data-bs-target="#tab-hostel-bookings"><i class="bi bi-journal-check me-1"></i> Hostel Bookings</button></li>
+      <li class="nav-item" id="navItemFerryBookings"><button class="nav-link fw-semibold" id="tabFerryBookingsBtn" data-bs-toggle="pill" data-bs-target="#tab-ferry-bookings"><i class="bi bi-ticket-detailed me-1"></i> Ferry Bookings</button></li>
+      <li class="nav-item" id="navItemInquiries"><button class="nav-link fw-semibold" id="tabInquiriesBtn" data-bs-toggle="pill" data-bs-target="#tab-inquiries"><i class="bi bi-envelope-paper me-1"></i> Inquiries</button></li>
+      <li class="nav-item" id="navItemStudents"><button class="nav-link fw-semibold" id="tabStudentsBtn" data-bs-toggle="pill" data-bs-target="#tab-students"><i class="bi bi-people me-1"></i> Registered Students</button></li>
+      <li class="nav-item" id="navItemAdmins"><button class="nav-link fw-semibold text-danger" id="tabAdminsBtn" data-bs-toggle="pill" data-bs-target="#tab-admins"><i class="bi bi-shield-person me-1"></i> Admin Directory</button></li>
+    </ul>
+
+    <!-- Tab Content Panes -->
+    <div class="tab-content" id="adminTabContent">
+      <!-- Hostels Tab -->
+      <div class="tab-pane fade show active" id="tab-hostels">
+        <div class="card card-glass p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-building text-primary me-2"></i>My Owned Hostel Blocks</h5>
+            <button id="btnAddHostel" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addHostelModal">
+              <i class="bi bi-plus-lg me-1"></i> Add New Hostel Block
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Hostel Block Name</th>
+                  <th>Room No</th>
+                  <th>Owner Admin</th>
+                  <th>Gender</th>
+                  <th>Available Beds</th>
+                  <th>Status</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="hostelsTableBody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading hostels...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- Modal 3: Add Ferry Group -->
-    <div class="modal fade" id="addFerryGroupModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 card-glass p-3">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold text-dark"><i class="bi bi-diagram-3 text-info me-2"></i>Add Ferry Group</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addFerryGroupForm" onsubmit="submitAddFerryGroup(event)">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Group Name</label>
-                            <input type="text" id="fgNameInput" class="form-control" placeholder="e.g. Mandalay Route Group" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Description</label>
-                            <textarea id="fgDescInput" class="form-control" rows="2" placeholder="Route coverage details..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-info text-white w-100 fw-bold py-2 rounded-3">Save Ferry Group</button>
-                    </form>
-                </div>
-            </div>
+      <!-- Ferries Tab -->
+      <div class="tab-pane fade" id="tab-ferries">
+        <div class="card card-glass p-4 mb-4" id="ferryGroupsSection">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-diagram-3 text-info me-2"></i>Ferry Route Groups</h5>
+            <button id="btnAddFerryGroup" class="btn btn-outline-info btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addFerryGroupModal">
+              <i class="bi bi-plus-circle me-1"></i> Add Ferry Group
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Group ID</th>
+                  <th>Group Name</th>
+                  <th>Description</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ferryGroupsTableBody">
+                <tr><td colspan="4" class="text-center text-muted py-3">Loading ferry groups...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
-
-    <!-- Modal 4: Add Ferry Route -->
-    <div class="modal fade" id="addFerryModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 card-glass p-3">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold text-dark"><i class="bi bi-bus-front text-info me-2"></i>Add New Ferry Line</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addFerryForm" onsubmit="submitAddFerry(event)">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Ferry Route Group</label>
-                            <select id="ferryGroupSelect" class="form-select" required>
-                                <option value="1">General Route Group</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Ferry Line Name</label>
-                            <input type="text" id="ferryNameInput" class="form-control" placeholder="e.g. Mandalay Ferry Line A" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Route Name</label>
-                            <input type="text" id="ferryRouteInput" class="form-control" placeholder="e.g. 73rd Street -> UTYCC Campus" required>
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Departure Time</label>
-                                <input type="text" id="ferryTimeInput" class="form-control" placeholder="e.g. 06:30 AM" required>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">Capacity</label>
-                                <input type="number" id="ferryCapInput" class="form-control" value="40" min="1" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-info">Owner KBZPay Scanner QR Image URL (တိုက်ရိုက်ငွေဝင်ရန်)</label>
-                            <input type="text" id="ferryKpayQrInput" class="form-control" placeholder="e.g. qrcode.jpg သို့မဟုတ် https://..." value="qrcode.jpg">
-                        </div>
-                        <button type="submit" class="btn btn-info text-white w-100 fw-bold py-2 rounded-3">Save Ferry Line</button>
-                    </form>
-                </div>
-            </div>
+        <div class="card card-glass p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-bus-front text-info me-2"></i>My Owned Ferry Routes</h5>
+            <button id="btnAddFerry" class="btn btn-info text-white btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addFerryModal">
+              <i class="bi bi-plus-lg me-1"></i> Add New Ferry Route
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Ferry Name</th>
+                  <th>Route Name</th>
+                  <th>Owner Admin</th>
+                  <th>Departure Time</th>
+                  <th>Available Seats</th>
+                  <th>Status</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ferriesTableBody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading ferries...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- Modal 5: Edit Ferry Line -->
-    <div class="modal fade" id="editFerryModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 card-glass p-3">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold text-dark"><i class="bi bi-pencil-square text-info me-2"></i>Edit Ferry Route Line</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editFerryForm" onsubmit="submitEditFerry(event)">
-                        <input type="hidden" id="editFerryId">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Ferry Route Group</label>
-                            <select id="editFerryGroupSelect" class="form-select" required>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Ferry Line Name</label>
-                            <input type="text" id="editFerryNameInput" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Route Name</label>
-                            <input type="text" id="editFerryRouteInput" class="form-control" required>
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-4">
-                                <label class="form-label small fw-bold">Departure Time</label>
-                                <input type="text" id="editFerryTimeInput" class="form-control" required>
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label small fw-bold">Capacity</label>
-                                <input type="number" id="editFerryCapInput" class="form-control" min="1" required>
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label small fw-bold">Available Seats</label>
-                                <input type="number" id="editFerrySeatsInput" class="form-control" min="0" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-info">Owner KBZPay Scanner QR Image URL (တိုက်ရိုက်ငွေဝင်ရန်)</label>
-                            <input type="text" id="editFerryKpayQrInput" class="form-control" placeholder="e.g. qrcode.jpg သို့မဟုတ် https://..." required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Status</label>
-                            <select id="editFerryStatusSelect" class="form-select">
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-info text-white w-100 fw-bold py-2 rounded-3">Update Ferry Line</button>
-                    </form>
-                </div>
-            </div>
+      <!-- Payment Verification Tab -->
+      <div class="tab-pane fade" id="tab-payment-verification">
+        <div class="card card-glass p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-shield-check text-warning me-2"></i>Pending Payment Verifications</h5>
+            <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill fw-bold" id="pvCountBadge">0 Pending</span>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Type</th>
+                  <th>Service / Route</th>
+                  <th>Student Name & Roll ID</th>
+                  <th>Method</th>
+                  <th>Txn ID</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th class="text-center">Verification Action</th>
+                </tr>
+              </thead>
+              <tbody id="paymentVerificationTableBody">
+                <tr><td colspan="9" class="text-center text-muted py-4">No pending payment verifications.</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <!-- Modal 6: Create Admin Account (Super Admin) -->
-    <div class="modal fade" id="createAdminModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 card-glass p-3">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold text-dark"><i class="bi bi-person-plus text-danger me-2"></i>Create Admin Account</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createAdminForm" onsubmit="submitCreateAdmin(event)">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Admin Role</label>
-                            <select id="newAdminRole" class="form-select" required>
-                                <option value="hostel">Hostel Administrator</option>
-                                <option value="ferry">Ferry Administrator</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Admin Full Name</label>
-                            <input type="text" id="newAdminName" class="form-control" placeholder="e.g. Daw Aye Aye" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Username</label>
-                            <input type="text" id="newAdminUsername" class="form-control" placeholder="e.g. hostel_admin1" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Password</label>
-                            <input type="password" id="newAdminPassword" class="form-control" placeholder="••••••••" required>
-                        </div>
-                        <button type="submit" class="btn btn-danger w-100 fw-bold py-2 rounded-3">Create Account</button>
-                    </form>
-                </div>
-            </div>
+      <!-- Hostel Bookings Tab (Read-Only Records Table) -->
+      <div class="tab-pane fade" id="tab-hostel-bookings">
+        <div class="card card-glass p-4">
+          <h5 class="fw-bold text-dark mb-4"><i class="bi bi-journal-check text-success me-2"></i>Hostel Reservation Records</h5>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Hostel & Room</th>
+                  <th>Student Name & Roll ID</th>
+                  <th>Method</th>
+                  <th>Txn ID</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="hostelBookingsTableBody">
+                <tr><td colspan="7" class="text-center text-muted py-4">Loading hostel records...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+
+      <!-- Ferry Bookings Tab (Read-Only Records Table) -->
+      <div class="tab-pane fade" id="tab-ferry-bookings">
+        <div class="card card-glass p-4">
+          <h5 class="fw-bold text-dark mb-4"><i class="bi bi-ticket-detailed text-primary me-2"></i>Ferry Transit Tokens & Records</h5>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Ferry Route</th>
+                  <th>Student Name & Roll ID</th>
+                  <th>Method</th>
+                  <th>Txn ID</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ferryBookingsTableBody">
+                <tr><td colspan="7" class="text-center text-muted py-4">Loading ferry records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inquiries Tab -->
+      <div class="tab-pane fade" id="tab-inquiries">
+        <div class="card card-glass p-4">
+          <h5 class="fw-bold text-dark mb-4"><i class="bi bi-envelope-paper text-warning me-2"></i>Support & Inquiry Tickets</h5>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Roll ID</th>
+                  <th>Email</th>
+                  <th>Category</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="inquiriesTableBody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading support tickets...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Students Tab -->
+      <div class="tab-pane fade" id="tab-students">
+        <div class="card card-glass p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-people text-secondary me-2"></i>Registered Campus Users</h5>
+            <button class="btn btn-danger btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createAdminModal">
+              <i class="bi bi-person-plus-fill me-1"></i> Create Admin Account
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Student Name</th>
+                  <th>Roll ID</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTableBody">
+                <tr><td colspan="6" class="text-center text-muted py-4">Loading user directory...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admins Directory Tab -->
+      <div class="tab-pane fade" id="tab-admins">
+        <div class="card card-glass p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-shield-person text-danger me-2"></i>Registered Admin Directory</h5>
+            <button class="btn btn-danger btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createAdminModal">
+              <i class="bi bi-person-plus-fill me-1"></i> Create Admin Account
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Full Name</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Assigned Role</th>
+                  <th>Registered Date</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminsTableBody">
+                <tr><td colspan="7" class="text-center text-muted py-4">Loading admin directory...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </main>
 
-    <!-- Bootstrap 5 Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
-        let currentAdminRole = 'super_admin';
-        let currentAdminId = null;
-        let cachedFerryGroups = [];
-        let cachedHostels = [];
-        let cachedFerries = [];
+  <!-- Modals -->
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const adminUser = localStorage.getItem('utycc_admin') || localStorage.getItem('admin');
-            if (!adminUser) {
-                window.location.href = 'admin-login.html';
-                return;
-            }
-            try {
-                const adminObj = JSON.parse(adminUser);
-                currentAdminRole = (adminObj.role || 'super_admin').toLowerCase();
-                currentAdminId = adminObj.id || null;
+  <!-- Add Hostel Modal -->
+  <div class="modal fade" id="addHostelModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 card-glass p-3">
+        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Add Hostel Block</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <form id="addHostelForm" onsubmit="submitAddHostel(event)">
+            <div class="mb-3" id="hostelOwnerSelectGroup">
+              <label class="form-label small fw-bold text-primary">Owner Admin</label>
+              <select id="hostelOwnerSelect" class="form-select"><option value="">Select Owner Admin...</option></select>
+            </div>
+            <div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text" id="hostelNameInput" class="form-control" required></div>
+            <div class="row g-2 mb-3">
+              <div class="col-6"><label class="form-label small fw-bold">Room</label><input type="text" id="hostelRoomInput" class="form-control" required></div>
+              <div class="col-6"><label class="form-label small fw-bold">Gender</label><select id="hostelGenderInput" class="form-select"><option value="Boys">Boys</option><option value="Girls">Girls</option></select></div>
+            </div>
+            <div class="row g-2 mb-3">
+              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="hostelCapInput" class="form-control" value="4" required></div>
+              <div class="col-6"><label class="form-label small fw-bold">Beds</label><input type="number" id="hostelBedsInput" class="form-control" value="4" required></div>
+            </div>
+            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="hostelKpayQrInput" class="form-control" value="qrcode.jpg"></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Hostel Image URL</label><input type="url" id="hostelImgInput" class="form-control"></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea id="hostelDescInput" class="form-control" rows="2"></textarea></div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-                if (adminObj.name) document.getElementById('adminNameDisplay').textContent = adminObj.name;
-                if (adminObj.email) document.getElementById('adminEmailDisplay').textContent = adminObj.email;
+  <!-- Edit Hostel Modal -->
+  <div class="modal fade" id="editHostelModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 card-glass p-3">
+        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Edit Hostel</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <form id="editHostelForm" onsubmit="submitEditHostel(event)">
+            <input type="hidden" id="editHostelId">
+            <div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text" id="editHostelNameInput" class="form-control" required></div>
+            <div class="row g-2 mb-3">
+              <div class="col-6"><label class="form-label small fw-bold">Room</label><input type="text" id="editHostelRoomInput" class="form-control" required></div>
+              <div class="col-6"><label class="form-label small fw-bold">Gender</label><select id="editHostelGenderInput" class="form-select"><option value="Boys">Boys</option><option value="Girls">Girls</option></select></div>
+            </div>
+            <div class="row g-2 mb-3">
+              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="editHostelCapInput" class="form-control" required></div>
+              <div class="col-6"><label class="form-label small fw-bold">Beds</label><input type="number" id="editHostelBedsInput" class="form-control" required></div>
+            </div>
+            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="editHostelKpayQrInput" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Hostel Image URL</label><input type="url" id="editHostelImgInput" class="form-control"></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea id="editHostelDescInput" class="form-control" rows="2"></textarea></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Status</label><select id="editHostelStatusSelect" class="form-select"><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-                applyRolePermissions(currentAdminRole);
-            } catch (e) {
-                console.error("Error loading admin profile:", e);
-            }
-            fetchAdminData();
+  <!-- Add Ferry Group Modal -->
+  <div class="modal fade" id="addFerryGroupModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 card-glass p-3">
+        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Add Ferry Group</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <form id="addFerryGroupForm" onsubmit="submitAddFerryGroup(event)">
+            <div class="mb-3"><label class="form-label small fw-bold">Group Name</label><input type="text" id="fgNameInput" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea id="fgDescInput" class="form-control" rows="2"></textarea></div>
+            <button type="submit" class="btn btn-info text-white w-100 fw-bold">Save Group</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Ferry Route Modal -->
+  <div class="modal fade" id="addFerryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 card-glass p-3">
+        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Add Ferry Route</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <form id="addFerryForm" onsubmit="submitAddFerry(event)">
+            <div class="mb-3" id="ferryOwnerSelectGroup"><label class="form-label small fw-bold text-info">Owner Admin</label><select id="ferryOwnerSelect" class="form-select"><option value="">Select Owner Admin...</option></select></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Group</label><select id="ferryGroupSelect" class="form-select"></select></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Ferry Name</label><input type="text" id="ferryNameInput" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Route Name</label><input type="text" id="ferryRouteInput" class="form-control" required></div>
+            <div class="row g-2 mb-3">
+              <div class="col-6"><label class="form-label small fw-bold">Time</label><input type="text" id="ferryTimeInput" class="form-control" value="07:00 AM" required></div>
+              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="ferryCapInput" class="form-control" value="40" required></div>
+            </div>
+            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="ferryKpayQrInput" class="form-control" value="qrcode.jpg"></div>
+            <button type="submit" class="btn btn-info text-white w-100 fw-bold">Save Ferry</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Ferry Route Modal -->
+  <div class="modal fade" id="editFerryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 card-glass p-3">
+        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Edit Ferry Route</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <form id="editFerryForm" onsubmit="submitEditFerry(event)">
+            <input type="hidden" id="editFerryId">
+            <div class="mb-3"><label class="form-label small fw-bold">Group</label><select id="editFerryGroupSelect" class="form-select" required></select></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Ferry Name</label><input type="text" id="editFerryNameInput" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Route Name</label><input type="text" id="editFerryRouteInput" class="form-control" required></div>
+            <div class="row g-2 mb-3">
+              <div class="col-6"><label class="form-label small fw-bold">Departure Time</label><input type="text" id="editFerryTimeInput" class="form-control" required></div>
+              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="editFerryCapInput" class="form-control" required></div>
+            </div>
+            <div class="mb-3"><label class="form-label small fw-bold">Available Seats</label><input type="number" id="editFerrySeatsInput" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="editFerryKpayQrInput" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Status</label><select id="editFerryStatusSelect" class="form-select"><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
+            <button type="submit" class="btn btn-info text-white w-100 fw-bold">Update Ferry Route</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Admin Modal -->
+  <div class="modal fade" id="createAdminModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 card-glass p-3">
+        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Create Admin</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <form id="createAdminForm" onsubmit="submitCreateAdmin(event)">
+            <div class="mb-3"><label class="form-label small fw-bold">Role</label><select id="newAdminRole" class="form-select"><option value="hostel">Hostel Admin</option><option value="ferry">Ferry Admin</option></select></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Full Name</label><input type="text" id="newAdminName" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Username</label><input type="text" id="newAdminUsername" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label small fw-bold">Password</label><input type="password" id="newAdminPassword" class="form-control" required></div>
+            <button type="submit" class="btn btn-danger w-100 fw-bold">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
+    let currentAdminRole = 'super_admin';
+    let currentAdminId = null;
+    let cachedFerryGroups = [];
+    let cachedHostels = [];
+    let cachedFerries = [];
+    let cachedAdmins = [];
+    let cachedPendingPayments = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const adminUser = localStorage.getItem('utycc_admin') || localStorage.getItem('admin');
+      if (!adminUser) {
+        window.location.href = 'admin-login.html';
+        return;
+      }
+      try {
+        const adminObj = JSON.parse(adminUser);
+        currentAdminRole = (adminObj.role || 'super_admin').toLowerCase();
+        currentAdminId = adminObj.id || null;
+        if (adminObj.name) document.getElementById('adminNameDisplay').textContent = adminObj.name;
+        if (adminObj.email) document.getElementById('adminEmailDisplay').textContent = adminObj.email;
+        applyRolePermissions(currentAdminRole);
+      } catch (e) {
+        console.error("Error loading admin profile:", e);
+      }
+      fetchAdminData();
+    });
+
+    function adminLogout() {
+      localStorage.removeItem('utycc_admin');
+      localStorage.removeItem('admin');
+      window.location.href = 'admin-login.html';
+    }
+
+    function applyRolePermissions(role) {
+      const isHostel = role.includes('hostel');
+      const isFerry = role.includes('ferry');
+      const roleBadge = document.getElementById('adminRoleBadge');
+      const roleText = document.getElementById('adminRoleText');
+      const headerTitle = document.getElementById('headerTitle');
+      const btnAddHostel = document.getElementById('btnAddHostel');
+      const btnAddFerryGroup = document.getElementById('btnAddFerryGroup');
+      const btnAddFerry = document.getElementById('btnAddFerry');
+      const hostelOwnerSelectGroup = document.getElementById('hostelOwnerSelectGroup');
+      const ferryOwnerSelectGroup = document.getElementById('ferryOwnerSelectGroup');
+      const navItemHostels = document.getElementById('navItemHostels');
+      const navItemFerries = document.getElementById('navItemFerries');
+      const tabHostelsBtn = document.getElementById('tabHostelsBtn');
+      const tabFerriesBtn = document.getElementById('tabFerriesBtn');
+      const tabHostelsPane = document.getElementById('tab-hostels');
+      const tabFerriesPane = document.getElementById('tab-ferries');
+
+      if (isHostel) {
+        if (roleText) roleText.textContent = 'Hostel Admin';
+        if (roleBadge) roleBadge.className = 'badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-medium';
+        if (headerTitle) headerTitle.textContent = 'Hostel Management Console';
+
+        document.getElementById('cardTotalHostels')?.classList.remove('d-none');
+        document.getElementById('cardPendingPayments')?.classList.remove('d-none');
+        document.getElementById('cardTotalFerries')?.classList.add('d-none');
+        document.getElementById('cardTotalStudents')?.classList.add('d-none');
+
+        if (navItemFerries) navItemFerries.classList.add('d-none');
+        document.getElementById('navItemFerryBookings')?.classList.add('d-none');
+        document.getElementById('navItemStudents')?.classList.add('d-none');
+        document.getElementById('navItemAdmins')?.classList.add('d-none');
+        document.getElementById('navItemPaymentVerification')?.classList.remove('d-none');
+
+        if (btnAddHostel) btnAddHostel.classList.add('d-none');
+        if (hostelOwnerSelectGroup) hostelOwnerSelectGroup.classList.add('d-none');
+
+        if (tabHostelsBtn) tabHostelsBtn.classList.add('active');
+        if (tabHostelsPane) tabHostelsPane.classList.add('show', 'active');
+        if (tabFerriesBtn) tabFerriesBtn.classList.remove('active');
+        if (tabFerriesPane) tabFerriesPane.classList.remove('show', 'active');
+
+      } else if (isFerry) {
+        if (roleText) roleText.textContent = 'Ferry Admin';
+        if (roleBadge) roleBadge.className = 'badge bg-info-subtle text-info px-3 py-2 rounded-pill fw-medium';
+        if (headerTitle) headerTitle.textContent = 'Ferry Management Console';
+
+        document.getElementById('cardTotalFerries')?.classList.remove('d-none');
+        document.getElementById('cardPendingPayments')?.classList.remove('d-none');
+        document.getElementById('cardTotalHostels')?.classList.add('d-none');
+        document.getElementById('cardTotalStudents')?.classList.add('d-none');
+
+        if (navItemHostels) navItemHostels.classList.add('d-none');
+        document.getElementById('navItemHostelBookings')?.classList.add('d-none');
+        document.getElementById('navItemStudents')?.classList.add('d-none');
+        document.getElementById('navItemAdmins')?.classList.add('d-none');
+        document.getElementById('navItemPaymentVerification')?.classList.remove('d-none');
+
+        if (btnAddFerryGroup) btnAddFerryGroup.classList.add('d-none');
+        if (btnAddFerry) btnAddFerry.classList.add('d-none');
+        if (ferryOwnerSelectGroup) ferryOwnerSelectGroup.classList.add('d-none');
+
+        if (tabFerriesBtn) tabFerriesBtn.classList.add('active');
+        if (tabFerriesPane) tabFerriesPane.classList.add('show', 'active');
+        if (tabHostelsBtn) tabHostelsBtn.classList.remove('active');
+        if (tabHostelsPane) tabHostelsPane.classList.remove('show', 'active');
+
+      } else {
+        if (roleText) roleText.textContent = 'Super Admin';
+        if (roleBadge) roleBadge.className = 'badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-medium';
+        if (headerTitle) headerTitle.textContent = 'Enterprise Super Admin Console';
+
+        document.getElementById('cardTotalHostels')?.classList.remove('d-none');
+        document.getElementById('cardTotalFerries')?.classList.remove('d-none');
+        document.getElementById('cardTotalStudents')?.classList.remove('d-none');
+        
+        // Hide Payment Verification card for Super Admin
+        document.getElementById('cardPendingPayments')?.classList.add('d-none');
+
+        if (navItemHostels) navItemHostels.classList.remove('d-none');
+        if (navItemFerries) navItemFerries.classList.remove('d-none');
+        document.getElementById('navItemHostelBookings')?.classList.remove('d-none');
+        document.getElementById('navItemFerryBookings')?.classList.remove('d-none');
+        document.getElementById('navItemStudents')?.classList.remove('d-none');
+        document.getElementById('navItemAdmins')?.classList.remove('d-none');
+        
+        // Hide Payment Verification tab for Super Admin
+        document.getElementById('navItemPaymentVerification')?.classList.add('d-none');
+
+        if (btnAddHostel) btnAddHostel.classList.remove('d-none');
+        if (btnAddFerryGroup) btnAddFerryGroup.classList.remove('d-none');
+        if (btnAddFerry) btnAddFerry.classList.remove('d-none');
+        if (hostelOwnerSelectGroup) hostelOwnerSelectGroup.classList.remove('d-none');
+        if (ferryOwnerSelectGroup) ferryOwnerSelectGroup.classList.remove('d-none');
+      }
+    }
+
+    async function fetchAdminData() {
+      try {
+        let url = API_BASE_URL + '/api/admin/overview?role=' + encodeURIComponent(currentAdminRole);
+        if (currentAdminId) {
+          url += '&admin_id=' + encodeURIComponent(currentAdminId);
+        }
+        const res = await fetch(url);
+        if (!res.ok) {
+          if (res.status === 401) {
+            adminLogout();
+            return;
+          }
+          return;
+        }
+        const data = await res.json();
+        if (!data.success) return;
+
+        if (data.hostels && document.getElementById('statHostels')) {
+          document.getElementById('statHostels').textContent = data.hostels.length + ' Blocks';
+        }
+        if (data.ferries && document.getElementById('statFerries')) {
+          document.getElementById('statFerries').textContent = data.ferries.length + ' Lines';
+        }
+        if (data.students && document.getElementById('statStudents')) {
+          document.getElementById('statStudents').textContent = data.students.length;
+        }
+
+        cachedAdmins = data.admins || [];
+        populateAdminOwnerSelects(cachedAdmins);
+        cachedFerryGroups = data.ferry_groups || [];
+        updateFerryGroupSelectOptions(cachedFerryGroups, 'ferryGroupSelect');
+
+        cachedFerries = data.ferries || [];
+        cachedPendingPayments = data.pending_payments || [];
+
+        renderHostels(data.hostels || []);
+        renderFerryGroups(cachedFerryGroups);
+        renderFerries(cachedFerries);
+        renderPaymentVerification(cachedPendingPayments);
+        renderHostelBookings(data.hostel_bookings || []);
+        renderFerryBookings(data.ferry_bookings || []);
+        renderInquiries(data.inquiries || []);
+        renderStudents(data.students || []);
+        renderAdmins(cachedAdmins);
+      } catch (err) {
+        console.error('Fetch admin data error:', err);
+      }
+    }
+
+    function populateAdminOwnerSelects(admins) {
+      const hostelSelect = document.getElementById('hostelOwnerSelect');
+      const ferrySelect = document.getElementById('ferryOwnerSelect');
+      if (!admins || admins.length === 0) return;
+      let hostelOpts = '<option value="">Select Owner Admin...</option>';
+      let ferryOpts = '<option value="">Select Owner Admin...</option>';
+      admins.forEach(a => {
+        const roleLabel = a.role === 'super_admin' ? 'Super Admin' : (a.role === 'hostel' ? 'Hostel Admin' : 'Ferry Admin');
+        const opt = `<option value="${a.id}">${escapeHtml(a.name)} (@${escapeHtml(a.username)} - ${roleLabel})</option>`;
+        if (a.role === 'hostel' || a.role === 'super_admin') hostelOpts += opt;
+        if (a.role === 'ferry' || a.role === 'super_admin') ferryOpts += opt;
+      });
+      if (hostelSelect) hostelSelect.innerHTML = hostelOpts;
+      if (ferrySelect) ferrySelect.innerHTML = ferryOpts;
+    }
+
+    function updateFerryGroupSelectOptions(groups, targetSelectId = 'ferryGroupSelect') {
+      const select = document.getElementById(targetSelectId);
+      if (!select) return;
+      if (!groups || groups.length === 0) {
+        select.innerHTML = '<option value="1">General Route Group</option>';
+        return;
+      }
+      select.innerHTML = groups.map(g => '<option value="' + g.group_id + '">' + escapeHtml(g.group_name) + '</option>').join('');
+    }
+
+    function renderHostels(hostels) {
+      cachedHostels = hostels || [];
+      const tbody = document.getElementById('hostelsTableBody');
+      if (!tbody) return;
+      if (!hostels || hostels.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No owned hostel blocks found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = hostels.map(h => {
+        const isActive = h.status === 'Active';
+        const statusBadge = isActive ? '<span class="status-badge-confirmed"><i class="bi bi-check-circle me-1"></i>Active</span>' : '<span class="status-badge-rejected"><i class="bi bi-x-circle me-1"></i>Inactive</span>';
+        const toggleBtnText = isActive ? 'Deactivate' : 'Activate';
+        const toggleBtnClass = isActive ? 'btn-outline-warning' : 'btn-outline-success';
+        const ownerObj = cachedAdmins.find(a => a.id === h.admin_id);
+        const ownerName = ownerObj ? ownerObj.name : 'Super Admin';
+        return '<tr>' +
+          '<td>#' + h.id + '</td>' +
+          '<td class="fw-bold text-dark">' + escapeHtml(h.name) + '</td>' +
+          '<td>' + escapeHtml(h.room) + '</td>' +
+          '<td><span class="badge bg-primary-subtle text-primary border fw-semibold">' + escapeHtml(ownerName) + '</span></td>' +
+          '<td><span class="badge bg-secondary-subtle text-secondary">' + escapeHtml(h.gender) + '</span></td>' +
+          '<td class="fw-bold text-primary">' + h.available_beds + ' / ' + h.capacity + ' beds</td>' +
+          '<td>' + statusBadge + '</td>' +
+          '<td class="text-center">' +
+            '<button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditHostelModal(' + h.id + ')"><i class="bi bi-pencil me-1"></i>Edit</button>' +
+            '<button class="btn btn-sm ' + toggleBtnClass + ' rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="toggleHostelStatus(' + h.id + ')"><i class="bi bi-power me-1"></i>' + toggleBtnText + '</button>' +
+            '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteHostel(' + h.id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function renderFerryGroups(groups) {
+      const tbody = document.getElementById('ferryGroupsTableBody');
+      if (!tbody) return;
+      if (!groups || groups.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">No ferry route groups found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = groups.map(g => '<tr>' +
+        '<td>#' + g.group_id + '</td>' +
+        '<td class="fw-bold text-dark">' + escapeHtml(g.group_name) + '</td>' +
+        '<td class="small text-muted">' + escapeHtml(g.description || '-') + '</td>' +
+        '<td class="text-center">' +
+          '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerryGroup(' + g.group_id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
+        '</td>' +
+      '</tr>').join('');
+    }
+
+    function renderFerries(ferries) {
+      cachedFerries = ferries || [];
+      const tbody = document.getElementById('ferriesTableBody');
+      if (!tbody) return;
+      if (!ferries || ferries.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No owned ferry routes found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = ferries.map(f => {
+        const isActive = f.status === 'Active';
+        const statusBadge = isActive ? '<span class="status-badge-confirmed"><i class="bi bi-check-circle me-1"></i>Active</span>' : '<span class="status-badge-rejected"><i class="bi bi-x-circle me-1"></i>Inactive</span>';
+        const toggleBtnText = isActive ? 'Deactivate' : 'Activate';
+        const toggleBtnClass = isActive ? 'btn-outline-warning' : 'btn-outline-success';
+        const ownerObj = cachedAdmins.find(a => a.id === f.admin_id);
+        const ownerName = ownerObj ? ownerObj.name : 'Super Admin';
+        return '<tr>' +
+          '<td>#' + f.id + '</td>' +
+          '<td class="fw-bold text-dark">' + escapeHtml(f.name) + '</td>' +
+          '<td class="small text-muted">' + escapeHtml(f.route) + '</td>' +
+          '<td><span class="badge bg-info-subtle text-info border fw-semibold">' + escapeHtml(ownerName) + '</span></td>' +
+          '<td><span class="badge bg-light text-dark border">' + escapeHtml(f.time) + '</span></td>' +
+          '<td class="fw-bold text-info">' + f.available_seats + ' / ' + f.capacity + ' seats</td>' +
+          '<td>' + statusBadge + '</td>' +
+          '<td class="text-center">' +
+            '<button class="btn btn-sm btn-outline-info rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditFerryModal(' + f.id + ')"><i class="bi bi-pencil me-1"></i>Edit</button>' +
+            '<button class="btn btn-sm ' + toggleBtnClass + ' rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="toggleFerryStatus(' + f.id + ')"><i class="bi bi-power me-1"></i>' + toggleBtnText + '</button>' +
+            '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerry(' + f.id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function renderPaymentVerification(pendingPayments) {
+      const tbody = document.getElementById('paymentVerificationTableBody');
+      const countBadge = document.getElementById('pvCountBadge');
+      const pendingStat = document.getElementById('statPendingPayments');
+      const pendingTabBadge = document.getElementById('pendingBadgeCount');
+
+      const count = pendingPayments ? pendingPayments.length : 0;
+      if (countBadge) countBadge.textContent = count + ' Pending';
+      if (pendingStat) pendingStat.textContent = count;
+      if (pendingTabBadge) pendingTabBadge.textContent = count;
+
+      if (!tbody) return;
+      if (!pendingPayments || pendingPayments.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4"><i class="bi bi-check-circle text-success me-2"></i>All payments verified! No pending transactions.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = pendingPayments.map(p => {
+        const isHostel = p.hostel_name !== undefined;
+        const typeBadge = isHostel ? '<span class="badge bg-primary-subtle text-primary">Hostel</span>' : '<span class="badge bg-info-subtle text-info">Ferry</span>';
+        const serviceName = isHostel ? escapeHtml(p.hostel_name) + ' (' + escapeHtml(p.room_number) + ')' : escapeHtml(p.ferry_name || p.route_name);
+        const bType = isHostel ? 'hostel' : 'ferry';
+
+        return '<tr>' +
+          '<td>#' + p.booking_id + '</td>' +
+          '<td>' + typeBadge + '</td>' +
+          '<td class="fw-semibold text-dark">' + serviceName + '</td>' +
+          '<td><div class="fw-bold text-dark">' + escapeHtml(p.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(p.student_id) + '</div></td>' +
+          '<td><span class="badge bg-light text-dark border">' + escapeHtml(p.payment_method || 'KBZPay') + '</span></td>' +
+          '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(p.transaction_id || '-') + '</span></td>' +
+          '<td class="fw-bold text-success">' + escapeHtml(p.amount || 'Ks') + '</td>' +
+          '<td><span class="status-badge-pending">Pending Approval</span></td>' +
+          '<td class="text-center">' +
+            '<button class="btn btn-sm btn-success rounded-pill px-3 py-1 me-1 fw-bold" onclick="confirmPayment(\'' + bType + '\', ' + p.booking_id + ', \'approve\')"><i class="bi bi-check-lg me-1"></i>Confirm</button>' +
+            '<button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold" onclick="confirmPayment(\'' + bType + '\', ' + p.booking_id + ', \'reject\')"><i class="bi bi-x-lg me-1"></i>Reject</button>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function renderHostelBookings(bookings) {
+      const tbody = document.getElementById('hostelBookingsTableBody');
+      if (!tbody) return;
+      if (!bookings || bookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No hostel bookings found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = bookings.map(b => {
+        const isPending = b.payment_status === 'Pending';
+        const statusBadge = isPending ? '<span class="status-badge-pending">Pending Approval</span>' : (b.payment_status === 'Confirmed' ? '<span class="status-badge-confirmed">Confirmed / Allocated</span>' : '<span class="status-badge-rejected">Rejected</span>');
+        return '<tr>' +
+          '<td>#' + b.booking_id + '</td>' +
+          '<td class="fw-semibold text-dark">' + escapeHtml(b.hostel_name) + ' (' + escapeHtml(b.room_number) + ')</td>' +
+          '<td><div class="fw-bold text-dark">' + escapeHtml(b.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(b.student_id) + '</div></td>' +
+          '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_method || 'KBZPay') + '</span></td>' +
+          '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(b.transaction_id || '-') + '</span></td>' +
+          '<td class="fw-bold text-success">' + escapeHtml(b.amount || 'Ks') + '</td>' +
+          '<td>' + statusBadge + '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function renderFerryBookings(bookings) {
+      const tbody = document.getElementById('ferryBookingsTableBody');
+      if (!tbody) return;
+      if (!bookings || bookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No ferry bookings found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = bookings.map(b => {
+        const isPending = b.payment_status === 'Pending';
+        const statusBadge = isPending ? '<span class="status-badge-pending">Pending Approval</span>' : (b.payment_status === 'Confirmed' ? '<span class="status-badge-confirmed">Confirmed / Assigned</span>' : '<span class="status-badge-rejected">Rejected</span>');
+        return '<tr>' +
+          '<td>#' + b.booking_id + '</td>' +
+          '<td class="fw-semibold text-dark">' + escapeHtml(b.ferry_name) + '</td>' +
+          '<td><div class="fw-bold text-dark">' + escapeHtml(b.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(b.student_id) + '</div></td>' +
+          '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_method || 'KBZPay') + '</span></td>' +
+          '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(b.transaction_id || '-') + '</span></td>' +
+          '<td class="fw-bold text-success">' + escapeHtml(b.amount || 'Ks') + '</td>' +
+          '<td>' + statusBadge + '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    function renderInquiries(inquiries) {
+      const tbody = document.getElementById('inquiriesTableBody');
+      if (!tbody) return;
+      if (!inquiries || inquiries.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No support tickets found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = inquiries.map(i => '<tr>' +
+        '<td>#' + (i.inquiry_id || i.id) + '</td>' +
+        '<td class="fw-bold text-dark">' + escapeHtml(i.full_name || i.name) + '</td>' +
+        '<td>' + escapeHtml(i.student_id) + '</td>' +
+        '<td class="small text-muted">' + escapeHtml(i.email || '-') + '</td>' +
+        '<td><span class="badge bg-secondary-subtle text-dark">' + escapeHtml(i.service_category || i.category) + '</span></td>' +
+        '<td class="small text-muted">' + escapeHtml(i.message) + '</td>' +
+        '<td class="small text-muted">' + escapeHtml(i.created_at) + '</td>' +
+        '<td><span class="status-badge-pending">' + escapeHtml(i.status) + '</span></td>' +
+      '</tr>').join('');
+    }
+
+    function renderStudents(students) {
+      const tbody = document.getElementById('studentsTableBody');
+      if (!tbody) return;
+      if (!students || students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No registered students found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = students.map(s => '<tr>' +
+        '<td>#' + s.id + '</td>' +
+        '<td class="fw-bold text-dark">' + escapeHtml(s.name) + '</td>' +
+        '<td class="font-monospace text-primary fw-bold">' + escapeHtml(s.student_id) + '</td>' +
+        '<td class="small text-muted">' + escapeHtml(s.email || '-') + '</td>' +
+        '<td class="small text-muted">' + escapeHtml(s.phone || '-') + '</td>' +
+        '<td><span class="badge bg-primary-subtle text-primary">' + escapeHtml(s.role) + '</span></td>' +
+      '</tr>').join('');
+    }
+
+    function renderAdmins(admins) {
+      const tbody = document.getElementById('adminsTableBody');
+      if (!tbody) return;
+      if (!admins || admins.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No admin accounts found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = admins.map(a => {
+        const roleBadge = a.role === 'super_admin' ? '<span class="badge bg-danger-subtle text-danger fw-bold">Super Admin</span>' : (a.role === 'hostel' ? '<span class="badge bg-primary-subtle text-primary fw-bold">Hostel Admin</span>' : '<span class="badge bg-info-subtle text-info fw-bold">Ferry Admin</span>');
+        const isMainAdmin = a.username === 'admin';
+        const deleteBtn = isMainAdmin ? '<span class="badge bg-secondary-subtle text-muted">System Reserved</span>' : `<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteAdmin(${a.id})"><i class="bi bi-trash me-1"></i>Delete</button>`;
+        return '<tr>' +
+          '<td>#' + a.id + '</td>' +
+          '<td class="fw-bold text-dark">' + escapeHtml(a.name) + '</td>' +
+          '<td class="font-monospace text-primary fw-bold">' + escapeHtml(a.username) + '</td>' +
+          '<td class="small text-muted">' + escapeHtml(a.email || '-') + '</td>' +
+          '<td>' + roleBadge + '</td>' +
+          '<td class="small text-muted">' + escapeHtml(a.created_at || '-') + '</td>' +
+          '<td class="text-center">' + deleteBtn + '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    async function deleteAdmin(adminId) {
+      if (!confirm('သင်သည် ဤ Admin အကောင့်ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/delete-admin', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ target_admin_id: adminId, admin_id: currentAdminId })
         });
-
-        function adminLogout() {
-            localStorage.removeItem('utycc_admin');
-            localStorage.removeItem('admin');
-            window.location.href = 'admin-login.html';
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed to delete admin account.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function applyRolePermissions(role) {
-            const isHostel = role.includes('hostel');
-            const isFerry = role.includes('ferry');
-            const isSuper = !isHostel && !isFerry;
+    async function submitAddHostel(e) {
+      e.preventDefault();
+      const hostelName = document.getElementById('hostelNameInput').value.trim();
+      const roomNumber = document.getElementById('hostelRoomInput').value.trim();
+      const genderType = document.getElementById('hostelGenderInput').value;
+      const capacity = document.getElementById('hostelCapInput').value;
+      const availableBeds = document.getElementById('hostelBedsInput').value;
+      const kpayQrUrl = document.getElementById('hostelKpayQrInput').value.trim() || 'qrcode.jpg';
+      const imageUrl = document.getElementById('hostelImgInput').value.trim();
+      const description = document.getElementById('hostelDescInput').value.trim();
+      const selectedOwnerId = document.getElementById('hostelOwnerSelect')?.value;
+      const targetAdminId = selectedOwnerId ? parseInt(selectedOwnerId) : currentAdminId;
 
-            const roleBadge = document.getElementById('adminRoleBadge');
-            const roleText = document.getElementById('adminRoleText');
-            const headerTitle = document.getElementById('headerTitle');
-
-            if (isHostel) {
-                if (roleText) roleText.textContent = 'Hostel Admin';
-                if (roleBadge) roleBadge.className = 'badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-medium';
-                if (headerTitle) headerTitle.textContent = 'Hostel Management Console';
-
-                document.getElementById('cardTotalFerries')?.classList.add('d-none');
-                document.getElementById('cardTotalStudents')?.classList.add('d-none');
-
-                document.getElementById('navItemFerries')?.classList.add('d-none');
-                document.getElementById('navItemFerryBookings')?.classList.add('d-none');
-                document.getElementById('navItemStudents')?.classList.add('d-none');
-                document.getElementById('navItemAdmins')?.classList.add('d-none');
-            } else if (isFerry) {
-                if (roleText) roleText.textContent = 'Ferry Admin';
-                if (roleBadge) roleBadge.className = 'badge bg-info-subtle text-info px-3 py-2 rounded-pill fw-medium';
-                if (headerTitle) headerTitle.textContent = 'Ferry Management Console';
-
-                document.getElementById('cardTotalHostels')?.classList.add('d-none');
-                document.getElementById('cardTotalStudents')?.classList.add('d-none');
-
-                document.getElementById('navItemHostels')?.classList.add('d-none');
-                document.getElementById('navItemHostelBookings')?.classList.add('d-none');
-                document.getElementById('navItemStudents')?.classList.add('d-none');
-                document.getElementById('navItemAdmins')?.classList.add('d-none');
-            } else {
-                if (roleText) roleText.textContent = 'Super Admin';
-                if (roleBadge) roleBadge.className = 'badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-medium';
-                if (headerTitle) headerTitle.textContent = 'Enterprise Super Admin Console';
-
-                // Remove Payment Verification from Super Admin Dashboard
-                document.getElementById('cardPendingPayments')?.classList.add('d-none');
-                document.getElementById('navItemPending')?.classList.add('d-none');
-
-                // Switch default tab for Super Admin to Hostels Management
-                const hostelsTabBtn = document.getElementById('tabHostelsBtn');
-                if (hostelsTabBtn) {
-                    const tabObj = new bootstrap.Tab(hostelsTabBtn);
-                    tabObj.show();
-                }
-            }
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/add-hostel', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            admin_id: targetAdminId,
+            hostel_name: hostelName,
+            room_number: roomNumber,
+            gender_type: genderType,
+            capacity: parseInt(capacity),
+            available_beds: parseInt(availableBeds),
+            kpay_qr_url: kpayQrUrl,
+            image_url: imageUrl,
+            description: description
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('addHostelModal'))?.hide();
+          document.getElementById('addHostelForm').reset();
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed to add hostel.');
         }
+      } catch (err) {
+        alert('Network error while adding hostel.');
+      }
+    }
 
-        async function fetchAdminData() {
-            try {
-                let url = API_BASE_URL + '/api/admin/overview?role=' + encodeURIComponent(currentAdminRole);
-                if (currentAdminId) {
-                    url += '&admin_id=' + encodeURIComponent(currentAdminId);
-                }
-                const res = await fetch(url);
-                if (!res.ok) {
-                    if (res.status === 401) {
-                        adminLogout();
-                        return;
-                    }
-                    return;
-                }
-                const data = await res.json();
+    function openEditHostelModal(id) {
+      const h = (cachedHostels || []).find(x => (x.id === id || x.hostel_id === id));
+      if (!h) return;
+      document.getElementById('editHostelId').value = h.id || h.hostel_id;
+      document.getElementById('editHostelNameInput').value = h.hostel_name || h.name || '';
+      document.getElementById('editHostelRoomInput').value = h.room_number || h.room || '';
+      document.getElementById('editHostelGenderInput').value = h.gender_type || h.gender || 'Boys';
+      document.getElementById('editHostelCapInput').value = h.capacity || 4;
+      document.getElementById('editHostelBedsInput').value = h.available_beds !== undefined ? h.available_beds : 4;
+      document.getElementById('editHostelKpayQrInput').value = h.kpay_qr_url || 'qrcode.jpg';
+      document.getElementById('editHostelImgInput').value = h.image_url || '';
+      document.getElementById('editHostelDescInput').value = h.description || '';
+      document.getElementById('editHostelStatusSelect').value = h.status || 'Active';
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('editHostelModal')).show();
+    }
 
-                if (data.pending_payments_count !== undefined) {
-                    document.getElementById('statPendingPayments').textContent = data.pending_payments_count;
-                    document.getElementById('pendingPayBadge').textContent = data.pending_payments_count;
-                }
-                if (data.hostels && document.getElementById('statHostels')) {
-                    document.getElementById('statHostels').textContent = data.hostels.length + ' Blocks';
-                }
-                if (data.ferries && document.getElementById('statFerries')) {
-                    document.getElementById('statFerries').textContent = data.ferries.length + ' Lines';
-                }
-                if (data.students && document.getElementById('statStudents')) {
-                    document.getElementById('statStudents').textContent = data.students.length;
-                }
+    async function submitEditHostel(e) {
+      e.preventDefault();
+      const id = document.getElementById('editHostelId').value;
+      const hostelName = document.getElementById('editHostelNameInput').value.trim();
+      const roomNumber = document.getElementById('editHostelRoomInput').value.trim();
+      const genderType = document.getElementById('editHostelGenderInput').value;
+      const capacity = document.getElementById('editHostelCapInput').value;
+      const availableBeds = document.getElementById('editHostelBedsInput').value;
+      const kpayQrUrl = document.getElementById('editHostelKpayQrInput').value.trim();
+      const imageUrl = document.getElementById('editHostelImgInput').value.trim();
+      const description = document.getElementById('editHostelDescInput').value.trim();
+      const status = document.getElementById('editHostelStatusSelect').value;
 
-                cachedFerryGroups = data.ferry_groups || [];
-                updateFerryGroupSelectOptions(cachedFerryGroups, 'ferryGroupSelect');
-
-                renderPendingPayments(data.pending_payments || []);
-                renderHostels(data.hostels || []);
-                renderFerryGroups(cachedFerryGroups);
-                renderFerries(data.ferries || []);
-                renderHostelBookings(data.hostel_bookings || []);
-                renderFerryBookings(data.ferry_bookings || []);
-                renderInquiries(data.inquiries || []);
-                renderStudents(data.students || []);
-                renderAdmins(data.admins || []);
-            } catch (err) {
-                console.error('Fetch admin data error:', err);
-            }
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/edit-hostel', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            hostel_id: parseInt(id),
+            admin_id: currentAdminId,
+            hostel_name: hostelName,
+            room_number: roomNumber,
+            gender_type: genderType,
+            capacity: parseInt(capacity),
+            available_beds: parseInt(availableBeds),
+            kpay_qr_url: kpayQrUrl,
+            image_url: imageUrl,
+            description: description,
+            status: status
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('editHostelModal'))?.hide();
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed to update hostel.');
         }
+      } catch (err) {
+        alert('Network error while updating hostel.');
+      }
+    }
 
-        function updateFerryGroupSelectOptions(groups, targetSelectId = 'ferryGroupSelect') {
-            const select = document.getElementById(targetSelectId);
-            if (!select) return;
-            if (!groups || groups.length === 0) {
-                select.innerHTML = '<option value="1">General Route Group</option>';
-                return;
-            }
-            select.innerHTML = groups.map(g => '<option value="' + g.group_id + '">' + escapeHtml(g.group_name) + '</option>').join('');
+    async function toggleHostelStatus(id) {
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/toggle-hostel-status', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ hostel_id: id, admin_id: currentAdminId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed to toggle status.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderPendingPayments(payments) {
-            const tbody = document.getElementById('pendingPaymentsTableBody');
-            if (!tbody) return;
-
-            if (!payments || payments.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4"><i class="bi bi-check-all text-success fs-4 d-block mb-1"></i>အတည်ပြုရန် မကျန်ရှိတော့ပါ (All payments verified!)</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = payments.map(p => {
-                const isHostel = p.hostel_name !== undefined;
-                const typeBadge = isHostel ? '<span class="badge bg-primary-subtle text-primary fw-bold">Hostel</span>' : '<span class="badge bg-info-subtle text-info fw-bold">Ferry</span>';
-                const itemName = isHostel ? (p.hostel_name + ' (' + p.room_number + ')') : (p.ferry_name + ' - ' + p.route_name);
-                const bType = isHostel ? 'hostel' : 'ferry';
-
-                return '<tr>' +
-                    '<td>' + typeBadge + '</td>' +
-                    '<td><div class="fw-bold text-dark">' + escapeHtml(p.student_name) + '</div><div class="small text-muted">Roll: ' + escapeHtml(p.student_id) + '</div></td>' +
-                    '<td class="fw-semibold text-dark">' + escapeHtml(itemName) + '</td>' +
-                    '<td class="fw-bold text-success">' + escapeHtml(p.amount || 'Ks 150,000') + '</td>' +
-                    '<td><span class="badge bg-light text-dark border">' + escapeHtml(p.payment_method || 'KBZPay') + '</span></td>' +
-                    '<td><span class="badge bg-warning-subtle text-dark border border-warning font-monospace fs-6 px-2 py-1">' + escapeHtml(p.transaction_id || 'N/A') + '</span></td>' +
-                    '<td class="small text-muted">' + escapeHtml(p.booking_date || '-') + '</td>' +
-                    '<td class="text-center">' +
-                        '<button class="btn btn-sm btn-success rounded-pill px-3 py-1 me-1 shadow-sm fw-bold" onclick="confirmPayment(\'' + bType + '\', ' + p.booking_id + ', \'approve\')"><i class="bi bi-check-circle-fill me-1"></i>Confirm</button>' +
-                        '<button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold" onclick="confirmPayment(\'' + bType + '\', ' + p.booking_id + ', \'reject\')"><i class="bi bi-x-circle me-1"></i>Reject</button>' +
-                    '</td>' +
-                '</tr>';
-            }).join('');
+    async function deleteHostel(hostelId) {
+      if (!confirm('သင်သည် ဤ Hostel Block ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/delete-hostel', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ hostel_id: hostelId, admin_id: currentAdminId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderHostels(hostels) {
-            cachedHostels = hostels || [];
-            const tbody = document.getElementById('hostelsTableBody');
-            if (!tbody) return;
-
-            if (!hostels || hostels.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No owned hostel blocks found. Click "Add New Hostel Block" above to create one.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = hostels.map(h => {
-                const isActive = h.status === 'Active';
-                const statusBadge = isActive 
-                    ? '<span class="status-badge-confirmed"><i class="bi bi-check-circle me-1"></i>Active</span>' 
-                    : '<span class="status-badge-rejected"><i class="bi bi-x-circle me-1"></i>Inactive</span>';
-                const toggleBtnText = isActive ? 'Deactivate' : 'Activate';
-                const toggleBtnClass = isActive ? 'btn-outline-warning' : 'btn-outline-success';
-
-                return '<tr>' +
-                    '<td>#' + h.id + '</td>' +
-                    '<td class="fw-bold text-dark">' + escapeHtml(h.name) + '</td>' +
-                    '<td>' + escapeHtml(h.room) + '</td>' +
-                    '<td><span class="badge bg-secondary-subtle text-secondary">' + escapeHtml(h.gender) + '</span></td>' +
-                    '<td class="fw-bold text-primary">' + h.available_beds + ' / ' + h.capacity + ' beds</td>' +
-                    '<td><span class="badge bg-success-subtle text-success border border-success font-monospace small"><i class="bi bi-qr-code me-1"></i>' + escapeHtml(h.kpay_qr_url || 'qrcode.jpg') + '</span></td>' +
-                    '<td>' + statusBadge + '</td>' +
-                    '<td class="text-center">' +
-                        '<button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditHostelModal(' + h.id + ')"><i class="bi bi-pencil me-1"></i>Edit</button>' +
-                        '<button class="btn btn-sm ' + toggleBtnClass + ' rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="toggleHostelStatus(' + h.id + ')"><i class="bi bi-power me-1"></i>' + toggleBtnText + '</button>' +
-                        '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteHostel(' + h.id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
-                    '</td>' +
-                '</tr>';
-            }).join('');
+    async function submitAddFerryGroup(e) {
+      e.preventDefault();
+      const groupName = document.getElementById('fgNameInput').value.trim();
+      const description = document.getElementById('fgDescInput').value.trim();
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/add-ferry-group', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ admin_id: currentAdminId, group_name: groupName, description: description })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('addFerryGroupModal'))?.hide();
+          document.getElementById('addFerryGroupForm').reset();
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderFerryGroups(groups) {
-            const tbody = document.getElementById('ferryGroupsTableBody');
-            if (!tbody) return;
-
-            if (!groups || groups.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">No ferry route groups found. Click "Add Ferry Group" above to create one.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = groups.map(g => '<tr>' +
-                '<td>#' + g.group_id + '</td>' +
-                '<td class="fw-bold text-dark">' + escapeHtml(g.group_name) + '</td>' +
-                '<td class="small text-muted">' + escapeHtml(g.description || '-') + '</td>' +
-                '<td class="text-center">' +
-                    '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerryGroup(' + g.group_id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
-                '</td>' +
-            '</tr>').join('');
+    async function deleteFerryGroup(groupId) {
+      if (!confirm('သင်သည် ဤ Ferry Group ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/delete-ferry-group', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ group_id: groupId, admin_id: currentAdminId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderFerries(ferries) {
-            cachedFerries = ferries || [];
-            const tbody = document.getElementById('ferriesTableBody');
-            if (!tbody) return;
+    async function submitAddFerry(e) {
+      e.preventDefault();
+      const groupId = document.getElementById('ferryGroupSelect').value;
+      const ferryName = document.getElementById('ferryNameInput').value.trim();
+      const routeName = document.getElementById('ferryRouteInput').value.trim();
+      const departureTime = document.getElementById('ferryTimeInput').value.trim();
+      const capacity = document.getElementById('ferryCapInput').value;
+      const kpayQrUrl = document.getElementById('ferryKpayQrInput').value.trim() || 'qrcode.jpg';
+      const selectedOwnerId = document.getElementById('ferryOwnerSelect')?.value;
+      const targetAdminId = selectedOwnerId ? parseInt(selectedOwnerId) : currentAdminId;
 
-            if (!ferries || ferries.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No owned ferry routes found. Click "Add New Ferry Route" above to create one.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = ferries.map(f => {
-                const isActive = f.status === 'Active';
-                const statusBadge = isActive 
-                    ? '<span class="status-badge-confirmed"><i class="bi bi-check-circle me-1"></i>Active</span>' 
-                    : '<span class="status-badge-rejected"><i class="bi bi-x-circle me-1"></i>Inactive</span>';
-                const toggleBtnText = isActive ? 'Deactivate' : 'Activate';
-                const toggleBtnClass = isActive ? 'btn-outline-warning' : 'btn-outline-success';
-
-                return '<tr>' +
-                    '<td>#' + f.id + '</td>' +
-                    '<td class="fw-bold text-dark">' + escapeHtml(f.name) + '</td>' +
-                    '<td class="small text-muted">' + escapeHtml(f.route) + '</td>' +
-                    '<td><span class="badge bg-light text-dark border">' + escapeHtml(f.time) + '</span></td>' +
-                    '<td class="fw-bold text-info">' + f.available_seats + ' / ' + f.capacity + ' seats</td>' +
-                    '<td><span class="badge bg-info-subtle text-info border border-info font-monospace small"><i class="bi bi-qr-code me-1"></i>' + escapeHtml(f.kpay_qr_url || 'qrcode.jpg') + '</span></td>' +
-                    '<td>' + statusBadge + '</td>' +
-                    '<td class="text-center">' +
-                        '<button class="btn btn-sm btn-outline-info rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditFerryModal(' + f.id + ')"><i class="bi bi-pencil me-1"></i>Edit</button>' +
-                        '<button class="btn btn-sm ' + toggleBtnClass + ' rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="toggleFerryStatus(' + f.id + ')"><i class="bi bi-power me-1"></i>' + toggleBtnText + '</button>' +
-                        '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerry(' + f.id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
-                    '</td>' +
-                '</tr>';
-            }).join('');
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/add-ferry', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            admin_id: targetAdminId,
+            group_id: parseInt(groupId),
+            ferry_name: ferryName,
+            route_name: routeName,
+            departure_time: departureTime,
+            capacity: parseInt(capacity),
+            available_seats: parseInt(capacity),
+            kpay_qr_url: kpayQrUrl
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('addFerryModal'))?.hide();
+          document.getElementById('addFerryForm').reset();
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderHostelBookings(bookings) {
-            const tbody = document.getElementById('hostelBookingsTableBody');
-            if (!tbody) return;
+    function openEditFerryModal(id) {
+      const f = (cachedFerries || []).find(x => (x.id === id || x.ferry_id === id));
+      if (!f) return;
+      document.getElementById('editFerryId').value = f.id || f.ferry_id;
+      updateFerryGroupSelectOptions(cachedFerryGroups, 'editFerryGroupSelect');
+      document.getElementById('editFerryGroupSelect').value = f.group_id || 1;
+      document.getElementById('editFerryNameInput').value = f.ferry_name || f.name || '';
+      document.getElementById('editFerryRouteInput').value = f.route_name || f.route || '';
+      document.getElementById('editFerryTimeInput').value = f.departure_time || f.time || '07:00 AM';
+      document.getElementById('editFerryCapInput').value = f.capacity || 40;
+      document.getElementById('editFerrySeatsInput').value = f.available_seats !== undefined ? f.available_seats : 40;
+      document.getElementById('editFerryKpayQrInput').value = f.kpay_qr_url || 'qrcode.jpg';
+      document.getElementById('editFerryStatusSelect').value = f.status || 'Active';
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('editFerryModal')).show();
+    }
 
-            if (!bookings || bookings.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No hostel bookings found for your hostels.</td></tr>';
-                return;
-            }
+    async function submitEditFerry(e) {
+      e.preventDefault();
+      const id = document.getElementById('editFerryId').value;
+      const groupId = document.getElementById('editFerryGroupSelect').value;
+      const ferryName = document.getElementById('editFerryNameInput').value.trim();
+      const routeName = document.getElementById('editFerryRouteInput').value.trim();
+      const departureTime = document.getElementById('editFerryTimeInput').value.trim();
+      const capacity = document.getElementById('editFerryCapInput').value;
+      const availableSeats = document.getElementById('editFerrySeatsInput').value;
+      const kpayQrUrl = document.getElementById('editFerryKpayQrInput').value.trim();
+      const status = document.getElementById('editFerryStatusSelect').value;
 
-            tbody.innerHTML = bookings.map(b => {
-                const isPending = b.payment_status === 'Pending';
-                const statusBadge = isPending ? '<span class="status-badge-pending">Pending Approval</span>' : (b.payment_status === 'Confirmed' ? '<span class="status-badge-confirmed">Confirmed / Allocated</span>' : '<span class="status-badge-rejected">Rejected</span>');
-                const actionBtns = isPending ? (
-                    '<button class="btn btn-sm btn-success rounded-pill px-2 py-0.5 me-1 fw-bold" onclick="confirmPayment(\'hostel\', ' + b.booking_id + ', \'approve\')">Confirm</button>' +
-                    '<button class="btn btn-sm btn-outline-danger rounded-pill px-2 py-0.5 fw-bold" onclick="confirmPayment(\'hostel\', ' + b.booking_id + ', \'reject\')">Reject</button>'
-                ) : '<span class="text-muted small">Completed</span>';
-
-                return '<tr>' +
-                    '<td>#' + b.booking_id + '</td>' +
-                    '<td class="fw-semibold text-dark">' + escapeHtml(b.hostel_name) + ' (' + escapeHtml(b.room_number) + ')</td>' +
-                    '<td><div class="fw-bold text-dark">' + escapeHtml(b.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(b.student_id) + '</div></td>' +
-                    '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_method || 'KBZPay') + '</span></td>' +
-                    '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(b.transaction_id || '-') + '</span></td>' +
-                    '<td class="fw-bold text-success">' + escapeHtml(b.amount || 'Ks 150,000') + '</td>' +
-                    '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_status || 'Pending') + '</span></td>' +
-                    '<td>' + statusBadge + '</td>' +
-                    '<td>' + actionBtns + '</td>' +
-                '</tr>';
-            }).join('');
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/edit-ferry', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            ferry_id: parseInt(id),
+            admin_id: currentAdminId,
+            group_id: parseInt(groupId),
+            ferry_name: ferryName,
+            route_name: routeName,
+            departure_time: departureTime,
+            capacity: parseInt(capacity),
+            available_seats: parseInt(availableSeats),
+            kpay_qr_url: kpayQrUrl,
+            status: status
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('editFerryModal'))?.hide();
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed to update ferry route.');
         }
+      } catch (err) {
+        alert('Network error while updating ferry route.');
+      }
+    }
 
-        function renderFerryBookings(bookings) {
-            const tbody = document.getElementById('ferryBookingsTableBody');
-            if (!tbody) return;
-
-            if (!bookings || bookings.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No ferry bookings found for your ferries.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = bookings.map(b => {
-                const isPending = b.payment_status === 'Pending';
-                const statusBadge = isPending ? '<span class="status-badge-pending">Pending Approval</span>' : (b.payment_status === 'Confirmed' ? '<span class="status-badge-confirmed">Confirmed / Assigned</span>' : '<span class="status-badge-rejected">Rejected</span>');
-                const actionBtns = isPending ? (
-                    '<button class="btn btn-sm btn-success rounded-pill px-2 py-0.5 me-1 fw-bold" onclick="confirmPayment(\'ferry\', ' + b.booking_id + ', \'approve\')">Confirm</button>' +
-                    '<button class="btn btn-sm btn-outline-danger rounded-pill px-2 py-0.5 fw-bold" onclick="confirmPayment(\'ferry\', ' + b.booking_id + ', \'reject\')">Reject</button>'
-                ) : '<span class="text-muted small">Completed</span>';
-
-                return '<tr>' +
-                    '<td>#' + b.booking_id + '</td>' +
-                    '<td class="fw-semibold text-dark">' + escapeHtml(b.ferry_name) + '</td>' +
-                    '<td><div class="fw-bold text-dark">' + escapeHtml(b.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(b.student_id) + '</div></td>' +
-                    '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_method || 'KBZPay') + '</span></td>' +
-                    '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(b.transaction_id || '-') + '</span></td>' +
-                    '<td class="fw-bold text-success">' + escapeHtml(b.amount || 'Ks 30,000') + '</td>' +
-                    '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_status || 'Pending') + '</span></td>' +
-                    '<td>' + statusBadge + '</td>' +
-                    '<td>' + actionBtns + '</td>' +
-                '</tr>';
-            }).join('');
+    async function toggleFerryStatus(id) {
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/toggle-ferry-status', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ferry_id: id, admin_id: currentAdminId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed to toggle status.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderInquiries(inquiries) {
-            const tbody = document.getElementById('inquiriesTableBody');
-            if (!tbody) return;
-
-            if (!inquiries || inquiries.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No support tickets found.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = inquiries.map(i => '<tr>' +
-                '<td>#' + (i.inquiry_id || i.id) + '</td>' +
-                '<td class="fw-bold text-dark">' + escapeHtml(i.full_name || i.name) + '</td>' +
-                '<td>' + escapeHtml(i.student_id) + '</td>' +
-                '<td><span class="badge bg-secondary-subtle text-dark">' + escapeHtml(i.service_category || i.category) + '</span></td>' +
-                '<td class="small text-muted">' + escapeHtml(i.message) + '</td>' +
-                '<td class="small text-muted">' + escapeHtml(i.created_at) + '</td>' +
-                '<td><span class="status-badge-pending">' + escapeHtml(i.status) + '</span></td>' +
-            '</tr>').join('');
+    async function deleteFerry(ferryId) {
+      if (!confirm('သင်သည် ဤ Ferry Route ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/delete-ferry', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ferry_id: ferryId, admin_id: currentAdminId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderStudents(students) {
-            const tbody = document.getElementById('studentsTableBody');
-            if (!tbody) return;
+    async function submitCreateAdmin(e) {
+      e.preventDefault();
+      const role = document.getElementById('newAdminRole').value;
+      const name = document.getElementById('newAdminName').value.trim();
+      const username = document.getElementById('newAdminUsername').value.trim();
+      const password = document.getElementById('newAdminPassword').value.trim();
 
-            if (!students || students.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No registered students found.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = students.map(s => '<tr>' +
-                '<td>#' + s.id + '</td>' +
-                '<td class="fw-bold text-dark">' + escapeHtml(s.name) + '</td>' +
-                '<td class="font-monospace text-primary fw-bold">' + escapeHtml(s.student_id) + '</td>' +
-                '<td class="small text-muted">' + escapeHtml(s.email || '-') + '</td>' +
-                '<td class="small text-muted">' + escapeHtml(s.phone || '-') + '</td>' +
-                '<td><span class="badge bg-primary-subtle text-primary">' + escapeHtml(s.role) + '</span></td>' +
-            '</tr>').join('');
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/create-admin', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ username, password, name, role })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          bootstrap.Modal.getInstance(document.getElementById('createAdminModal'))?.hide();
+          document.getElementById('createAdminForm').reset();
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Failed.');
         }
+      } catch (err) {
+        alert('Network error.');
+      }
+    }
 
-        function renderAdmins(admins) {
-            const tbody = document.getElementById('adminsTableBody');
-            if (!tbody) return;
-
-            if (!admins || admins.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No admin accounts found. Click "Create Admin Account" above.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = admins.map(a => {
-                const roleBadge = a.role === 'super_admin' ? '<span class="badge bg-danger-subtle text-danger fw-bold">Super Admin</span>' : (a.role === 'hostel' ? '<span class="badge bg-primary-subtle text-primary fw-bold">Hostel Admin</span>' : '<span class="badge bg-info-subtle text-info fw-bold">Ferry Admin</span>');
-
-                return '<tr>' +
-                    '<td>#' + a.id + '</td>' +
-                    '<td class="fw-bold text-dark">' + escapeHtml(a.name) + '</td>' +
-                    '<td class="font-monospace text-primary fw-bold">' + escapeHtml(a.username) + '</td>' +
-                    '<td class="small text-muted">' + escapeHtml(a.email || '-') + '</td>' +
-                    '<td>' + roleBadge + '</td>' +
-                    '<td class="small text-muted">' + escapeHtml(a.created_at || '-') + '</td>' +
-                '</tr>';
-            }).join('');
+    async function confirmPayment(bType, bId, action) {
+      const actionText = action === 'approve' ? 'အတည်ပြု (Approve)' : 'ငြင်းပယ် (Reject)';
+      if (!confirm('သင်သည် ဤ ' + bType.toUpperCase() + ' Booking ကို ' + actionText + ' ရန် သေချာပါသလား?')) return;
+      try {
+        const res = await fetch(API_BASE_URL + '/api/admin/confirm-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ booking_type: bType, booking_id: bId, action: action })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          fetchAdminData();
+        } else {
+          alert(data.message || 'Operation failed');
         }
+      } catch (err) {
+        alert('Network error occurred.');
+      }
+    }
 
-        async function submitAddHostel(e) {
-            e.preventDefault();
-            const hostelName = document.getElementById('hostelNameInput').value.trim();
-            const roomNumber = document.getElementById('hostelRoomInput').value.trim();
-            const genderType = document.getElementById('hostelGenderInput').value;
-            const capacity = document.getElementById('hostelCapInput').value;
-            const availableBeds = document.getElementById('hostelBedsInput').value;
-            const kpayQrUrl = document.getElementById('hostelKpayQrInput').value.trim();
-            const description = document.getElementById('hostelDescInput').value.trim();
-            const imageUrl = document.getElementById('hostelImgInput').value.trim();
-
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/add-hostel', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        admin_id: currentAdminId,
-                        hostel_name: hostelName,
-                        room_number: roomNumber,
-                        gender_type: genderType,
-                        capacity: parseInt(capacity),
-                        available_beds: parseInt(availableBeds),
-                        kpay_qr_url: kpayQrUrl,
-                        description: description,
-                        image_url: imageUrl
-                    })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    bootstrap.Modal.getInstance(document.getElementById('addHostelModal'))?.hide();
-                    document.getElementById('addHostelForm').reset();
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to add hostel.');
-                }
-            } catch (err) {
-                alert('Network error while adding hostel.');
-            }
-        }
-
-        function openEditHostelModal(id) {
-            const h = (cachedHostels || []).find(x => (x.id === id || x.hostel_id === id));
-            if (!h) return;
-            document.getElementById('editHostelId').value = h.id || h.hostel_id;
-            document.getElementById('editHostelNameInput').value = h.hostel_name || h.name || '';
-            document.getElementById('editHostelRoomInput').value = h.room_number || h.room || '';
-            document.getElementById('editHostelGenderInput').value = h.gender_type || h.gender || 'Boys';
-            document.getElementById('editHostelCapInput').value = h.capacity || 4;
-            document.getElementById('editHostelBedsInput').value = h.available_beds !== undefined ? h.available_beds : 4;
-            document.getElementById('editHostelKpayQrInput').value = h.kpay_qr_url || 'qrcode.jpg';
-            document.getElementById('editHostelStatusSelect').value = h.status || 'Active';
-            document.getElementById('editHostelDescInput').value = h.description || '';
-            document.getElementById('editHostelImgInput').value = h.image_url || '';
-
-            const modalEl = document.getElementById('editHostelModal');
-            const modalObj = bootstrap.Modal.getOrCreateInstance(modalEl);
-            modalObj.show();
-        }
-
-        async function submitEditHostel(e) {
-            e.preventDefault();
-            const id = document.getElementById('editHostelId').value;
-            const hostelName = document.getElementById('editHostelNameInput').value.trim();
-            const roomNumber = document.getElementById('editHostelRoomInput').value.trim();
-            const genderType = document.getElementById('editHostelGenderInput').value;
-            const capacity = document.getElementById('editHostelCapInput').value;
-            const availableBeds = document.getElementById('editHostelBedsInput').value;
-            const kpayQrUrl = document.getElementById('editHostelKpayQrInput').value.trim();
-            const status = document.getElementById('editHostelStatusSelect').value;
-            const description = document.getElementById('editHostelDescInput').value.trim();
-            const imageUrl = document.getElementById('editHostelImgInput').value.trim();
-
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/edit-hostel', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        hostel_id: parseInt(id),
-                        admin_id: currentAdminId,
-                        hostel_name: hostelName,
-                        room_number: roomNumber,
-                        gender_type: genderType,
-                        capacity: parseInt(capacity),
-                        available_beds: parseInt(availableBeds),
-                        kpay_qr_url: kpayQrUrl,
-                        status: status,
-                        description: description,
-                        image_url: imageUrl
-                    })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    bootstrap.Modal.getInstance(document.getElementById('editHostelModal'))?.hide();
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to update hostel.');
-                }
-            } catch (err) {
-                alert('Network error while updating hostel.');
-            }
-        }
-
-        async function toggleHostelStatus(id) {
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/toggle-hostel-status', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ hostel_id: id, admin_id: currentAdminId })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to toggle status.');
-                }
-            } catch (err) {
-                alert('Network error while toggling hostel status.');
-            }
-        }
-
-        async function deleteHostel(hostelId) {
-            if (!confirm('သင်သည် ဤ Hostel Block ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/delete-hostel', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ hostel_id: hostelId, admin_id: currentAdminId })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to delete hostel.');
-                }
-            } catch (err) {
-                alert('Network error while deleting hostel.');
-            }
-        }
-
-        async function submitAddFerryGroup(e) {
-            e.preventDefault();
-            const groupName = document.getElementById('fgNameInput').value.trim();
-            const description = document.getElementById('fgDescInput').value.trim();
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/add-ferry-group', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ admin_id: currentAdminId, group_name: groupName, description: description })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    bootstrap.Modal.getInstance(document.getElementById('addFerryGroupModal'))?.hide();
-                    document.getElementById('addFerryGroupForm').reset();
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to add ferry group.');
-                }
-            } catch (err) {
-                alert('Network error while adding ferry group.');
-            }
-        }
-
-        async function deleteFerryGroup(groupId) {
-            if (!confirm('သင်သည် ဤ Ferry Group ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/delete-ferry-group', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ group_id: groupId, admin_id: currentAdminId })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to delete ferry group.');
-                }
-            } catch (err) {
-                alert('Network error while deleting ferry group.');
-            }
-        }
-
-        async function submitAddFerry(e) {
-            e.preventDefault();
-            const groupId = document.getElementById('ferryGroupSelect').value;
-            const ferryName = document.getElementById('ferryNameInput').value.trim();
-            const routeName = document.getElementById('ferryRouteInput').value.trim();
-            const departureTime = document.getElementById('ferryTimeInput').value.trim();
-            const capacity = document.getElementById('ferryCapInput').value;
-            const kpayQrUrl = document.getElementById('ferryKpayQrInput').value.trim();
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/add-ferry', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        admin_id: currentAdminId,
-                        group_id: parseInt(groupId),
-                        ferry_name: ferryName,
-                        route_name: routeName,
-                        departure_time: departureTime,
-                        capacity: parseInt(capacity),
-                        available_seats: parseInt(capacity),
-                        kpay_qr_url: kpayQrUrl
-                    })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    bootstrap.Modal.getInstance(document.getElementById('addFerryModal'))?.hide();
-                    document.getElementById('addFerryForm').reset();
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to add ferry route.');
-                }
-            } catch (err) {
-                alert('Network error while adding ferry.');
-            }
-        }
-
-        function openEditFerryModal(id) {
-            const f = (cachedFerries || []).find(x => (x.id === id || x.ferry_id === id));
-            if (!f) return;
-            document.getElementById('editFerryId').value = f.id || f.ferry_id;
-            updateFerryGroupSelectOptions(cachedFerryGroups, 'editFerryGroupSelect');
-            if (document.getElementById('editFerryGroupSelect')) {
-                document.getElementById('editFerryGroupSelect').value = f.group_id || 1;
-            }
-            document.getElementById('editFerryNameInput').value = f.ferry_name || f.name || '';
-            document.getElementById('editFerryRouteInput').value = f.route_name || f.route || '';
-            document.getElementById('editFerryTimeInput').value = f.departure_time || f.time || '07:00 AM';
-            document.getElementById('editFerryCapInput').value = f.capacity || 40;
-            document.getElementById('editFerrySeatsInput').value = f.available_seats !== undefined ? f.available_seats : 40;
-            document.getElementById('editFerryKpayQrInput').value = f.kpay_qr_url || 'qrcode.jpg';
-            document.getElementById('editFerryStatusSelect').value = f.status || 'Active';
-
-            const modalEl = document.getElementById('editFerryModal');
-            const modalObj = bootstrap.Modal.getOrCreateInstance(modalEl);
-            modalObj.show();
-        }
-
-        async function submitEditFerry(e) {
-            e.preventDefault();
-            const id = document.getElementById('editFerryId').value;
-            const groupId = document.getElementById('editFerryGroupSelect').value;
-            const ferryName = document.getElementById('editFerryNameInput').value.trim();
-            const routeName = document.getElementById('editFerryRouteInput').value.trim();
-            const departureTime = document.getElementById('editFerryTimeInput').value.trim();
-            const capacity = document.getElementById('editFerryCapInput').value;
-            const availableSeats = document.getElementById('editFerrySeatsInput').value;
-            const kpayQrUrl = document.getElementById('editFerryKpayQrInput').value.trim();
-            const status = document.getElementById('editFerryStatusSelect').value;
-
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/edit-ferry', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        ferry_id: parseInt(id),
-                        admin_id: currentAdminId,
-                        group_id: parseInt(groupId),
-                        ferry_name: ferryName,
-                        route_name: routeName,
-                        departure_time: departureTime,
-                        capacity: parseInt(capacity),
-                        available_seats: parseInt(availableSeats),
-                        kpay_qr_url: kpayQrUrl,
-                        status: status
-                    })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    bootstrap.Modal.getInstance(document.getElementById('editFerryModal'))?.hide();
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to update ferry route.');
-                }
-            } catch (err) {
-                alert('Network error while updating ferry route.');
-            }
-        }
-
-        async function toggleFerryStatus(id) {
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/toggle-ferry-status', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ ferry_id: id, admin_id: currentAdminId })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to toggle status.');
-                }
-            } catch (err) {
-                alert('Network error while toggling ferry status.');
-            }
-        }
-
-        async function deleteFerry(ferryId) {
-            if (!confirm('သင်သည် ဤ Ferry Route ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/delete-ferry', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ ferry_id: ferryId, admin_id: currentAdminId })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to delete ferry.');
-                }
-            } catch (err) {
-                alert('Network error while deleting ferry.');
-            }
-        }
-
-        async function submitCreateAdmin(e) {
-            e.preventDefault();
-            const role = document.getElementById('newAdminRole').value;
-            const name = document.getElementById('newAdminName').value.trim();
-            const username = document.getElementById('newAdminUsername').value.trim();
-            const password = document.getElementById('newAdminPassword').value.trim();
-
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/create-admin', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ username, password, name, role })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    bootstrap.Modal.getInstance(document.getElementById('createAdminModal'))?.hide();
-                    document.getElementById('createAdminForm').reset();
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Failed to create admin.');
-                }
-            } catch (err) {
-                alert('Network error while creating admin.');
-            }
-        }
-
-        async function confirmPayment(bType, bId, action) {
-            const actionText = action === 'approve' ? 'အတည်ပြု (Approve)' : 'ငြင်းပယ် (Reject)';
-            if (!confirm('သင်သည် ဤ ' + bType.toUpperCase() + ' ငွေပေးချေမှုကို ' + actionText + ' ရန် သေချာပါသလား?')) return;
-
-            try {
-                const res = await fetch(API_BASE_URL + '/api/admin/confirm-payment', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ booking_type: bType, booking_id: bId, action: action })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    alert(data.message);
-                    fetchAdminData();
-                } else {
-                    alert(data.message || 'Operation failed');
-                }
-            } catch (err) {
-                console.error('Confirm payment error:', err);
-                alert('Network error occurred.');
-            }
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-    </script>
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+  </script>
 </body>
 </html>
