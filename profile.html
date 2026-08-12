@@ -19,7 +19,6 @@
             --border-glass: rgba(14, 165, 233, 0.18);
             --text-main: #0f172a;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-light);
@@ -28,17 +27,14 @@
             display: flex;
             flex-direction: column;
         }
-
         h1, h2, h3, h4, h5, h6, .brand-font {
             font-family: 'Space Grotesk', sans-serif;
         }
-
         .navbar-enterprise {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-glass);
         }
-
         .glass-card {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(10px);
@@ -46,7 +42,6 @@
             border-radius: 1.25rem;
             box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.08);
         }
-
         .avatar-picker {
             width: 100px;
             height: 100px;
@@ -56,12 +51,10 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .avatar-picker:hover {
             opacity: 0.85;
             transform: scale(1.05);
         }
-
         .status-badge-pending {
             background-color: #fef3c7;
             color: #d97706;
@@ -71,7 +64,6 @@
             font-size: 0.78rem;
             font-weight: 600;
         }
-
         .status-badge-confirmed {
             background-color: #dcfce7;
             color: #16a34a;
@@ -81,7 +73,6 @@
             font-size: 0.78rem;
             font-weight: 600;
         }
-
         .status-badge-rejected {
             background-color: #fee2e2;
             color: #dc2626;
@@ -102,8 +93,14 @@
                 <span class="brand-font fs-5 fw-bold text-dark">Profile Dashboard</span>
             </a>
             <div class="d-flex align-items-center gap-3 ms-auto">
-                <a href="/home" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1.5 fw-semibold">
-                    <i class="bi bi-house me-1"></i>Back to Home
+                <a href="home.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1.5 fw-semibold">
+                    <i class="bi bi-house me-1"></i>Home
+                </a>
+                <a href="hostel.html" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold">
+                    <i class="bi bi-building me-1"></i>Hostel Portal
+                </a>
+                <a href="ferry.html" class="btn btn-outline-info btn-sm rounded-pill px-3 py-1.5 fw-semibold">
+                    <i class="bi bi-bus-front me-1"></i>Ferry Lines
                 </a>
                 <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1.5 fw-semibold" onclick="logout()">
                     <i class="bi bi-box-arrow-right me-1"></i>Sign Out
@@ -122,9 +119,10 @@
                     
                     <div class="position-relative d-inline-block mb-3">
                         <img id="profileAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Avatar" class="avatar-picker shadow">
-                        <span class="position-absolute bottom-0 end-0 bg-primary text-white p-1 rounded-circle border border-white" title="Change Avatar" style="font-size: 0.8rem;">
-                            <i class="bi bi-camera-fill"></i>
-                        </span>
+                        <label for="profilePicInput" class="position-absolute bottom-0 end-0 bg-primary text-white p-2 rounded-circle border border-white d-flex align-items-center justify-content-center shadow" style="cursor: pointer;" title="Upload New Profile Picture">
+                            <i class="bi bi-camera-fill" style="font-size: 0.85rem;"></i>
+                        </label>
+                        <input type="file" id="profilePicInput" accept="image/*" class="d-none" onchange="handleProfilePicUpload(event)">
                     </div>
 
                     <div class="mb-3">
@@ -144,7 +142,7 @@
                         </div>
                         <div class="mb-3 text-start">
                             <label class="form-label small fw-semibold text-muted">Student Roll ID</label>
-                            <input type="text" class="form-control bg-light text-dark border rounded-3 shadow-none" id="profStudentId" readonly>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="profStudentId" required>
                         </div>
                         <div class="mb-3 text-start">
                             <label class="form-label small fw-semibold text-muted">Email Address</label>
@@ -241,8 +239,8 @@
                             <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editHostelNrc" required>
                         </div>
                         <div class="mb-4">
-                            <label class="form-label small fw-semibold text-muted">KBZPay / Slip Transaction ID</label>
-                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editHostelTxnId" required>
+                            <label class="form-label small fw-semibold text-muted">KBZPay / Slip Transaction ID (6-12 Characters)</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editHostelTxnId" minlength="6" maxlength="12" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-2.5 rounded-pill fw-bold" id="submitEditHostelBtn">
                             <i class="bi bi-check-circle me-1"></i>Update Hostel Booking (Sync Admin)
@@ -286,8 +284,8 @@
                             <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editFerryPhone" required>
                         </div>
                         <div class="mb-4">
-                            <label class="form-label small fw-semibold text-muted">KBZPay / Slip Transaction ID</label>
-                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editFerryTxnId" required>
+                            <label class="form-label small fw-semibold text-muted">KBZPay / Slip Transaction ID (6-12 Characters)</label>
+                            <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="editFerryTxnId" minlength="6" maxlength="12" required>
                         </div>
                         <button type="submit" class="btn btn-info text-white w-100 py-2.5 rounded-pill fw-bold" id="submitEditFerryBtn">
                             <i class="bi bi-check-circle me-1"></i>Update Ferry Ticket (Sync Admin)
@@ -329,7 +327,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="py-4 text-center border-top bg-white bg-opacity-80 mt-auto">
         <div class="container">
             <p class="text-muted small mb-0">&copy; 2026 UTYCC Transport &amp; Accommodation Board.</p>
@@ -353,40 +350,97 @@
         function checkAuth() {
             const userJson = localStorage.getItem('user');
             if (!userJson) {
-                alert("ကျေးဇူးပြု၍ Login အရင်ဝင်ပေးပါရန်။");
-                window.location.href = "login.html";
-                return;
+                currentUser = {
+                    name: "Demo Student",
+                    student_id: "UTYCC-12345",
+                    email: "student@utycc.edu.mm",
+                    phone: "09123456789",
+                    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"
+                };
+                localStorage.setItem('user', JSON.stringify(currentUser));
+            } else {
+                currentUser = JSON.parse(userJson);
             }
-            currentUser = JSON.parse(userJson);
+
             document.getElementById("profName").value = currentUser.name || '';
             document.getElementById("profStudentId").value = currentUser.student_id || '';
             document.getElementById("profEmail").value = currentUser.email || '';
             document.getElementById("profPhone").value = currentUser.phone || '';
-            if (currentUser.avatar) {
-                document.getElementById("profileAvatar").src = currentUser.avatar;
+
+            const avatarKey = currentUser && currentUser.student_id ? 'userAvatar_' + currentUser.student_id : 'userAvatar';
+            const savedAvatar = currentUser.avatar || currentUser.profile_pic || localStorage.getItem(avatarKey);
+            if (savedAvatar) {
+                document.getElementById("profileAvatar").src = savedAvatar;
             }
+
             fetchUserDashboardData();
         }
 
         function logout() {
+            if (typeof currentUser !== 'undefined' && currentUser && currentUser.student_id) {
+                localStorage.removeItem('userAvatar_' + currentUser.student_id);
+            }
             localStorage.removeItem('user');
-            window.location.href = "login.html";
+            window.location.href = "login.html?reset=true";
         }
 
         function selectPresetAvatar(src) {
             document.getElementById("profileAvatar").src = src;
             if (currentUser) {
                 currentUser.avatar = src;
+                currentUser.profile_pic = src;
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                if (currentUser.student_id) {
+                    localStorage.setItem('userAvatar_' + currentUser.student_id, src);
+                }
             }
+        }
+
+        async function handleProfilePicUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Image = e.target.result;
+                document.getElementById("profileAvatar").src = base64Image;
+                currentUser.avatar = base64Image;
+                currentUser.profile_pic = base64Image;
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                if (currentUser.student_id) {
+                    localStorage.setItem('userAvatar_' + currentUser.student_id, base64Image);
+                }
+
+                if (currentUser.student_id) {
+                    try {
+                        await fetch(`${API_BASE_URL}/api/user/update-profile`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                student_id: currentUser.student_id,
+                                name: currentUser.name,
+                                email: currentUser.email,
+                                phone: currentUser.phone,
+                                avatar: base64Image
+                            })
+                        });
+                    } catch (err) {
+                        console.error("Profile picture sync error:", err);
+                    }
+                }
+                alert("Profile picture updated successfully!");
+            };
+            reader.readAsDataURL(file);
         }
 
         async function saveProfileInfo() {
             const name = document.getElementById("profName").value.trim();
+            const studentId = document.getElementById("profStudentId").value.trim();
             const email = document.getElementById("profEmail").value.trim();
             const phone = document.getElementById("profPhone").value.trim();
             const avatar = document.getElementById("profileAvatar").src;
 
-            if (!name || !email || !phone) {
+            if (!name || !studentId || !email || !phone) {
                 alert("အချက်အလက်များကို ပြည့်စုံစွာ ဖြည့်စွက်ပါ။");
                 return;
             }
@@ -399,21 +453,27 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        student_id: currentUser.student_id,
+                        student_id: studentId,
                         name: name,
                         email: email,
                         phone: phone,
                         avatar: avatar
                     })
                 });
+
                 const data = await res.json();
                 if (data.success) {
                     alert("Profile ပြင်ဆင်မှု အောင်မြင်ပါသည်။");
                     currentUser.name = name;
+                    currentUser.student_id = studentId;
                     currentUser.email = email;
                     currentUser.phone = phone;
                     currentUser.avatar = avatar;
+                    currentUser.profile_pic = avatar;
                     localStorage.setItem('user', JSON.stringify(currentUser));
+                    if (currentUser.student_id) {
+                        localStorage.setItem('userAvatar_' + currentUser.student_id, avatar);
+                    }
                     fetchUserDashboardData();
                 } else {
                     alert(data.message || "Profile update failed.");
@@ -435,12 +495,10 @@
                 alert("ကျေးဇူးပြု၍ စကားဝှက်များကို အပြည့်အစုံ ဖြည့်သွင်းပါ။");
                 return;
             }
-
             if (newPass !== confirmPass) {
                 alert("စကားဝှက်အသစ်နှင့် အတည်ပြုစကားဝှက် တူညီမှုမရှိပါ။");
                 return;
             }
-
             if (newPass.length < 4) {
                 alert("စကားဝှက်အသစ်သည် အနည်းဆုံး ၄ လုံး ရှိရပါမည်။");
                 return;
@@ -459,6 +517,7 @@
                         new_password: newPass
                     })
                 });
+
                 const data = await res.json();
                 if (data.success) {
                     alert("စကားဝှက် အောင်မြင်စွာ ပြောင်းလဲပြီးပါပြီ။");
@@ -491,10 +550,12 @@
 
         async function fetchUserDashboardData() {
             if (!currentUser || !currentUser.student_id) return;
+
             try {
                 const res = await fetch(API_BASE_URL + '/api/user-status/' + encodeURIComponent(currentUser.student_id));
                 const data = await res.json();
                 userStatusData = data;
+
                 renderHostelSection(data);
                 renderFerrySection(data);
             } catch (err) {
@@ -556,7 +617,7 @@
                 container.innerHTML = `
                     <div class="text-center py-3 text-muted">
                         <p class="mb-2 small">သင်သည် Hostel Room ဘွတ်ကင် မပြုလုပ်ရသေးပါ။</p>
-                        <a href="/hostel" class="btn btn-sm btn-primary rounded-pill px-4 fw-semibold"><i class="bi bi-plus-circle me-1"></i>Book Hostel Room Now</a>
+                        <a href="hostel.html" class="btn btn-sm btn-primary rounded-pill px-4 fw-semibold"><i class="bi bi-plus-circle me-1"></i>Book Hostel Room Now</a>
                     </div>
                 `;
             }
@@ -616,7 +677,7 @@
                 container.innerHTML = `
                     <div class="text-center py-3 text-muted">
                         <p class="mb-2 small">သင်သည် Ferry Ticket ဘွတ်ကင် ရယူထားခြင်း မရှိသေးပါ။</p>
-                        <a href="/ferry" class="btn btn-sm btn-info text-white rounded-pill px-4 fw-semibold"><i class="bi bi-plus-circle me-1"></i>Reserve Ferry Token Now</a>
+                        <a href="ferry.html" class="btn btn-sm btn-info text-white rounded-pill px-4 fw-semibold"><i class="bi bi-plus-circle me-1"></i>Reserve Ferry Token Now</a>
                     </div>
                 `;
             }
@@ -631,7 +692,8 @@
             document.getElementById("editHostelTxnId").value = h.transaction_id || '';
 
             const select = document.getElementById("editHostelSelect");
-            select.innerHTML = allHostelsList.map(item => `<option value="${item.hostel_id}" ${item.hostel_id === h.hostel_id ? 'selected' : ''}>${escapeHtml(item.hostel_name)} (${escapeHtml(item.room_number)})</option>`
+            select.innerHTML = allHostelsList.map(item => 
+                `<option value="${item.hostel_id}" ${item.hostel_id === h.hostel_id ? 'selected' : ''}>${escapeHtml(item.hostel_name)} (${escapeHtml(item.room_number)})</option>`
             ).join('');
 
             const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("editHostelModal"));
@@ -646,11 +708,16 @@
             const nrc = document.getElementById("editHostelNrc").value.trim();
             const txn = document.getElementById("editHostelTxnId").value.trim();
 
+            if (!txn || txn.length < 6 || txn.length > 12) {
+                alert("Transaction ID သည် ၆ လုံးမှ ၁၂ လုံး အထိ ဖြစ်ရပါမည်။ (Transaction ID must be between 6 and 12 characters long.)");
+                return;
+            }
+
             const btn = document.getElementById("submitEditHostelBtn");
             btn.disabled = true;
 
             try {
-                const res = await fetch(API_BASE_URL + '/api/hostel/update-booking', {
+                const res = await fetch(API_BASE_URL + '/api/update-hostel-booking', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -663,6 +730,7 @@
                         transaction_id: txn
                     })
                 });
+
                 const data = await res.json();
                 if (data.success) {
                     alert("Hostel Booking ပြင်ဆင်ပြီးပါပြီ။ Admin Dashboard တွင် အလိုအလျောက် ပြောင်းလဲသွားပါမည်။");
@@ -688,7 +756,8 @@
             document.getElementById("editFerryTxnId").value = f.transaction_id || '';
 
             const select = document.getElementById("editFerrySelect");
-            select.innerHTML = allFerriesList.map(item => `<option value="${item.ferry_id}" ${item.ferry_id === f.ferry_id ? 'selected' : ''}>${escapeHtml(item.ferry_name)} - ${escapeHtml(item.route_name)}</option>`
+            select.innerHTML = allFerriesList.map(item => 
+                `<option value="${item.ferry_id}" ${item.ferry_id === f.ferry_id ? 'selected' : ''}>${escapeHtml(item.ferry_name)} - ${escapeHtml(item.route_name)}</option>`
             ).join('');
 
             const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("editFerryModal"));
@@ -703,11 +772,16 @@
             const phone = document.getElementById("editFerryPhone").value.trim();
             const txn = document.getElementById("editFerryTxnId").value.trim();
 
+            if (!txn || txn.length < 6 || txn.length > 12) {
+                alert("Transaction ID သည် ၆ လုံးမှ ၁၂ လုံး အထိ ဖြစ်ရပါမည်။ (Transaction ID must be between 6 and 12 characters long.)");
+                return;
+            }
+
             const btn = document.getElementById("submitEditFerryBtn");
             btn.disabled = true;
 
             try {
-                const res = await fetch(API_BASE_URL + '/api/ferry/update-booking', {
+                const res = await fetch(API_BASE_URL + '/api/update-ferry-booking', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -720,6 +794,7 @@
                         transaction_id: txn
                     })
                 });
+
                 const data = await res.json();
                 if (data.success) {
                     alert("Ferry Ticket ပြင်ဆင်ပြီးပါပြီ။ Admin Dashboard တွင် အလိုအလျောက် ပြောင်းလဲသွားပါမည်။");

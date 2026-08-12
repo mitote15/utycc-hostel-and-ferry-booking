@@ -1,12 +1,20 @@
 import json
 import os
+import re
 import shutil
+import smtplib
 import sqlite3
 import urllib.parse
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_FILE = os.path.join(BASE_DIR, "utycc.db")
+
+# Gmail Configurations
+GMAIL_SENDER = "sithukyaw6mdy@gmail.com"
+GMAIL_APP_PASSWORD = "mmvxpntlwlhezwml"
 
 
 def get_db_connection():
@@ -46,14 +54,20 @@ def init_sqlite_db():
     cursor.execute("PRAGMA table_info(users)")
     user_cols = [col[1] for col in cursor.fetchall()]
     if "avatar" not in user_cols:
-        try: cursor.execute("ALTER TABLE users ADD COLUMN avatar TEXT")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE users ADD COLUMN avatar TEXT")
+        except Exception:
+            pass
     if "phone" not in user_cols:
-        try: cursor.execute("ALTER TABLE users ADD COLUMN phone TEXT")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE users ADD COLUMN phone TEXT")
+        except Exception:
+            pass
     if "role" not in user_cols:
-        try: cursor.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'student'")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'student'")
+        except Exception:
+            pass
 
     # Admins Table
     cursor.execute("""CREATE TABLE IF NOT EXISTS admins (
@@ -68,8 +82,10 @@ def init_sqlite_db():
     cursor.execute("PRAGMA table_info(admins)")
     admin_cols = [col[1] for col in cursor.fetchall()]
     if "role" not in admin_cols:
-        try: cursor.execute("ALTER TABLE admins ADD COLUMN role TEXT DEFAULT 'super_admin'")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE admins ADD COLUMN role TEXT DEFAULT 'super_admin'")
+        except Exception:
+            pass
 
     # Hostels Table
     cursor.execute("""CREATE TABLE IF NOT EXISTS hostels (
@@ -89,14 +105,20 @@ def init_sqlite_db():
     cursor.execute("PRAGMA table_info(hostels)")
     hostel_cols = [col[1] for col in cursor.fetchall()]
     if "admin_id" not in hostel_cols:
-        try: cursor.execute("ALTER TABLE hostels ADD COLUMN admin_id INTEGER")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE hostels ADD COLUMN admin_id INTEGER")
+        except Exception:
+            pass
     if "kpay_qr_url" not in hostel_cols:
-        try: cursor.execute("ALTER TABLE hostels ADD COLUMN kpay_qr_url TEXT")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE hostels ADD COLUMN kpay_qr_url TEXT")
+        except Exception:
+            pass
     if "status" not in hostel_cols:
-        try: cursor.execute("ALTER TABLE hostels ADD COLUMN status TEXT DEFAULT 'Active'")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE hostels ADD COLUMN status TEXT DEFAULT 'Active'")
+        except Exception:
+            pass
 
     # Hostel Bookings Table
     cursor.execute("""CREATE TABLE IF NOT EXISTS hostel_bookings (
@@ -127,8 +149,10 @@ def init_sqlite_db():
     cursor.execute("PRAGMA table_info(ferry_groups)")
     fg_cols = [col[1] for col in cursor.fetchall()]
     if "admin_id" not in fg_cols:
-        try: cursor.execute("ALTER TABLE ferry_groups ADD COLUMN admin_id INTEGER")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE ferry_groups ADD COLUMN admin_id INTEGER")
+        except Exception:
+            pass
 
     # Ferries Table
     cursor.execute("""CREATE TABLE IF NOT EXISTS ferries (
@@ -148,14 +172,20 @@ def init_sqlite_db():
     cursor.execute("PRAGMA table_info(ferries)")
     ferry_cols = [col[1] for col in cursor.fetchall()]
     if "admin_id" not in ferry_cols:
-        try: cursor.execute("ALTER TABLE ferries ADD COLUMN admin_id INTEGER")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE ferries ADD COLUMN admin_id INTEGER")
+        except Exception:
+            pass
     if "kpay_qr_url" not in ferry_cols:
-        try: cursor.execute("ALTER TABLE ferries ADD COLUMN kpay_qr_url TEXT")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE ferries ADD COLUMN kpay_qr_url TEXT")
+        except Exception:
+            pass
     if "status" not in ferry_cols:
-        try: cursor.execute("ALTER TABLE ferries ADD COLUMN status TEXT DEFAULT 'Active'")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE ferries ADD COLUMN status TEXT DEFAULT 'Active'")
+        except Exception:
+            pass
 
     # Ferry Bookings Table
     cursor.execute("""CREATE TABLE IF NOT EXISTS ferry_bookings (
@@ -198,8 +228,10 @@ def init_sqlite_db():
     cursor.execute("PRAGMA table_info(inquiries)")
     inq_cols = [col[1] for col in cursor.fetchall()]
     if "email" not in inq_cols:
-        try: cursor.execute("ALTER TABLE inquiries ADD COLUMN email TEXT")
-        except Exception: pass
+        try:
+            cursor.execute("ALTER TABLE inquiries ADD COLUMN email TEXT")
+        except Exception:
+            pass
 
     # Default Super Admin Seed
     cursor.execute("SELECT id FROM admins WHERE username='admin'")
@@ -232,13 +264,13 @@ def verify_user(student_id, password):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT id, name, student_id, email, phone, role FROM users WHERE TRIM(student_id)=? AND password=?",
+        "SELECT id, name, student_id, email, phone, role, avatar FROM users WHERE TRIM(student_id)=? AND password=?",
         (str(student_id).strip(), str(password))
     )
     row = cursor.fetchone()
     conn.close()
     if row:
-        u_id, u_name, u_s_id, u_email, u_phone, u_role = row
+        u_id, u_name, u_s_id, u_email, u_phone, u_role, u_avatar = row
         return {
             "id": u_id,
             "name": u_name,
@@ -246,11 +278,16 @@ def verify_user(student_id, password):
             "email": u_email,
             "phone": u_phone,
             "role": u_role,
+            "avatar": u_avatar or "",
+            "profile_pic": u_avatar or "",
         }
     return None
 
 
 def register_user(name, student_id, email, phone, password):
+    email_regex = r'^[a-zA-Z0-9_.+-]+@gmail\.com$'
+    if not re.match(email_regex, str(email).strip()):
+        return False, "ကျေးဇူးပြု၍ မှန်ကန်သော Gmail လိပ်စာ (@gmail.com) ကိုသာ ထည့်သွင်းပါ။"
     conn = get_db_connection()
     cursor = conn.cursor()
     clean_student_id = str(student_id).strip()
@@ -293,6 +330,55 @@ def verify_admin(username, password, role=None):
             "role": db_role,
         }
     return None
+
+
+def send_verification_email(receiver_email, otp_code):
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "UTYCC Portal - Email Verification OTP"
+    message["From"] = GMAIL_SENDER
+    message["To"] = receiver_email
+    text = f"Your UTYCC Portal verification code is: {otp_code}"
+    html = f"<p>Your UTYCC Portal verification code is: <b>{otp_code}</b></p>"
+    message.attach(MIMEText(text, "plain"))
+    message.attach(MIMEText(html, "html"))
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(GMAIL_SENDER, GMAIL_APP_PASSWORD)
+            server.sendmail(GMAIL_SENDER, receiver_email, message.as_string())
+        return True
+    except Exception as e:
+        print(f"Error sending verification email: {e}")
+        return False
+
+
+def send_gmail_notification(to_email, full_name, student_id, service_category, message_body):
+    subject = f"[UTYCC Portal] New Inquiry: {service_category} from {full_name}"
+    html_content = f"""
+    <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f6f9; border-radius: 10px;">
+        <h2 style="color: #0284c7;">UTYCC Smart Campus - New Inquiry Received</h2>
+        <p><b>Full Name:</b> {full_name}</p>
+        <p><b>Student ID / Roll No:</b> {student_id}</p>
+        <p><b>Service Category:</b> {service_category}</p>
+        <p><b>Message Details:</b></p>
+        <div style="background: #ffffff; padding: 15px; border-left: 4px solid #0284c7; border-radius: 5px;">
+            {message_body}
+        </div>
+        <p style="font-size: 12px; color: #666; margin-top: 20px;">This is an automated notification from UTYCC Enterprise Portal.</p>
+    </div>
+    """
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    msg["From"] = GMAIL_SENDER
+    msg["To"] = to_email
+    msg.attach(MIMEText(html_content, "html"))
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(GMAIL_SENDER, GMAIL_APP_PASSWORD)
+            server.sendmail(GMAIL_SENDER, to_email, msg.as_string())
+        return True
+    except Exception as e:
+        print("Gmail Error:", e)
+        return False
 
 
 class UTYCCPortalHandler(SimpleHTTPRequestHandler):
@@ -374,7 +460,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 pass
 
             path = self.path
-            if path in ["/api/user/update-profile", "/api/update-profile"]:
+            if path in ["/api/user/update-profile", "/api/update-profile", "/api/update-profile-pic"]:
                 self.handle_update_profile(data)
             elif path in ["/api/user/change-password", "/api/change-password"]:
                 self.handle_change_password(data)
@@ -390,6 +476,10 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 self.handle_create_admin(data)
             elif path == "/api/admin/delete-admin":
                 self.handle_delete_admin(data)
+            elif path in ["/api/admin/delete-student", "/api/delete-student"]:
+                self.handle_delete_student(data)
+            elif path in ["/api/admin/delete-all-students", "/api/delete-all-students"]:
+                self.handle_delete_all_students(data)
             elif path == "/api/admin/add-hostel":
                 self.handle_add_hostel(data)
             elif path in ["/api/admin/edit-hostel", "/api/admin/update-hostel"]:
@@ -454,42 +544,118 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(data).encode("utf-8"))
 
     def handle_update_profile(self, data):
-        student_id = str(data.get("student_id", "")).strip()
+        user_id = data.get("id") or data.get("user_id")
+        old_student_id = str(data.get("old_student_id", "") or data.get("current_student_id", "")).strip()
+        student_id = str(data.get("student_id", "") or data.get("new_student_id", "")).strip()
         name = str(data.get("name", "")).strip()
         email = str(data.get("email", "")).strip()
         phone = str(data.get("phone", "")).strip()
-        avatar = str(data.get("avatar", "")).strip()
-        if not student_id or not name:
-            self.send_json({"success": False, "message": "Student ID and Name are required."}, 400)
-            return
+        avatar = str(data.get("avatar", "") or data.get("profile_pic", "")).strip()
+
         conn = get_db_connection()
         cursor = conn.cursor()
+
+        row = None
+        # 1. Look up by user DB id if provided
+        if user_id:
+            cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE id = ?", (user_id,))
+            row = cursor.fetchone()
+
+        # 2. Look up by old_student_id if explicitly passed
+        if not row and old_student_id:
+            cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE TRIM(student_id) = ?", (old_student_id,))
+            row = cursor.fetchone()
+
+        # 3. Look up by student_id
+        if not row and student_id:
+            cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE TRIM(student_id) = ?", (student_id,))
+            row = cursor.fetchone()
+
+        # 4. Fallback search by email if student_id was updated
+        if not row and email:
+            cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE TRIM(email) = ?", (email,))
+            row = cursor.fetchone()
+
+        if not row:
+            conn.close()
+            self.send_json({"success": False, "message": "User not found."}, 404)
+            return
+
+        u_id, ex_name, ex_student_id, ex_email, ex_phone, ex_avatar = row
+
+        final_student_id = student_id if student_id else ex_student_id
+        final_name = name if name else ex_name
+        final_email = email if email else ex_email
+        final_phone = phone if phone else ex_phone
+        final_avatar = avatar if avatar else ex_avatar
+
+        # Check if the new student_id belongs to another registered account
+        if final_student_id != ex_student_id:
+            cursor.execute("SELECT id FROM users WHERE TRIM(student_id) = ? AND id != ?", (final_student_id, u_id))
+            if cursor.fetchone():
+                conn.close()
+                self.send_json({"success": False, "message": "Student Roll ID is already taken by another account."}, 400)
+                return
+
+        # Update users table
         cursor.execute(
-            "UPDATE users SET name=?, email=?, phone=?, avatar=? WHERE TRIM(student_id)=?",
-            (name, email, phone, avatar, student_id),
+            "UPDATE users SET student_id=?, name=?, email=?, phone=?, avatar=? WHERE id=?",
+            (final_student_id, final_name, final_email, final_phone, final_avatar, u_id)
         )
+
+        # Update existing bookings and inquiries if student_id changed
+        if final_student_id != ex_student_id:
+            cursor.execute("UPDATE hostel_bookings SET student_id=? WHERE TRIM(student_id)=?", (final_student_id, ex_student_id))
+            cursor.execute("UPDATE ferry_bookings SET student_id=? WHERE TRIM(student_id)=?", (final_student_id, ex_student_id))
+            cursor.execute("UPDATE inquiries SET student_id=? WHERE TRIM(student_id)=?", (final_student_id, ex_student_id))
+
         conn.commit()
         conn.close()
-        self.send_json({"success": True, "message": "Profile updated successfully!"})
+
+        self.send_json({
+            "success": True,
+            "message": "Profile updated successfully!",
+            "user": {
+                "id": u_id,
+                "student_id": final_student_id,
+                "name": final_name,
+                "email": final_email,
+                "phone": final_phone,
+                "avatar": final_avatar,
+                "profile_pic": final_avatar
+            }
+        })
 
     def handle_change_password(self, data):
+        user_id = data.get("id") or data.get("user_id")
         student_id = str(data.get("student_id", "")).strip()
         current_password = str(data.get("current_password", "")).strip()
         new_password = str(data.get("new_password", "")).strip()
-        if not student_id or not current_password or not new_password:
-            self.send_json({"success": False, "message": "Student ID, current password, and new password are required."}, 400)
+
+        if not current_password or not new_password:
+            self.send_json({"success": False, "message": "Current password and new password are required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT id FROM users WHERE TRIM(student_id) = ? AND password = ?", (student_id, current_password))
-        user_row = cursor.fetchone()
+
+        user_row = None
+        if user_id:
+            cursor.execute("SELECT id FROM users WHERE id = ? AND password = ?", (user_id, current_password))
+            user_row = cursor.fetchone()
+        if not user_row and student_id:
+            cursor.execute("SELECT id FROM users WHERE TRIM(student_id) = ? AND password = ?", (student_id, current_password))
+            user_row = cursor.fetchone()
+
         if not user_row:
             conn.close()
             self.send_json({"success": False, "message": "လက်ရှိ စကားဝှက် မှားယွင်းနေပါသည်။"}, 400)
             return
-        cursor.execute("UPDATE users SET password = ? WHERE TRIM(student_id) = ?", (new_password, student_id))
+
+        cursor.execute("UPDATE users SET password = ? WHERE id = ?", (new_password, user_row[0]))
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "စကားဝှက် အောင်မြင်စွာ ပြောင်းလဲပြီးပါပြီ။"})
 
     def handle_admin_register(self, data):
@@ -498,12 +664,15 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         name = str(data.get("name", "")).strip()
         email = str(data.get("email", "")).strip()
         role = str(data.get("role", "hostel")).strip().lower()
+
         if role == "super_admin":
             self.send_json({"success": False, "message": "Public registration for Super Admin role is restricted."}, 403)
             return
+
         if not username or not password:
             self.send_json({"success": False, "message": "Username and password are required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT id FROM admins WHERE username = ?", (username,))
@@ -511,12 +680,14 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             conn.close()
             self.send_json({"success": False, "message": "Admin username already registered."}, 400)
             return
+
         cursor.execute(
             "INSERT INTO admins (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)",
             (username, password, name or username, email or f"{username}@utycc.edu.mm", role)
         )
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": f"{role.upper()} Admin account registered successfully!"})
 
     def handle_create_admin(self, data):
@@ -525,9 +696,11 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         name = str(data.get("name", "")).strip()
         email = str(data.get("email", "")).strip()
         role = str(data.get("role", "hostel")).strip().lower()
+
         if not username or not password:
             self.send_json({"success": False, "message": "Username and Password are required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT id FROM admins WHERE username = ?", (username,))
@@ -535,23 +708,61 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             conn.close()
             self.send_json({"success": False, "message": "Username already exists."}, 400)
             return
+
         cursor.execute(
             "INSERT INTO admins (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)",
             (username, password, name or username, email or f"{username}@utycc.edu.mm", role)
         )
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": f"New {role.upper()} account created successfully!"})
+
+    def handle_delete_student(self, data):
+        admin_id = data.get("admin_id")
+        if not is_super_admin(admin_id):
+            self.send_json({"success": False, "message": "Unauthorized. Only Super Admin can delete student accounts."}, 403)
+            return
+
+        student_id = data.get("student_id") or data.get("id") or data.get("target_student_id")
+        if not student_id:
+            self.send_json({"success": False, "message": "Student ID is required."}, 400)
+            return
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM users WHERE id = ? OR TRIM(student_id) = ?", (student_id, str(student_id).strip()))
+        conn.commit()
+        conn.close()
+
+        self.send_json({"success": True, "message": "Student account deleted successfully!"})
+
+    def handle_delete_all_students(self, data):
+        admin_id = data.get("admin_id")
+        if not is_super_admin(admin_id):
+            self.send_json({"success": False, "message": "Unauthorized. Only Super Admin can delete student accounts."}, 403)
+            return
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM users WHERE role = 'student' OR role IS NULL OR role = ''")
+        conn.commit()
+        conn.close()
+
+        self.send_json({"success": True, "message": "All registered student accounts deleted successfully!"})
 
     def handle_delete_admin(self, data):
         admin_id = data.get("admin_id")
         target_admin_id = data.get("target_admin_id") or data.get("id")
+
         if not is_super_admin(admin_id):
             self.send_json({"success": False, "message": "Unauthorized. Only Super Admin can delete admin accounts."}, 403)
             return
+
         if not target_admin_id:
             self.send_json({"success": False, "message": "Admin ID is required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT username FROM admins WHERE id = ?", (target_admin_id,))
@@ -560,9 +771,11 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             conn.close()
             self.send_json({"success": False, "message": "System Administrator (admin) account cannot be deleted."}, 400)
             return
+
         cursor.execute("DELETE FROM admins WHERE id = ?", (target_admin_id,))
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Admin account deleted successfully!"})
 
     def handle_add_hostel(self, data):
@@ -573,11 +786,13 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         capacity = int(data.get("capacity", 4))
         available_beds = int(data.get("available_beds", capacity))
         description = str(data.get("description", "")).strip()
-        image_url = str(data.get("image_url", "")).strip() or "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80"
+        image_url = str(data.get("image_url", "")).strip() or ""
         kpay_qr_url = str(data.get("kpay_qr_url", "")).strip() or ""
+
         if not hostel_name or not room_number:
             self.send_json({"success": False, "message": "Hostel Name and Room Number are required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
@@ -587,6 +802,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         )
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Hostel block added successfully!"})
 
     def handle_edit_hostel(self, data):
@@ -601,9 +817,11 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         image_url = str(data.get("image_url", "")).strip()
         kpay_qr_url = str(data.get("kpay_qr_url", "")).strip() or ""
         status = str(data.get("status", "Active")).strip()
+
         if not hostel_id or not hostel_name or not room_number:
             self.send_json({"success": False, "message": "Hostel ID, Name, and Room Number are required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         if is_super_admin(admin_id):
@@ -618,11 +836,13 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             )
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Hostel information updated successfully!"})
 
     def handle_toggle_hostel_status(self, data):
         hostel_id = data.get("hostel_id") or data.get("id")
         admin_id = data.get("admin_id")
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT status FROM hostels WHERE hostel_id = ?", (hostel_id,))
@@ -631,19 +851,24 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             conn.close()
             self.send_json({"success": False, "message": "Hostel not found"}, 404)
             return
+
         current_status = row[0] or "Active"
         new_status = "Inactive" if current_status == "Active" else "Active"
+
         if is_super_admin(admin_id):
             cursor.execute("UPDATE hostels SET status = ? WHERE hostel_id = ?", (new_status, hostel_id))
         else:
             cursor.execute("UPDATE hostels SET status = ? WHERE hostel_id = ? AND (admin_id = ? OR admin_id IS NULL)", (new_status, hostel_id, admin_id))
+
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": f"Hostel status set to {new_status}", "status": new_status})
 
     def handle_delete_hostel(self, data):
         hostel_id = data.get("hostel_id")
         admin_id = data.get("admin_id")
+
         conn = get_db_connection()
         cursor = conn.cursor()
         if is_super_admin(admin_id):
@@ -652,15 +877,18 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             cursor.execute("DELETE FROM hostels WHERE hostel_id = ? AND (admin_id = ? OR admin_id IS NULL)", (hostel_id, admin_id))
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Hostel block removed successfully!"})
 
     def handle_add_ferry_group(self, data):
         admin_id = data.get("admin_id")
         group_name = str(data.get("group_name", "")).strip()
         description = str(data.get("description", "")).strip()
+
         if not group_name:
             self.send_json({"success": False, "message": "Group Name is required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
@@ -669,11 +897,13 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         )
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Ferry route group created successfully!"})
 
     def handle_delete_ferry_group(self, data):
         group_id = data.get("group_id")
         admin_id = data.get("admin_id")
+
         conn = get_db_connection()
         cursor = conn.cursor()
         if is_super_admin(admin_id):
@@ -682,6 +912,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             cursor.execute("DELETE FROM ferry_groups WHERE group_id = ? AND (admin_id = ? OR admin_id IS NULL)", (group_id, admin_id))
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Ferry group removed successfully!"})
 
     def handle_add_ferry(self, data):
@@ -693,9 +924,11 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         available_seats = int(data.get("available_seats", capacity))
         group_id = int(data.get("group_id", 1))
         kpay_qr_url = str(data.get("kpay_qr_url", "")).strip() or ""
+
         if not ferry_name or not route_name:
             self.send_json({"success": False, "message": "Ferry Name and Route Name are required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
@@ -705,6 +938,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         )
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Ferry line added successfully!"})
 
     def handle_edit_ferry(self, data):
@@ -718,9 +952,11 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         available_seats = int(data.get("available_seats", capacity))
         kpay_qr_url = str(data.get("kpay_qr_url", "")).strip() or ""
         status = str(data.get("status", "Active")).strip()
+
         if not ferry_id or not ferry_name or not route_name:
             self.send_json({"success": False, "message": "Ferry ID, Name, and Route Name are required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         if is_super_admin(admin_id):
@@ -735,11 +971,13 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             )
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Ferry route updated successfully!"})
 
     def handle_toggle_ferry_status(self, data):
         ferry_id = data.get("ferry_id") or data.get("id")
         admin_id = data.get("admin_id")
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT status FROM ferries WHERE ferry_id = ?", (ferry_id,))
@@ -748,19 +986,24 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             conn.close()
             self.send_json({"success": False, "message": "Ferry line not found"}, 404)
             return
+
         current_status = row[0] or "Active"
         new_status = "Inactive" if current_status == "Active" else "Active"
+
         if is_super_admin(admin_id):
             cursor.execute("UPDATE ferries SET status = ? WHERE ferry_id = ?", (new_status, ferry_id))
         else:
             cursor.execute("UPDATE ferries SET status = ? WHERE ferry_id = ? AND (admin_id = ? OR admin_id IS NULL)", (new_status, ferry_id, admin_id))
+
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": f"Ferry status set to {new_status}", "status": new_status})
 
     def handle_delete_ferry(self, data):
         ferry_id = data.get("ferry_id")
         admin_id = data.get("admin_id")
+
         conn = get_db_connection()
         cursor = conn.cursor()
         if is_super_admin(admin_id):
@@ -769,6 +1012,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             cursor.execute("DELETE FROM ferries WHERE ferry_id = ? AND (admin_id = ? OR admin_id IS NULL)", (ferry_id, admin_id))
         conn.commit()
         conn.close()
+
         self.send_json({"success": True, "message": "Ferry line removed successfully!"})
 
     def handle_get_ferries(self):
@@ -779,6 +1023,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         )
         rows = cursor.fetchall()
         conn.close()
+
         ferries = []
         for fid, gid, fname, rname, dtime, cap, aseats, st, kpay in rows:
             ferries.append({
@@ -800,6 +1045,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         cursor.execute("SELECT group_id, group_name, description FROM ferry_groups")
         rows = cursor.fetchall()
         conn.close()
+
         groups = []
         for gid, gname, desc in rows:
             groups.append({"group_id": gid, "group_name": gname, "description": desc})
@@ -814,6 +1060,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         )
         rows = cursor.fetchall()
         conn.close()
+
         ferries = []
         for fid, gid, fname, rname, dtime, cap, aseats, st, kpay in rows:
             ferries.append({
@@ -837,6 +1084,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         )
         rows = cursor.fetchall()
         conn.close()
+
         hostels = []
         for hid, hname, rnum, gtype, cap, abeds, desc, img, st, kpay in rows:
             hostels.append({
@@ -856,14 +1104,33 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
     def handle_user_status(self, student_id):
         conn = get_db_connection()
         cursor = conn.cursor()
+        clean_sid = str(student_id).strip()
+
+        cursor.execute("SELECT id, name, student_id, email, phone, role, avatar FROM users WHERE TRIM(student_id) = ?", (clean_sid,))
+        user_row = cursor.fetchone()
+        user_data = None
+        if user_row:
+            u_id, u_name, u_sid, u_email, u_phone, u_role, u_avatar = user_row
+            user_data = {
+                "id": u_id,
+                "name": u_name,
+                "student_id": u_sid,
+                "email": u_email or "",
+                "phone": u_phone or "",
+                "role": u_role or "student",
+                "avatar": u_avatar or "",
+                "profile_pic": u_avatar or ""
+            }
+
         cursor.execute(
-            "SELECT hb.booking_id, h.hostel_id, h.hostel_name, h.room_number, hb.payment_status, hb.status FROM hostel_bookings hb JOIN hostels h ON hb.hostel_id = h.hostel_id WHERE TRIM(hb.student_id) = ? AND hb.status != 'Cancelled' ORDER BY hb.booking_id DESC LIMIT 1",
-            (str(student_id).strip(),)
+            "SELECT hb.booking_id, h.hostel_id, h.hostel_name, h.room_number, hb.payment_status, hb.status, hb.student_name, hb.student_year, hb.national_id, hb.transaction_id FROM hostel_bookings hb JOIN hostels h ON hb.hostel_id = h.hostel_id WHERE TRIM(hb.student_id) = ? AND hb.status != 'Cancelled' ORDER BY hb.booking_id DESC LIMIT 1",
+            (clean_sid,)
         )
         hostel_row = cursor.fetchone()
+
         cursor.execute(
-            "SELECT fb.booking_id, f.ferry_id, f.ferry_name, f.route_name, fb.payment_status, fb.status FROM ferry_bookings fb JOIN ferries f ON fb.ferry_id = f.ferry_id WHERE TRIM(fb.student_id) = ? AND fb.status != 'Cancelled' ORDER BY fb.booking_id DESC LIMIT 1",
-            (str(student_id).strip(),)
+            "SELECT fb.booking_id, f.ferry_id, f.ferry_name, f.route_name, fb.payment_status, fb.status, fb.student_name, fb.student_year, fb.student_phone, fb.transaction_id FROM ferry_bookings fb JOIN ferries f ON fb.ferry_id = f.ferry_id WHERE TRIM(fb.student_id) = ? AND fb.status != 'Cancelled' ORDER BY fb.booking_id DESC LIMIT 1",
+            (clean_sid,)
         )
         ferry_row = cursor.fetchone()
         conn.close()
@@ -871,7 +1138,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         has_hostel = bool(hostel_row)
         hostel_data = None
         if hostel_row:
-            h_bid, h_hid, h_hname, h_rnum, h_payst, h_st = hostel_row
+            h_bid, h_hid, h_hname, h_rnum, h_payst, h_st, h_sname, h_syear, h_nid, h_txid = hostel_row
             hostel_data = {
                 "booking_id": h_bid,
                 "hostel_id": h_hid,
@@ -879,12 +1146,16 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 "room_number": h_rnum,
                 "payment_status": h_payst,
                 "status": h_st,
+                "student_name": h_sname,
+                "student_year": h_syear,
+                "national_id": h_nid,
+                "transaction_id": h_txid or "",
             }
 
         has_ferry = bool(ferry_row)
         ferry_data = None
         if ferry_row:
-            f_bid, f_fid, f_fname, f_rname, f_payst, f_st = ferry_row
+            f_bid, f_fid, f_fname, f_rname, f_payst, f_st, f_sname, f_syear, f_sphone, f_txid = ferry_row
             ferry_data = {
                 "booking_id": f_bid,
                 "ferry_id": f_fid,
@@ -892,10 +1163,15 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 "route_name": f_rname,
                 "payment_status": f_payst,
                 "status": f_st,
+                "student_name": f_sname,
+                "student_year": f_syear,
+                "student_phone": f_sphone,
+                "transaction_id": f_txid or "",
             }
 
         self.send_json({
             "success": True,
+            "user": user_data,
             "has_hostel": has_hostel,
             "hostel": hostel_data,
             "has_ferry": has_ferry,
@@ -929,13 +1205,14 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                     breakdown[r_val] += 1
                     total_rating_sum += r_val
                 else:
-                    breakdown += 1
+                    breakdown[5] += 1
                     total_rating_sum += 5
             except (ValueError, TypeError):
-                breakdown += 1
+                breakdown[5] += 1
                 total_rating_sum += 5
 
         avg_rating = round(total_rating_sum / total_count, 1) if total_count > 0 else 0.0
+
         self.send_json({
             "success": True,
             "reviews": reviews,
@@ -992,6 +1269,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         if not student_id:
             self.send_json({"success": False, "message": "Student Roll ID is required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
@@ -1005,6 +1283,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 400,
             )
             return
+
         cursor.execute(
             """INSERT INTO hostel_bookings (hostel_id, student_name, student_year, student_id, national_id, payment_method, transaction_id, amount, payment_status, status)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Pending', 'Pending Approval')""",
@@ -1032,6 +1311,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         if not student_id:
             self.send_json({"success": False, "message": "Student Roll ID is required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
@@ -1045,6 +1325,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 400,
             )
             return
+
         cursor.execute(
             """INSERT INTO ferry_bookings (ferry_id, student_name, student_year, student_id, student_phone, payment_method, transaction_id, amount, payment_status, status)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Pending', 'Pending Approval')""",
@@ -1068,21 +1349,43 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         self.send_json({"success": True, "message": "Ferry ticket reserved successfully!"})
 
     def handle_inquiry(self, data):
+        full_name = str(data.get("full_name", "")).strip()
+        student_id = str(data.get("student_id", "")).strip()
+        email = str(data.get("email", "")).strip()
+        service_category = str(data.get("service_category", "")).strip()
+        message = str(data.get("message", "")).strip()
+
+        if not full_name or not student_id or not message:
+            self.send_json({"success": False, "message": "အချက်အလက်များ မပြည့်စုံပါ။"}, 400)
+            return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO inquiries (full_name, student_id, email, service_category, message) VALUES (?, ?, ?, ?, ?)",
-            (data.get("full_name", ""), data.get("student_id", ""), data.get("email", ""), data.get("service_category", ""), data.get("message", "")),
+            "INSERT INTO inquiries (full_name, student_id, email, service_category, message, status) VALUES (?, ?, ?, ?, ?, ?)",
+            (full_name, student_id, email, service_category, message, "Pending"),
         )
         conn.commit()
         conn.close()
-        self.send_json({"success": True, "message": "Support inquiry submitted successfully!"})
+
+        email_sent = send_gmail_notification(
+            to_email=GMAIL_SENDER,
+            full_name=full_name,
+            student_id=student_id,
+            service_category=service_category,
+            message_body=message
+        )
+        if email_sent:
+            self.send_json({"success": True, "message": "Inquiry successfully submitted and email sent!"})
+        else:
+            self.send_json({"success": True, "message": "Inquiry saved in database, but email notification failed to send."})
 
     def handle_cancel_hostel(self, data):
         student_id = str(data.get("student_id", "")).strip()
         if not student_id:
             self.send_json({"success": False, "message": "Student ID is required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
@@ -1106,6 +1409,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         if not student_id:
             self.send_json({"success": False, "message": "Student ID is required."}, 400)
             return
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
@@ -1186,6 +1490,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         conn = get_db_connection()
         cursor = conn.cursor()
         role_clean = str(role or "").strip().lower()
+
         is_hostel = "hostel" in role_clean
         is_ferry = "ferry" in role_clean
         is_super = not (is_hostel or is_ferry) or "super" in role_clean
@@ -1225,6 +1530,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 cursor.execute(
                     "SELECT hostel_id, hostel_name, room_number, gender_type, available_beds, capacity, description, image_url, kpay_qr_url, status, admin_id FROM hostels ORDER BY hostel_id ASC"
                 )
+
             for hid, hname, rnum, gtype, abeds, cap, desc, img, kpay, st, aid in cursor.fetchall():
                 hostels.append({
                     "id": hid,
@@ -1254,6 +1560,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 cursor.execute("SELECT group_id, group_name, description, admin_id FROM ferry_groups WHERE admin_id = ? OR admin_id IS NULL ORDER BY group_id ASC", (admin_id_int,))
             else:
                 cursor.execute("SELECT group_id, group_name, description, admin_id FROM ferry_groups ORDER BY group_id ASC")
+
             for gid, gname, desc, aid in cursor.fetchall():
                 ferry_groups.append({
                     "group_id": gid,
@@ -1279,6 +1586,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 cursor.execute(
                     "SELECT ferry_id, group_id, ferry_name, route_name, departure_time, available_seats, capacity, kpay_qr_url, status, admin_id FROM ferries ORDER BY ferry_id ASC"
                 )
+
             for fid, gid, fname, rname, dtime, aseats, cap, kpay, st, aid in cursor.fetchall():
                 ferries.append({
                     "id": fid,
@@ -1330,6 +1638,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 cursor.execute(
                     """SELECT hb.booking_id, hb.hostel_id, hb.student_name, hb.student_year, hb.student_id, hb.national_id, hb.payment_method, hb.transaction_id, hb.amount, hb.payment_status, hb.booking_date, hb.status, h.hostel_name, h.room_number FROM hostel_bookings hb JOIN hostels h ON hb.hostel_id = h.hostel_id ORDER BY hb.booking_id DESC"""
                 )
+
             for bid, hid, sname, syear, sid, nid, pmethod, txid, amt, payst, bdate, st, hname, rnum in cursor.fetchall():
                 hostel_bookings.append({
                     "booking_id": bid,
@@ -1365,6 +1674,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 cursor.execute(
                     """SELECT fb.booking_id, fb.ferry_id, fb.student_name, fb.student_year, fb.student_id, fb.student_phone, fb.payment_method, fb.transaction_id, fb.amount, fb.payment_status, fb.booking_date, fb.status, f.ferry_name, f.route_name FROM ferry_bookings fb JOIN ferries f ON fb.ferry_id = f.ferry_id ORDER BY fb.booking_id DESC"""
                 )
+
             for bid, fid, sname, syear, sid, sphone, pmethod, txid, amt, payst, bdate, st, fname, rname in cursor.fetchall():
                 ferry_bookings.append({
                     "booking_id": bid,
@@ -1401,6 +1711,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 cursor.execute("SELECT inquiry_id, full_name, student_id, email, service_category, message, status, created_at FROM inquiries WHERE service_category LIKE '%Ferry%' ORDER BY inquiry_id DESC")
             else:
                 cursor.execute("SELECT inquiry_id, full_name, student_id, email, service_category, message, status, created_at FROM inquiries ORDER BY inquiry_id DESC")
+
             for inq_id, fname, sid, uemail, scat, msg, st, created in cursor.fetchall():
                 inquiries.append({
                     "inquiry_id": inq_id,
@@ -1416,6 +1727,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             print(f"Error querying inquiries: {e}")
 
         conn.close()
+
         self.send_json({
             "success": True,
             "role": "super_admin" if is_super else ("hostel" if is_hostel else "ferry"),
@@ -1436,8 +1748,10 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         btype = data.get("booking_type")
         bid = data.get("booking_id")
         action = data.get("action")
+
         conn = get_db_connection()
         cursor = conn.cursor()
+
         if btype == "hostel":
             new_status = "Allocated" if action == "approve" else "Rejected"
             new_pay_status = "Confirmed" if action == "approve" else "Rejected"
@@ -1462,6 +1776,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                     "UPDATE ferries SET available_seats = available_seats + 1 WHERE ferry_id = (SELECT ferry_id FROM ferry_bookings WHERE booking_id=?)",
                     (bid,),
                 )
+
         conn.commit()
         conn.close()
         self.send_json({"success": True, "message": f"Payment {action}d successfully!"})

@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    
+   
     <style>
         :root {
             --primary-blue: #0284c7;
@@ -136,13 +136,9 @@
                         <div class="fw-bold text-primary small mb-1 d-flex align-items-center">
                             <i class="bi bi-shield-check me-1"></i> Default Super Admin Credentials
                         </div>
-                        <div class="d-flex justify-content-around font-monospace small bg-white p-2 rounded-2 border mt-2">
-                            <div><span class="text-muted me-1">User:</span><strong class="text-dark">admin</strong></div>
-                            <div><span class="text-muted me-1">Pass:</span><strong class="text-dark">admin123</strong></div>
-                        </div>
+                        
                     </div>
 
-                    <!-- Admin Login Form -->
                     <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
                         <div class="mb-3">
                             <label class="form-label fw-semibold small text-muted">Target Console Role</label>
@@ -160,14 +156,14 @@
                             <label class="form-label fw-semibold small text-muted">Admin Username</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-person"></i></span>
-                                <input type="text" id="adminUsername" class="form-control border-start-0 ps-0" placeholder="e.g., admin" value="admin" required>
+                                <input type="text" id="adminUsername" class="form-control border-start-0 ps-0" placeholder="Enter username" required>
                             </div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label fw-semibold small text-muted">Password</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-key"></i></span>
-                                <input type="password" id="adminPassword" class="form-control border-start-0 ps-0" placeholder="••••••••" value="admin123" required>
+                                <input type="password" id="adminPassword" class="form-control border-start-0 ps-0" placeholder="••••••••" required>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-glow w-100 py-2 fw-semibold rounded-3 mb-3">
@@ -206,7 +202,7 @@
         function showAlert(msg, type = 'danger') {
             const alert = document.getElementById('adminAlert');
             const alertMsg = document.getElementById('alertMessage');
-            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            alert.className = 'alert alert-' + type + ' alert-dismissible fade show';
             alertMsg.textContent = msg;
             alert.classList.remove('d-none');
         }

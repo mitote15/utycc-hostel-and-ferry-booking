@@ -90,7 +90,7 @@
             </button>
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
-                    <li class="nav-item"><a class="nav-link fw-medium text-secondary" href="home.html"><i class="bi bi-house me-1"></i>Overview</a></li>
+                    <li class="nav-item"><a class="nav-link fw-medium text-secondary" href="home.html"><i class="bi bi-house me-1"></i>Home</a></li>
                     <li class="nav-item"><a class="nav-link fw-medium text-secondary" href="hostel.html"><i class="bi bi-building me-1"></i>Hostel Portal</a></li>
                     <li class="nav-item"><a class="nav-link fw-bold text-primary active" href="ferry.html"><i class="bi bi-bus-front me-1"></i>Ferry Lines</a></li>
                 </ul>
@@ -204,7 +204,7 @@
                                     <span class="fw-bold text-success" id="detailAvailableSeats">38 Seats</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="small text-muted">Transit Fare</span>
+                                    <span class="small text-muted"></span>
                                     <span class="fw-bold text-primary"></span>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                             </div>
                             <div class="text-end">
                                 <div class="small text-muted">Transit Fare</div>
-                                <div class="fw-bold text-primary fs-5" id="modalFerryPrice">Ks 30,000</div>
+                                <div class="fw-bold text-primary fs-5" id="modalFerryPrice"></div>
                             </div>
                         </div>
 
@@ -318,11 +318,20 @@
                                 <option value="WavePay">WavePay</option>
                             </select>
 
-                            <label class="form-label small fw-bold text-danger mb-1">
-                                KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)
-                            </label>
-                            <input type="text" class="form-control bg-white border text-dark rounded-3 shadow-none mb-4" id="ferryPayTransactionId" placeholder="e.g. 123456" required>
-
+    <label class="form-label small fw-bold text-danger mb-1" id="paymentTxnLabel">
+        KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)
+    </label>
+    <input type="text" 
+        inputmode="numeric" 
+        pattern="[0-9]{6,12}" 
+        minlength="6" 
+        maxlength="12" 
+        class="form-control bg-white border text-dark rounded-3 shadow-none" 
+        id="paymentTransactionId" 
+        placeholder="e.g. 123456" 
+        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+        title="ကျေးဇူးပြု၍ ဂဏန်း ၆ လုံးမှ ၁၂ လုံးအတွင်းသာ ထည့်ပါ။"
+        required>
                             <div class="d-flex gap-2">
                                 <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-medium" onclick="backToFerryForm()">
                                     <i class="bi bi-arrow-left me-1"></i>Back
@@ -360,7 +369,7 @@
         let currentGroupFerries = [];
         let selectedFerryId = null;
         let selectedGroupId = null;
-        let selectedFerryPrice = 'Ks 30,000';
+        let selectedFerryPrice = '';
 
         document.addEventListener("DOMContentLoaded", () => {
             checkAuthAndLoadProfile();
@@ -632,12 +641,14 @@
             const roll = document.getElementById("ferryStudentId").value.trim();
             const phone = document.getElementById("ferryStudentPhone").value.trim();
             const payMethod = document.getElementById("ferryPayMethodSelect").value;
-            const txnId = document.getElementById("ferryPayTransactionId").value.trim();
+            const txnId = document.getElementById("paymentTransactionId").value.trim();
 
-            if (!txnId) {
-                alert("ကျေးဇူးပြု၍ KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) ကို ဖြည့်သွင်းပေးပါ။");
-                return;
-            }
+// Strictly check that the Transaction ID is between 6 and 12 numeric digits
+if (!txnId || txnId.length < 6 || txnId.length > 12 || !/^[0-9]{6,12}$/.test(txnId)) {
+    alert("ကျေးဇူးပြု၍ KBZPay / Slip Transaction ID ဂဏန်း ၆ လုံးမှ ၁၂ လုံးအတွင်းသာ မှန်ကန်စွာ ထည့်သွင်းပေးပါ။");
+    document.getElementById("paymentTransactionId").focus();
+    return;
+}
 
             const submitBtn = document.getElementById('submitFerryPayBtn');
             submitBtn.disabled = true;
