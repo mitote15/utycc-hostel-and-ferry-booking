@@ -20,7 +20,7 @@
             --accent-emerald: #059669;
             --accent-amber: #d97706;
             --bg-light: #f8fafc;
-            --bg-glass: rgba(255, 255, 255, 0.82);
+            --bg-glass: rgba(255, 255, 255, 0.85);
             --border-glass: rgba(14, 165, 233, 0.18);
             --border-glow: rgba(2, 132, 199, 0.35);
             --text-main: #0f172a;
@@ -35,6 +35,10 @@
             color: var(--text-main);
             overflow-x: hidden;
             scroll-behavior: smooth;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            animation: pageLoadFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         h1, h2, h3, h4, h5, h6, .brand-font {
@@ -43,12 +47,8 @@
         }
 
         @keyframes pageLoadFade {
-            0% { opacity: 0; transform: translateY(12px); }
+            0% { opacity: 0; transform: translateY(10px); }
             100% { opacity: 1; transform: translateY(0); }
-        }
-
-        body {
-            animation: pageLoadFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .mesh-background {
@@ -140,7 +140,7 @@
 
         .hero-enterprise {
             position: relative;
-            padding: 9rem 0 7rem 0;
+            padding: 8.5rem 0 6rem 0;
             overflow: hidden;
         }
 
@@ -187,28 +187,24 @@
         }
 
         .glass-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
             border-color: var(--border-glow);
             box-shadow: var(--shadow-glow), var(--shadow-glass);
         }
 
         .icon-box {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 1.25rem;
             background: linear-gradient(135deg, rgba(2, 132, 199, 0.1), rgba(13, 148, 136, 0.12));
             border: 1px solid rgba(2, 132, 199, 0.2);
             color: var(--primary-blue);
             transition: transform 0.3s ease;
-        }
-
-        .glass-card:hover .icon-box {
-            transform: scale(1.08) rotate(4deg);
         }
 
         .btn-glow {
@@ -229,7 +225,7 @@
         }
 
         .btn-glass {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
             border: 1px solid var(--border-glass);
             color: var(--text-main);
             border-radius: 50px;
@@ -249,11 +245,11 @@
             bottom: 30px;
             right: 30px;
             z-index: 9999;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: white;
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
-            width: 54px;
-            height: 54px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -262,12 +258,12 @@
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-40px);
+            transform: translateY(-30px);
             transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .scroll-fade-effect:hover {
-            transform: translateY(-4px) scale(1.1) !important;
+            transform: translateY(-4px) scale(1.08) !important;
             box-shadow: 0 15px 30px rgba(2, 132, 199, 0.55);
         }
 
@@ -278,7 +274,7 @@
         }
 
         .star-rating {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #cbd5e1;
             cursor: pointer;
             display: inline-flex;
@@ -288,11 +284,6 @@
         .star-rating i.active {
             color: #f59e0b;
         }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-light); }
-        ::-webkit-scrollbar-thumb { background: rgba(2, 132, 199, 0.3); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary-blue); }
 
         .service-card-interactive {
             background: #ffffff;
@@ -305,19 +296,99 @@
             cursor: pointer;
         }
 
-        .service-card-interactive:hover, .service-card-interactive.featured-dark {
+        .service-card-interactive:hover {
             background: linear-gradient(135deg, #091c33 0%, #0d2847 50%, #103359 100%) !important;
             border-color: rgba(13, 148, 136, 0.6) !important;
             box-shadow: 0 14px 35px rgba(9, 28, 51, 0.35), 0 0 25px rgba(13, 148, 136, 0.2) !important;
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-6px) scale(1.02);
         }
 
-        .service-card-interactive:hover h4, .service-card-interactive.featured-dark h4 { color: #ffffff !important; }
-        .service-card-interactive:hover p, .service-card-interactive:hover .card-subtitle-text, .service-card-interactive.featured-dark p, .service-card-interactive.featured-dark .card-subtitle-text { color: #cbd5e1 !important; }
-        .service-card-interactive:hover .icon-box, .service-card-interactive.featured-dark .icon-box { background: rgba(255, 255, 255, 0.08) !important; border-color: rgba(255, 255, 255, 0.18) !important; color: #38bdf8 !important; }
-        .service-card-interactive:hover a, .service-card-interactive.featured-dark a { color: #38bdf8 !important; }
-        .service-card-interactive .route-bg-svg { opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
-        .service-card-interactive:hover .route-bg-svg, .service-card-interactive.featured-dark .route-bg-svg { opacity: 0.85; }
+        .service-card-interactive:hover h4 {
+            color: #ffffff !important;
+        }
+
+        .service-card-interactive:hover p {
+            color: #cbd5e1 !important;
+        }
+
+        .service-card-interactive:hover .icon-box {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            color: #38bdf8 !important;
+        }
+
+        .service-card-interactive:hover a {
+            color: #38bdf8 !important;
+        }
+
+        .service-card-interactive .route-bg-svg {
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .service-card-interactive:hover .route-bg-svg {
+            opacity: 0.85;
+        }
+
+        /* Responsive Mobile Styles */
+        @media (max-width: 991.98px) {
+            .navbar-enterprise {
+                margin: 8px 0.5rem 0 0.5rem;
+                width: calc(100% - 1rem);
+                border-radius: 16px;
+            }
+            .navbar-collapse {
+                background: #ffffff;
+                padding: 1.25rem;
+                border-radius: 16px;
+                margin-top: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid var(--border-glass);
+            }
+            .hero-enterprise {
+                padding: 6.5rem 0.5rem 4rem 0.5rem;
+            }
+            .hero-enterprise h1 {
+                font-size: 2.2rem !important;
+            }
+            .hero-enterprise p.lead {
+                font-size: 0.95rem !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .hero-enterprise h1 {
+                font-size: 1.85rem !important;
+            }
+            .glass-card {
+                padding: 1.25rem !important;
+                border-radius: 16px !important;
+            }
+            .service-card-interactive {
+                padding: 1.25rem !important;
+            }
+            .about-image-container .image-wrapper img {
+                height: 250px !important;
+            }
+            .offcanvas-end {
+                width: 100% !important;
+            }
+            .scroll-fade-effect {
+                bottom: 16px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+            .hero-btn-container {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-btn-container .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -346,7 +417,7 @@
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Support</a></li>
                     <li class="nav-item" id="loginBtn">
-                        <a class="btn btn-glow btn-sm" href="login.html?reset=true"><i class="bi bi-shield-lock me-1"></i> Secure Login</a>
+                        <a class="btn btn-glow btn-sm w-100 w-lg-auto mt-2 mt-lg-0" href="login.html?reset=true"><i class="bi bi-shield-lock me-1"></i> Secure Login</a>
                     </li>
                     <li class="nav-item dropdown d-none" id="profileMenu">
                         <button class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -410,7 +481,7 @@
                 </div>
 
                 <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.7rem; letter-spacing: 1px;">Live Allocation Status</h6>
-                
+
                 <!-- Hostel Slot Card -->
                 <div class="card glass-card p-3 mb-3 border">
                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -452,23 +523,23 @@
     </div>
 
     <!-- Hero Section -->
-    <header class="hero-enterprise text-center reveal-element">
+    <header class="hero-enterprise text-center reveal-element px-2">
         <div class="ferry-illustration"><i class="bi bi-water"></i> <i class="bi bi-ship-fill"></i></div>
         <div class="water-waves"></div>
-        <div class="container py-4 position-relative" style="z-index: 3;">
+        <div class="container py-2 py-md-4 position-relative" style="z-index: 3;">
             <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill glass-card mb-3">
                 <i class="bi bi-mortarboard-fill text-primary fs-5"></i>
-                <span class="small fw-bold text-uppercase tracking-wide text-dark opacity-90">University of Technology (Yadanarpon Cyber City)</span>
+                <span class="small fw-bold text-uppercase tracking-wide text-dark opacity-90" style="font-size: 0.75rem;">University of Technology (Yadanarpon Cyber City)</span>
             </div>
             <h1 class="display-4 text-dark fw-bold mb-3 tracking-tight">Smart Campus Logistics Central</h1>
             <p class="lead text-muted max-w-2xl mx-auto mb-4" style="max-width: 680px;">
                 Instantly manage university housing arrangements, track ocean-inspired ferry schedules, and securely manage digital transit tokens with an enterprise eco-portal interface.
             </p>
-
+            
             <div class="row justify-content-center mb-4">
-                <div class="col-xl-6 col-lg-8 col-md-10">
+                <div class="col-xl-6 col-lg-8 col-md-10 col-12">
                     <div class="input-group glass-card p-2 rounded-pill shadow-lg border">
-                        <span class="input-group-text border-0 bg-transparent text-muted px-3">
+                        <span class="input-group-text border-0 bg-transparent text-muted px-2 px-sm-3">
                             <i class="bi bi-search text-primary"></i>
                         </span>
                         <input type="text" id="portalSearch" class="form-control border-0 bg-transparent text-dark shadow-none" placeholder="Search campus services (hostel, ferry, tokens, bookings)..." onkeyup="filterFeatures()">
@@ -476,7 +547,7 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center gap-3">
+            <div class="d-flex justify-content-center gap-3 hero-btn-container">
                 <a href="#services" class="btn btn-glow px-4 py-2">Explore Services <i class="bi bi-arrow-down-short ms-1"></i></a>
                 <a href="#contact" class="btn btn-glass px-4 py-2">Contact Support</a>
             </div>
@@ -484,9 +555,9 @@
     </header>
 
     <!-- Services Section -->
-    <section id="services" class="py-5 position-relative">
-        <div class="container py-4">
-            <div class="glass-card p-4 p-md-5 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); border-radius: 28px !important; border: 1px solid rgba(14, 165, 233, 0.2);">
+    <section id="services" class="py-4 py-md-5 position-relative px-2">
+        <div class="container py-2 py-md-4">
+            <div class="glass-card p-3 p-md-5 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); border-radius: 28px !important; border: 1px solid rgba(14, 165, 233, 0.2);">
                 <div class="d-flex justify-content-between align-items-center mb-4 reveal-element">
                     <div>
                         <h2 class="fw-bold fs-3 text-dark m-0">Available Services</h2>
@@ -494,11 +565,11 @@
                     <span class="text-muted small d-none" id="match-count">Showing all services</span>
                 </div>
 
-                <div class="row g-4" id="servicesGrid">
+                <div class="row g-3 g-md-4" id="servicesGrid">
                     <!-- Card 1: Hostels Portal -->
                     <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="hostels rooms housing dorm accommodation thiri shwe daung">
                         <div class="service-card-interactive p-4 d-flex flex-column h-100 position-relative" onclick="window.location.href='hostel.html'">
-                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg">
+                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg d-none d-sm-block">
                                 <svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 70 C30 20, 70 80, 95 20" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4" />
                                     <circle cx="10" cy="70" r="5" fill="#0d9488" />
@@ -524,7 +595,7 @@
                     <!-- Card 2: Ferry Tracking -->
                     <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="ferries routes transport buses shuttle transit tracking">
                         <div class="service-card-interactive p-4 d-flex flex-column h-100 position-relative" onclick="window.location.href='ferry.html'">
-                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg">
+                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg d-none d-sm-block">
                                 <svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 70 C30 20, 70 80, 95 20" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4" />
                                     <circle cx="10" cy="70" r="5" fill="#0d9488" />
@@ -549,8 +620,8 @@
 
                     <!-- Card 3: Digital Token Desk -->
                     <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="tickets passes purchase billing tokens payment renewal">
-                        <div class="service-card-interactive p-4 d-flex flex-column h-100 position-relative" onclick="window.location.href='profile.html'">
-                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg">
+                        <div class="service-card-interactive p-4 d-flex flex-column h-100 position-relative" onclick="window.location.href='#'">
+                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg d-none d-sm-block">
                                 <svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 70 C30 20, 70 80, 95 20" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4" />
                                     <circle cx="10" cy="70" r="5" fill="#0d9488" />
@@ -569,14 +640,14 @@
                             </div>
                             <h4 class="fw-bold fs-5 mb-2 text-dark position-relative" style="z-index: 2;">Digital Token Desk</h4>
                             <p class="text-muted small mb-4 flex-grow-1 position-relative" style="line-height: 1.5; z-index: 2;">Acquire transit tokens, secure codes, and execute standard student account credit checkups.</p>
-                            <a href="profile.html" class="fw-semibold small d-inline-flex align-items-center gap-1 mt-auto text-decoration-none position-relative" style="color: #d97706; z-index: 2;">Open Desk &rarr;</a>
+                            <a href="#" class="fw-semibold small d-inline-flex align-items-center gap-1 mt-auto text-decoration-none position-relative" style="color: #d97706; z-index: 2;">Open Desk &rarr;</a>
                         </div>
                     </div>
 
                     <!-- Card 4: Profile Dashboard -->
                     <div class="col-12 col-sm-6 col-lg-3 service-item reveal-element" data-keywords="my bookings schedule active registration logs calendar history profile">
-                        <div class="service-card-interactive p-4 d-flex flex-column h-100 position-relative" onclick="window.location.href='profile.html'">
-                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg">
+                        <div class="service-card-interactive p-4 d-flex flex-column h-100 position-relative" onclick="window.location.href='#'">
+                            <div class="position-absolute top-0 end-0 p-3 route-bg-svg d-none d-sm-block">
                                 <svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 70 C30 20, 70 80, 95 20" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4" />
                                     <circle cx="10" cy="70" r="5" fill="#0d9488" />
@@ -593,9 +664,9 @@
                                     <i class="bi bi-circle-fill"></i>
                                 </div>
                             </div>
-                            <h4 class="fw-bold fs-5 mb-2 text-dark position-relative" style="z-index: 2;">Profile Dashboard</h4>
+                            <h4 class="fw-bold fs-5 mb-2 text-dark position-relative" style="z-index: 2;">Admin Operations</h4>
                             <p class="text-muted small mb-4 flex-grow-1 position-relative" style="line-height: 1.5; z-index: 2;">Inspect ongoing assignments, active housing receipts, and modify scheduling properties.</p>
-                            <a href="profile.html" class="fw-semibold small d-inline-flex align-items-center gap-1 mt-auto text-decoration-none position-relative" style="color: #991b1b; z-index: 2;">View Profile &rarr;</a>
+                            <a href="#" class="fw-semibold small d-inline-flex align-items-center gap-1 mt-auto text-decoration-none position-relative" style="color: #991b1b; z-index: 2;">View History &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -608,9 +679,9 @@
     </section>
 
     <!-- About & Ecosystem Section -->
-    <section id="about" class="py-5 border-top border-bottom reveal-element" style="background: rgba(241, 245, 249, 0.5);">
-        <div class="container py-4">
-            <div class="row justify-content-center text-center mb-5 reveal-element">
+    <section id="about" class="py-5 border-top border-bottom reveal-element px-2" style="background: rgba(241, 245, 249, 0.5);">
+        <div class="container py-2 py-md-4">
+            <div class="row justify-content-center text-center mb-4 mb-md-5 reveal-element">
                 <div class="col-lg-7">
                     <span class="badge bg-primary bg-opacity-10 text-primary border border-primary px-3 py-2 rounded-pill mb-3 text-uppercase tracking-wider">
                         <i class="bi bi-shield-check me-1"></i> UTYCC Smart Campus Portal
@@ -620,7 +691,7 @@
                 </div>
             </div>
 
-            <div class="row align-items-center gy-5">
+            <div class="row align-items-center gy-4 gy-lg-5">
                 <div class="col-lg-6 reveal-element">
                     <div class="about-image-container position-relative pe-lg-4">
                         <div class="image-wrapper shadow-lg rounded-4 overflow-hidden border">
@@ -629,29 +700,29 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="row g-4 ps-lg-3">
-                        <div class="col-md-6 reveal-element">
+                    <div class="row g-3 g-md-4 ps-lg-3">
+                        <div class="col-12 col-md-6 reveal-element">
                             <div class="glass-card h-100 p-4">
                                 <div class="bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;"><i class="bi bi-house-door-fill fs-5"></i></div>
                                 <h5 class="fw-bold text-dark mb-2">Hostel Management</h5>
                                 <p class="text-muted small mb-0">Streamlined room allocations, check-ins, and residency record management for students.</p>
                             </div>
                         </div>
-                        <div class="col-md-6 reveal-element">
+                        <div class="col-12 col-md-6 reveal-element">
                             <div class="glass-card h-100 p-4">
                                 <div class="bg-success bg-opacity-10 text-success rounded-3 d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;"><i class="bi bi-water fs-5"></i></div>
                                 <h5 class="fw-bold text-dark mb-2">Ferry Services</h5>
                                 <p class="text-muted small mb-0">Reliable scheduling, seat reservations, and route tracking for safe daily student transport.</p>
                             </div>
                         </div>
-                        <div class="col-md-6 reveal-element">
+                        <div class="col-12 col-md-6 reveal-element">
                             <div class="glass-card h-100 p-4">
                                 <div class="bg-warning bg-opacity-10 text-warning rounded-3 d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;"><i class="bi bi-journal-check fs-5"></i></div>
                                 <h5 class="fw-bold text-dark mb-2">Smart Registration</h5>
                                 <p class="text-muted small mb-0">Fast, paperless application processing for semesters, facilities, and campus clearances.</p>
                             </div>
                         </div>
-                        <div class="col-md-6 reveal-element">
+                        <div class="col-12 col-md-6 reveal-element">
                             <div class="glass-card h-100 p-4">
                                 <div class="bg-info bg-opacity-10 text-info rounded-3 d-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;"><i class="bi bi-credit-card-2-front-fill fs-5"></i></div>
                                 <h5 class="fw-bold text-dark mb-2">Borrow & Payments</h5>
@@ -663,21 +734,21 @@
             </div>
 
             <!-- Stats Counter Grid -->
-            <div id="stats" class="row mt-5 pt-5 border-top text-center reveal-element">
-                <div class="col-md-3 col-6 mb-4 mb-md-0">
-                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="2500">0</span>+</h3>
+            <div id="stats" class="row mt-4 mt-md-5 pt-4 pt-md-5 border-top text-center reveal-element">
+                <div class="col-md-3 col-6 mb-3 mb-md-0">
+                    <h3 class="display-6 fw-bold text-primary mb-1 counter-number"><span class="counter" data-target="2500">0</span>+</h3>
                     <p class="text-muted small mb-0 text-uppercase fw-semibold">Active Students</p>
                 </div>
-                <div class="col-md-3 col-6 mb-4 mb-md-0">
-                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="40">0</span>+</h3>
+                <div class="col-md-3 col-6 mb-3 mb-md-0">
+                    <h3 class="display-6 fw-bold text-primary mb-1 counter-number"><span class="counter" data-target="40">0</span>+</h3>
                     <p class="text-muted small mb-0 text-uppercase fw-semibold">Ferry Schedules</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="12">0</span></h3>
+                    <h3 class="display-6 fw-bold text-primary mb-1 counter-number"><span class="counter" data-target="12">0</span></h3>
                     <p class="text-muted small mb-0 text-uppercase fw-semibold">Hostel Buildings</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <h3 class="display-6 fw-bold text-primary mb-1"><span class="counter" data-target="99">0</span>%</h3>
+                    <h3 class="display-6 fw-bold text-primary mb-1 counter-number"><span class="counter" data-target="99">0</span>%</h3>
                     <p class="text-muted small mb-0 text-uppercase fw-semibold">Uptime Reliability</p>
                 </div>
             </div>
@@ -685,9 +756,9 @@
     </section>
 
     <!-- Support / Contact Section -->
-    <section id="contact" class="py-5 reveal-element">
-        <div class="container py-4">
-            <div class="glass-card p-4 p-md-5 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); border-radius: 28px !important; border: 1px solid rgba(14, 165, 233, 0.2);">
+    <section id="contact" class="py-5 reveal-element px-2">
+        <div class="container py-2 py-md-4">
+            <div class="glass-card p-3 p-md-5 rounded-4 shadow-sm" style="background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); border-radius: 28px !important; border: 1px solid rgba(14, 165, 233, 0.2);">
                 <div class="row g-4 align-items-stretch">
                     <div class="col-lg-5">
                         <div class="glass-card p-4 p-lg-5 h-100 d-flex flex-column justify-content-between" style="background: #ffffff; border-radius: 20px; border: 1px solid rgba(2, 132, 199, 0.12);">
@@ -727,11 +798,11 @@
                         <div class="glass-card p-4 p-lg-5 h-100" style="background: #ffffff; border-radius: 20px; border: 1px solid rgba(2, 132, 199, 0.12);">
                             <form id="contactForm" novalidate>
                                 <div class="row g-3">
-                                    <div class="col-md-6">
+                                    <div class="col-12 col-md-6">
                                         <label for="fullName" class="form-label small fw-semibold text-dark mb-1">Full Name</label>
                                         <input type="text" class="form-control border-0 text-dark shadow-none px-3 py-2" id="fullName" placeholder="Mg Mg" style="background: #eef7fc; border: 1px solid #d0e4f5 !important; border-radius: 12px; font-size: 0.9rem;" required>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-12 col-md-6">
                                         <label for="studentId" class="form-label small fw-semibold text-dark mb-1">Student ID / Roll No</label>
                                         <input type="text" class="form-control border-0 text-dark shadow-none px-3 py-2" id="studentId" placeholder="UTYCC-12345" style="background: #eef7fc; border: 1px solid #d0e4f5 !important; border-radius: 12px; font-size: 0.9rem;" required>
                                     </div>
@@ -770,52 +841,52 @@
     </section>
 
     <!-- Reviews Section -->
-    <section class="py-5 reveal-element" style="background: rgba(241, 245, 249, 0.7);">
-        <div class="container py-4">
+    <section class="py-5 reveal-element px-2" style="background: rgba(241, 245, 249, 0.7);">
+        <div class="container py-2 py-md-4">
             <div class="row g-4 align-items-center mb-5">
                 <div class="col-lg-6">
                     <div class="glass-card p-4">
                         <h4 class="fw-bold text-dark mb-4">Rating Breakdown</h4>
                         <div class="d-flex flex-column gap-2">
                             <div class="d-flex align-items-center gap-2">
-                                <span class="fw-bold small text-muted" style="width: 60px;">FIVE</span>
+                                <span class="fw-bold small text-muted" style="width: 50px;">FIVE</span>
                                 <i class="bi bi-star-fill text-warning small"></i>
                                 <div class="progress flex-grow-1 bg-light border">
                                     <div class="progress-bar bg-warning" id="bar-5" style="width: 0%;"></div>
                                 </div>
-                                <span class="small text-muted text-end" id="count-5" style="width: 50px;">0</span>
+                                <span class="small text-muted text-end" id="count-5" style="width: 40px;">0</span>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                <span class="fw-bold small text-muted" style="width: 60px;">FOUR</span>
+                                <span class="fw-bold small text-muted" style="width: 50px;">FOUR</span>
                                 <i class="bi bi-star-fill text-warning small"></i>
                                 <div class="progress flex-grow-1 bg-light border">
                                     <div class="progress-bar bg-warning" id="bar-4" style="width: 0%;"></div>
                                 </div>
-                                <span class="small text-muted text-end" id="count-4" style="width: 50px;">0</span>
+                                <span class="small text-muted text-end" id="count-4" style="width: 40px;">0</span>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                <span class="fw-bold small text-muted" style="width: 60px;">THREE</span>
+                                <span class="fw-bold small text-muted" style="width: 50px;">THREE</span>
                                 <i class="bi bi-star-fill text-warning small"></i>
                                 <div class="progress flex-grow-1 bg-light border">
                                     <div class="progress-bar bg-warning" id="bar-3" style="width: 0%;"></div>
                                 </div>
-                                <span class="small text-muted text-end" id="count-3" style="width: 50px;">0</span>
+                                <span class="small text-muted text-end" id="count-3" style="width: 40px;">0</span>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                <span class="fw-bold small text-muted" style="width: 60px;">TWO</span>
+                                <span class="fw-bold small text-muted" style="width: 50px;">TWO</span>
                                 <i class="bi bi-star-fill text-warning small"></i>
                                 <div class="progress flex-grow-1 bg-light border">
                                     <div class="progress-bar bg-warning" id="bar-2" style="width: 0%;"></div>
                                 </div>
-                                <span class="small text-muted text-end" id="count-2" style="width: 50px;">0</span>
+                                <span class="small text-muted text-end" id="count-2" style="width: 40px;">0</span>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                <span class="fw-bold small text-muted" style="width: 60px;">ONE</span>
+                                <span class="fw-bold small text-muted" style="width: 50px;">ONE</span>
                                 <i class="bi bi-star-fill text-warning small"></i>
                                 <div class="progress flex-grow-1 bg-light border">
                                     <div class="progress-bar bg-warning" id="bar-1" style="width: 0%;"></div>
                                 </div>
-                                <span class="small text-muted text-end" id="count-1" style="width: 50px;">0</span>
+                                <span class="small text-muted text-end" id="count-1" style="width: 40px;">0</span>
                             </div>
                         </div>
                     </div>
@@ -831,7 +902,7 @@
                 </div>
             </div>
 
-            <div class="row g-5">
+            <div class="row g-4 g-lg-5">
                 <div class="col-lg-6">
                     <h3 class="fw-bold text-dark mb-4">Recent Feedbacks</h3>
                     <div class="d-flex flex-column gap-3" id="recentReviewsContainer">
@@ -872,7 +943,7 @@
     </section>
 
     <!-- Enterprise Footer -->
-    <footer class="py-4 text-center border-top bg-white bg-opacity-80">
+    <footer class="py-4 text-center border-top bg-white bg-opacity-80 mt-auto">
         <div class="container">
             <p class="text-muted small mb-0">&copy; 2026 UTYCC Transport &amp; Accommodation Board. Built with accessibility and high-end SaaS UX standards.</p>
         </div>
@@ -880,22 +951,53 @@
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <!-- App JavaScript -->
     <script>
-        const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
         let currentHostelBooking = null;
         let currentFerryBooking = null;
 
-        function showBookingLimitModal(msg) {
-            const msgEl = document.getElementById('bookingLimitMsg');
-            if (msgEl && msg) {
-                msgEl.textContent = msg;
+        // Resilient API Helper Functions (Handles Live Servers and Localhost smoothly)
+        async function apiGet(endpoint) {
+            const origins = [
+                "", // Relative path (Best for live production server)
+                window.location.origin.startsWith("http") ? window.location.origin : "",
+                "http://localhost:8080"
+            ].filter((v, i, a) => v !== undefined && v !== null && a.indexOf(v) === i);
+
+            for (let origin of origins) {
+                try {
+                    const url = origin ? `${origin}${endpoint}` : endpoint;
+                    const res = await fetch(url, { method: "GET" });
+                    if (res.ok) return await res.json();
+                } catch (e) {
+                    console.warn(`Failed GET from ${origin}${endpoint}, trying next...`);
+                }
             }
-            const modalEl = document.getElementById('bookingLimitModal');
-            if (modalEl) {
-                const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-                modal.show();
+            throw new Error("Network error connecting to server.");
+        }
+
+        async function apiPost(endpoint, bodyData) {
+            const origins = [
+                "", // Relative path
+                window.location.origin.startsWith("http") ? window.location.origin : "",
+                "http://localhost:8080"
+            ].filter((v, i, a) => v !== undefined && v !== null && a.indexOf(v) === i);
+
+            for (let origin of origins) {
+                try {
+                    const url = origin ? `${origin}${endpoint}` : endpoint;
+                    const res = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bodyData)
+                    });
+                    if (res.ok) return await res.json();
+                } catch (e) {
+                    console.warn(`Failed POST to ${origin}${endpoint}, trying next...`);
+                }
             }
+            throw new Error("Network error connecting to server.");
         }
 
         function filterFeatures() {
@@ -926,22 +1028,30 @@
 
         function updateProfilePicUI(imageUrl) {
             if (!imageUrl) return;
-
             const navImg = document.getElementById('navAvatarImg');
             const navIcon = document.getElementById('navAvatarIcon');
-            if (navImg) { navImg.src = imageUrl; navImg.classList.remove('d-none'); }
-            if (navIcon) { navIcon.classList.add('d-none'); }
+            if (navImg) {
+                navImg.src = imageUrl;
+                navImg.classList.remove('d-none');
+            }
+            if (navIcon) {
+                navIcon.classList.add('d-none');
+            }
 
             const drawerImg = document.getElementById('drawerAvatarImg');
             const drawerIcon = document.getElementById('drawerAvatarIcon');
-            if (drawerImg) { drawerImg.src = imageUrl; drawerImg.classList.remove('d-none'); }
-            if (drawerIcon) { drawerIcon.classList.add('d-none'); }
+            if (drawerImg) {
+                drawerImg.src = imageUrl;
+                drawerImg.classList.remove('d-none');
+            }
+            if (drawerIcon) {
+                drawerIcon.classList.add('d-none');
+            }
         }
 
         async function handleProfilePicUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             if (file.size > 5 * 1024 * 1024) {
                 alert("Image file size should be less than 5MB.");
                 return;
@@ -964,17 +1074,13 @@
 
                 if (userObj.student_id) {
                     try {
-                        await fetch(`${API_BASE_URL}/api/user/update-profile`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                student_id: userObj.student_id,
-                                name: userObj.name || '',
-                                email: userObj.email || '',
-                                phone: userObj.phone || '',
-                                avatar: base64Image,
-                                profile_pic: base64Image
-                            })
+                        await apiPost('/api/user/update-profile', {
+                            student_id: userObj.student_id,
+                            name: userObj.name || '',
+                            email: userObj.email || '',
+                            phone: userObj.phone || '',
+                            avatar: base64Image,
+                            profile_pic: base64Image
                         });
                     } catch (err) {
                         console.error("Profile picture sync error:", err);
@@ -992,19 +1098,18 @@
 
             if (userJson) {
                 const user = JSON.parse(userJson);
-
                 if (loginBtn) loginBtn.classList.add('d-none');
                 if (profileMenu) profileMenu.classList.remove('d-none');
-                
+
                 const userName = document.getElementById('userName');
                 if (userName) userName.textContent = user.name || 'Student';
 
                 const drawerName = document.getElementById('drawerName');
                 if (drawerName) drawerName.textContent = user.name || 'Student';
-                
+
                 const drawerStudentId = document.getElementById('drawerStudentId');
                 if (drawerStudentId) drawerStudentId.textContent = `Roll ID: ${user.student_id || 'N/A'}`;
-                
+
                 const drawerPhone = document.getElementById('drawerPhone');
                 if (drawerPhone) drawerPhone.textContent = `Phone: ${user.phone || 'N/A'}`;
 
@@ -1034,8 +1139,7 @@
         async function fetchUserStatus(studentId) {
             if (!studentId) return;
             try {
-                const res = await fetch(`${API_BASE_URL}/api/user-status/${encodeURIComponent(studentId)}`);
-                const data = await res.json();
+                const data = await apiGet(`/api/user-status/${encodeURIComponent(studentId)}`);
                 if (data.success) {
                     const hostelBadge = document.getElementById('hostelBadge');
                     const hostelDetail = document.getElementById('hostelDetail');
@@ -1048,6 +1152,7 @@
 
                         let badgeClass = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5";
                         let badgeText = "Pending Payment";
+
                         if (isRejected) {
                             badgeClass = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-1.5";
                             badgeText = "Payment Rejected";
@@ -1087,6 +1192,7 @@
 
                         let badgeClass = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5";
                         let badgeText = "Pending Payment";
+
                         if (isRejected) {
                             badgeClass = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-1.5";
                             badgeText = "Payment Rejected";
@@ -1123,8 +1229,7 @@
         async function fetchReviews() {
             const container = document.getElementById('recentReviewsContainer');
             try {
-                const res = await fetch(`${API_BASE_URL}/api/reviews`);
-                const data = await res.json();
+                const data = await apiGet('/api/reviews');
                 if (data.success) {
                     renderReviewsStats(data);
                     renderRecentReviews(data.reviews);
@@ -1201,10 +1306,11 @@
                     stars += i <= rev.rating ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>';
                 }
                 const avatarImg = rev.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(rev.name)}&background=0284c7&color=fff`;
+
                 return `
                     <div class="glass-card p-3">
                         <div class="d-flex gap-3 align-items-start">
-                            <img src="${avatarImg}" alt="User" class="avatar-img rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            <img src="${avatarImg}" alt="User" class="avatar-img rounded-circle" style="width: 48px; height: 48px; object-fit: cover;">
                             <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <h6 class="fw-bold mb-0 text-dark">${escapeHtml(rev.name)}</h6>
@@ -1259,9 +1365,10 @@
                     } else {
                         ferryScrollBtn.style.opacity = '0';
                         ferryScrollBtn.style.visibility = 'hidden';
-                        ferryScrollBtn.style.transform = 'translateY(-40px)';
+                        ferryScrollBtn.style.transform = 'translateY(-30px)';
                     }
                 });
+
                 ferryScrollBtn.addEventListener('click', () => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
@@ -1269,10 +1376,12 @@
 
             const counters = document.querySelectorAll(".counter");
             const speed = 200;
+
             const runCounter = (counter) => {
                 const target = +counter.getAttribute("data-target");
                 const count = +counter.innerText;
                 const increment = target / speed;
+
                 if (count < target) {
                     counter.innerText = Math.ceil(count + increment);
                     setTimeout(() => runCounter(counter), 10);
@@ -1280,6 +1389,7 @@
                     counter.innerText = target;
                 }
             };
+
             const counterObserver = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1288,42 +1398,44 @@
                     }
                 });
             }, { threshold: 0.5 });
+
             counters.forEach(counter => counterObserver.observe(counter));
 
             const form = document.getElementById("contactForm");
             const successAlert = document.getElementById("formSuccessAlert");
+
             if (form) {
                 form.addEventListener("submit", async (event) => {
                     event.preventDefault();
                     event.stopPropagation();
+
                     if (form.checkValidity() === false) {
                         form.classList.add("was-validated");
                         if (successAlert) successAlert.classList.add("d-none");
                         return;
                     }
+
                     const submitBtn = document.getElementById("submitInquiryBtn");
                     if (submitBtn) {
                         submitBtn.disabled = true;
                         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
                     }
+
                     const fullName = document.getElementById("fullName").value.trim();
                     const studentId = document.getElementById("studentId").value.trim();
                     const userEmail = document.getElementById("userEmail") ? document.getElementById("userEmail").value.trim() : "";
                     const serviceCategory = document.getElementById("serviceCategory").value;
                     const message = document.getElementById("message").value.trim();
+
                     try {
-                        const res = await fetch(`${API_BASE_URL}/api/inquiry`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                full_name: fullName,
-                                student_id: studentId,
-                                email: userEmail,
-                                service_category: serviceCategory,
-                                message: message
-                            })
+                        const data = await apiPost('/api/inquiry', {
+                            full_name: fullName,
+                            student_id: studentId,
+                            email: userEmail,
+                            service_category: serviceCategory,
+                            message: message
                         });
-                        const data = await res.json();
+
                         if (data.success) {
                             form.classList.remove("was-validated");
                             if (successAlert) {
@@ -1336,7 +1448,7 @@
                         }
                     } catch (err) {
                         console.error("Submit inquiry error:", err);
-                        alert("Network Error! Please try again.");
+                        alert("Network Error! Please check your connection and try again.");
                     } finally {
                         if (submitBtn) {
                             submitBtn.disabled = false;
@@ -1350,10 +1462,12 @@
             if (starContainer) {
                 const starIcons = starContainer.querySelectorAll('i');
                 const ratingHiddenInput = document.getElementById('rating-value');
+
                 starIcons.forEach((star) => {
                     star.addEventListener('click', function () {
                         const selectedValue = parseInt(this.getAttribute('data-rating'));
                         if (ratingHiddenInput) ratingHiddenInput.value = selectedValue;
+
                         starIcons.forEach((s) => {
                             const ratingValue = parseInt(s.getAttribute('data-rating'));
                             if (ratingValue <= selectedValue) {
@@ -1369,6 +1483,7 @@
             }
 
             fetchReviews();
+
             const reviewForm = document.getElementById("reviewForm");
             if (reviewForm) {
                 reviewForm.addEventListener("submit", async function (e) {
@@ -1377,22 +1492,26 @@
                     const email = document.getElementById("reviewerEmail").value.trim();
                     const rating = parseInt(document.getElementById("rating-value").value) || 5;
                     const reviewText = document.getElementById("reviewerText").value.trim();
+
                     if (!name || !email || !reviewText) {
                         alert("ကျေးဇူးပြု၍ အချက်အလက်များ ပြည့်စုံစွာ ဖြည့်စွက်ပေးပါ။");
                         return;
                     }
+
                     const submitBtn = document.getElementById("submitReviewBtn");
                     if (submitBtn) {
                         submitBtn.disabled = true;
                         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
                     }
+
                     try {
-                        const res = await fetch(`${API_BASE_URL}/api/reviews`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ name: name, email: email, rating: rating, review_text: reviewText })
+                        const data = await apiPost('/api/reviews', {
+                            name: name,
+                            email: email,
+                            rating: rating,
+                            review_text: reviewText
                         });
-                        const data = await res.json();
+
                         if (data.success) {
                             alert("ကျေးဇူးတင်ပါသည်။ သင်၏ Review ကို သိမ်းဆည်းပြီးပါပြီ။");
                             reviewForm.reset();
