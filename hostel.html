@@ -58,6 +58,64 @@
             box-shadow: 0 15px 35px rgba(2, 132, 199, 0.15);
             white-space: pre-wrap;
         }
+        /* Responsive Mobile Styles */
+        @media (max-width: 991.98px) {
+            .navbar-enterprise {
+                margin: 8px 0.5rem 0 0.5rem;
+                width: calc(100% - 1rem);
+                border-radius: 16px;
+            }
+            .navbar-collapse {
+                background: #ffffff;
+                padding: 1.25rem;
+                border-radius: 16px;
+                margin-top: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid var(--border-glass);
+            }
+            .hero-enterprise {
+                padding: 6.5rem 0.5rem 4rem 0.5rem;
+            }
+            .hero-enterprise h1 {
+                font-size: 2.2rem !important;
+            }
+            .hero-enterprise p.lead {
+                font-size: 0.95rem !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .hero-enterprise h1 {
+                font-size: 1.85rem !important;
+            }
+            .glass-card {
+                padding: 1.25rem !important;
+                border-radius: 16px !important;
+            }
+            .service-card-interactive {
+                padding: 1.25rem !important;
+            }
+            .about-image-container .image-wrapper img {
+                height: 250px !important;
+            }
+            .offcanvas-end {
+                width: 100% !important;
+            }
+            .scroll-fade-effect {
+                bottom: 16px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+            .hero-btn-container {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-btn-container .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
