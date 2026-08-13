@@ -444,10 +444,16 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
             elif path == "/api/reviews":
                 self.handle_get_reviews()
                 return
+
             return super().do_GET()
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError, OSError):
+            pass
         except Exception as e:
             print(f"do_GET error: {e}")
-            self.send_json({"success": False, "message": str(e)}, 500)
+            try:
+                self.send_json({"success": False, "message": str(e)}, 500)
+            except Exception:
+                pass
 
     def do_POST(self):
         try:
@@ -460,6 +466,7 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 pass
 
             path = self.path
+
             if path in ["/api/user/update-profile", "/api/update-profile", "/api/update-profile-pic"]:
                 self.handle_update_profile(data)
             elif path in ["/api/user/change-password", "/api/change-password"]:
@@ -474,12 +481,6 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 self.handle_admin_register(data)
             elif path == "/api/admin/create-admin":
                 self.handle_create_admin(data)
-            elif path == "/api/admin/delete-admin":
-                self.handle_delete_admin(data)
-            elif path in ["/api/admin/delete-student", "/api/delete-student"]:
-                self.handle_delete_student(data)
-            elif path in ["/api/admin/delete-all-students", "/api/delete-all-students"]:
-                self.handle_delete_all_students(data)
             elif path == "/api/admin/add-hostel":
                 self.handle_add_hostel(data)
             elif path in ["/api/admin/edit-hostel", "/api/admin/update-hostel"]:
@@ -516,32 +517,49 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 self.handle_ferry_update_booking(data)
             elif path == "/api/reviews":
                 self.handle_add_review(data)
+            elif path == "/api/admin/delete-admin":
+                self.handle_delete_admin(data)
+            elif path == "/api/admin/delete-student":
+                self.handle_delete_student(data)
+            elif path == "/api/admin/delete-all-students":
+                self.handle_delete_all_students(data)
             elif path == "/api/admin/confirm-payment":
                 self.handle_admin_confirm_payment(data)
             else:
                 self.send_json({"success": False, "message": "Route not found"}, 404)
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError, OSError):
+            pass
         except Exception as e:
             print(f"do_POST error: {e}")
-            self.send_json({"success": False, "message": str(e)}, 500)
+            try:
+                self.send_json({"success": False, "message": str(e)}, 500)
+            except Exception:
+                pass
 
     def serve_file(self, filename):
-        target = os.path.join(BASE_DIR, filename)
-        if not os.path.exists(target):
-            target = os.path.join(BASE_DIR, "templates", filename)
-        if os.path.exists(target):
-            self.send_response(200)
-            self.send_header("Content-Type", "text/html; charset=utf-8")
-            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
-            self.end_headers()
-            with open(target, "rb") as f:
-                self.wfile.write(f.read())
+        try:
+            target = os.path.join(BASE_DIR, filename)
+            if not os.path.exists(target):
+                target = os.path.join(BASE_DIR, "templates", filename)
+            if os.path.exists(target):
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+                self.end_headers()
+                with open(target, "rb") as f:
+                    self.wfile.write(f.read())
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError, OSError):
+            pass
 
     def send_json(self, data, status=200):
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
-        self.end_headers()
-        self.wfile.write(json.dumps(data).encode("utf-8"))
+        try:
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.end_headers()
+            self.wfile.write(json.dumps(data).encode("utf-8"))
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError, OSError):
+            pass
 
     def handle_update_profile(self, data):
         user_id = data.get("id") or data.get("user_id")
@@ -556,22 +574,18 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         cursor = conn.cursor()
 
         row = None
-        # 1. Look up by user DB id if provided
         if user_id:
             cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE id = ?", (user_id,))
             row = cursor.fetchone()
 
-        # 2. Look up by old_student_id if explicitly passed
         if not row and old_student_id:
             cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE TRIM(student_id) = ?", (old_student_id,))
             row = cursor.fetchone()
 
-        # 3. Look up by student_id
         if not row and student_id:
             cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE TRIM(student_id) = ?", (student_id,))
             row = cursor.fetchone()
 
-        # 4. Fallback search by email if student_id was updated
         if not row and email:
             cursor.execute("SELECT id, name, student_id, email, phone, avatar FROM users WHERE TRIM(email) = ?", (email,))
             row = cursor.fetchone()
@@ -589,7 +603,6 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
         final_phone = phone if phone else ex_phone
         final_avatar = avatar if avatar else ex_avatar
 
-        # Check if the new student_id belongs to another registered account
         if final_student_id != ex_student_id:
             cursor.execute("SELECT id FROM users WHERE TRIM(student_id) = ? AND id != ?", (final_student_id, u_id))
             if cursor.fetchone():
@@ -597,13 +610,11 @@ class UTYCCPortalHandler(SimpleHTTPRequestHandler):
                 self.send_json({"success": False, "message": "Student Roll ID is already taken by another account."}, 400)
                 return
 
-        # Update users table
         cursor.execute(
             "UPDATE users SET student_id=?, name=?, email=?, phone=?, avatar=? WHERE id=?",
             (final_student_id, final_name, final_email, final_phone, final_avatar, u_id)
         )
 
-        # Update existing bookings and inquiries if student_id changed
         if final_student_id != ex_student_id:
             cursor.execute("UPDATE hostel_bookings SET student_id=? WHERE TRIM(student_id)=?", (final_student_id, ex_student_id))
             cursor.execute("UPDATE ferry_bookings SET student_id=? WHERE TRIM(student_id)=?", (final_student_id, ex_student_id))
