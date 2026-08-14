@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - UTYCC Hostel & Ferry Booking System</title>
+  
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-blue: #0284c7;
+      --primary-hover: #0369a1;
+      --accent-teal: #0d9488;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --bg-light: #f8fafc;
+      --bg-glass: rgba(255, 255, 255, 0.92);
+      --border-glass: rgba(14, 165, 233, 0.18);
+      --border-glow: rgba(2, 132, 199, 0.35);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --card-bg: #ffffff;
+      --shadow-glass: 0 10px 30px -5px rgba(2, 132, 199, 0.08);
+      --shadow-glow: 0 12px 35px rgba(2, 132, 199, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.06) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.06) 0px, transparent 50%);
+    }
+
+    h1, h2, h3, h4, h5, h6, .brand-font, .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Navigation Bar */
+    .navbar-glass {
+      background: var(--bg-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-glass);
+      transition: all 0.3s ease;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+      color: white;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .nav-pills .nav-link {
+      color: var(--text-muted);
+      border-radius: 0.75rem;
+      font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-pills .nav-link:hover {
+      color: var(--primary-blue);
+      background: rgba(2, 132, 199, 0.08);
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: var(--primary-blue);
+      color: white;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 140px 0 90px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(2, 132, 199, 0.35), transparent 35%),
+        radial-gradient(circle at 70% 85%, rgba(13, 148, 136, 0.25), transparent 30%),
+        linear-gradient(135deg, #071a33 0%, #0b4168 60%, #0284c7 100%);
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 14px;
+      font-weight: 600;
+      backdrop-filter: blur(8px);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 5.5vw, 64px);
+      line-height: 1.12;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p.lead-text {
+      max-width: 780px;
+      font-size: 1.15rem;
+      color: #e0f2fe;
+      margin-bottom: 30px;
+      line-height: 1.65;
+    }
+
+    .btn-hero-white {
+      background: #ffffff;
+      color: #0369a1;
+      font-weight: 700;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+      transition: all 0.25s ease;
+    }
+
+    .btn-hero-white:hover {
+      background: #f0f9ff;
+      color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-hero-outline {
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      color: #ffffff;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+      transition: all 0.25s ease;
+    }
+
+    .btn-hero-outline:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title .section-tag {
+      color: var(--primary-blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(28px, 3.5vw, 38px);
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* Cards */
+    .card-feature {
+      background: var(--card-bg);
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-feature:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(2, 132, 199, 0.12);
+      border-color: rgba(2, 132, 199, 0.3);
+    }
+
+    .icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: #e0f2fe;
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .card-feature:hover .icon-box {
+      background: var(--primary-blue);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .card-feature h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+
+    .card-feature p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .problem-card {
+      background: #ffffff;
+      border-left: 5px solid var(--primary-blue);
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+      height: 100%;
+      transition: all 0.25s ease;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .problem-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .problem-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 0;
+    }
+
+    /* Flow Section */
+    .flow-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 45px;
+    }
+
+    .flow-step {
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      padding: 18px 24px;
+      text-align: center;
+      min-width: 170px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+      transition: all 0.25s ease;
+    }
+
+    .flow-step:hover {
+      border-color: var(--primary-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(2, 132, 199, 0.12);
+    }
+
+    .flow-step strong {
+      display: block;
+      color: var(--primary-blue);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .flow-step span {
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    .flow-arrow {
+      font-size: 22px;
+      color: var(--primary-blue);
+      font-weight: bold;
+    }
+
+    /* CTA Section */
+    .cta-card {
+      background: linear-gradient(135deg, #0369a1 0%, #0f766e 100%);
+      color: #ffffff;
+      border-radius: 28px;
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(2, 132, 199, 0.2);
+    }
+
+    .cta-card h2 {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-card p {
+      color: #e0f2fe;
+      max-width: 780px;
+      margin: 0 auto 28px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    /* Footer */
+    footer {
+      background: #071a33;
+      color: #94a3b8;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 768px) {
+      .flow-arrow {
+        transform: rotate(90deg);
+        margin: 4px 0;
+      }
+      .hero {
+        padding: 120px 0 60px;
+      }
+      .cta-card {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-glass sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="home.html">
+        <div class="brand-badge">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <span>UTYCC <span class="text-primary">Portal</span></span>
+      </a>
+      
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav nav-pills ms-auto gap-1 me-3 align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html"><i class="bi bi-house me-1"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="hostel.html"><i class="bi bi-building me-1"></i>Hostels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="ferry.html"><i class="bi bi-bus-front me-1"></i>Ferries</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="about.html"><i class="bi bi-info-circle me-1"></i>About</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0" id="navAuthSection">
+          <div id="authContainer">
+            <a class="btn btn-primary btn-sm rounded-pill px-3 fw-semibold" href="login.html">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Student Login
+            </a>
+          </div>
+          <div id="adminPortalBtnContainer">
+            <a class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-semibold" href="admin-login.html">
+              <i class="bi bi-shield-lock-fill me-1"></i> Admin Portal
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-10 col-xl-9">
+          <div class="hero-badge">
+            <i class="bi bi-geo-alt-fill text-warning"></i> University of Technology (Yatanarpon Cyber City)
+          </div>
+          <h1>Hostel & Ferry<br>Booking System</h1>
+          <p class="lead-text">
+            A web-based student service platform designed to make hostel room
+            booking and university ferry ticket booking faster, easier, more
+            organized, and more reliable.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-hero-white rounded-pill px-4 py-2" href="home.html">
+              <i class="bi bi-grid-fill me-1"></i> Explore Services
+            </a>
+            <a class="btn btn-hero-outline rounded-pill px-4 py-2" href="#flow">
+              <i class="bi bi-diagram-3-fill me-1"></i> View System Flow
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 01 • Introduction Section -->
+  <section id="intro">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-tag">01 • Introduction</span>
+        <h2>About The Project</h2>
+        <p>Understanding the purpose of the UTYCC Hostel and Ferry Booking System.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card-feature">
+            <div class="icon-box">
+              <i class="bi bi-building"></i>
+            </div>
+            <h3>Web-Based Application</h3>
+            <p>
+              The Hostel and Ferry Booking System is a web-based application
+              developed to simplify the process of booking hostel rooms and ferry
+              tickets for students. Instead of using manual registration and
+              paper-based records, students can make bookings online quickly and
+              securely.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-feature">
+            <div class="icon-box">
+              <i class="bi bi-bullseye"></i>
+            </div>
+            <h3>Main Purpose</h3>
+            <p>
+              The system brings hostel and ferry services into one organized
+              platform. It helps students access service information and booking
+              functions conveniently while helping administrators manage records
+              more efficiently.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 • Problem Statement Section -->
+  <section id="problem" style="background: #f1f8fc;">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-tag">02 • Problem Statement</span>
+        <h2>Why Is This System Needed?</h2>
+        <p>Key challenges that occur when campus hostel and ferry bookings are managed manually.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="problem-card">
+            <h3><i class="bi bi-clock-history text-primary"></i> Time-Consuming</h3>
+            <p>Manual registration and paper-based records require additional time for both students and administrators.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="problem-card">
+            <h3><i class="bi bi-exclamation-triangle-fill text-warning"></i> Booking Errors</h3>
+            <p>Manual processes may cause incorrect entries, duplicate bookings, or mistakes in booking records.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="problem-card">
+            <h3><i class="bi bi-file-earmark-x-fill text-danger"></i> Information Loss</h3>
+            <p>Paper records can be misplaced or damaged, making previous booking information difficult to retrieve.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="problem-card">
+            <h3><i class="bi bi-search text-info"></i> Availability Checking</h3>
+            <p>Students may find it difficult to check hostel room and ferry seat availability efficiently.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="problem-card">
+            <h3><i class="bi bi-folder-x text-secondary"></i> Difficult Management</h3>
+            <p>Administrators need a more systematic way to organize students, rooms, ferry schedules, and bookings.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="problem-card">
+            <h3><i class="bi bi-bar-chart-steps text-success"></i> Poor Organization</h3>
+            <p>A centralized system makes information significantly easier to access, update, monitor, and manage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 • Objectives Section -->
+  <section id="objectives">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-tag">03 • Objectives</span>
+        <h2>Project Objectives</h2>
+        <p>The core goals for developing the UTYCC smart campus management system.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-laptop"></i></div>
+            <h3>Online Booking</h3>
+            <p>Provide an online booking system for hostel rooms and ferry tickets so students can complete reservations more conveniently.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-shield-lock"></i></div>
+            <h3>Secure Data Storage</h3>
+            <p>Store student and booking information in a structured database for secure and organized data management.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-graph-down-arrow"></i></div>
+            <h3>Reduce Manual Work</h3>
+            <p>Reduce paperwork and manual record keeping while improving the accuracy and reliability of booking records.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-gear-wide-connected"></i></div>
+            <h3>Efficient Administration</h3>
+            <p>Allow administrators to manage students, hostel rooms, ferry schedules, and booking records efficiently.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-rocket-takeoff"></i></div>
+            <h3>Faster Process</h3>
+            <p>Make the overall booking process faster and easier by providing centralized access to all available services.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-clipboard-check"></i></div>
+            <h3>Better Organization</h3>
+            <p>Maintain booking information systematically so that students and administrators can access required records anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 • System Features Section -->
+  <section id="features" style="background: #f8fafc; border-top: 1px solid #e2e8f0;">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-tag">04 • System Features</span>
+        <h2>What Can The System Do?</h2>
+        <p>Essential functions and interactive modules included in the student booking platform.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-person-check-fill"></i></div>
+            <h3>Student Authentication</h3>
+            <p>Students can securely register and sign in using their registered student credentials and email.</p>
+            <a href="login.html" class="text-primary fw-semibold small text-decoration-none mt-3 d-inline-flex align-items-center gap-1">Go to Login &rarr;</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-house-door-fill"></i></div>
+            <h3>Hostel Room Booking</h3>
+            <p>Students can view hostel room types, check live bed availability, and complete online hostel reservations.</p>
+            <a href="hostel.html" class="text-primary fw-semibold small text-decoration-none mt-3 d-inline-flex align-items-center gap-1">View Hostels &rarr;</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-bus-front-fill"></i></div>
+            <h3>Ferry Ticket Booking</h3>
+            <p>Students can view daily university ferry routes, schedules, and reserve digital seating tokens online.</p>
+            <a href="ferry.html" class="text-primary fw-semibold small text-decoration-none mt-3 d-inline-flex align-items-center gap-1">View Ferries &rarr;</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-clock-history"></i></div>
+            <h3>Booking History</h3>
+            <p>Students can review their current and previous reservation statuses, tokens, and payment vouchers anytime.</p>
+            <a href="profile.html" class="text-primary fw-semibold small text-decoration-none mt-3 d-inline-flex align-items-center gap-1">Check History &rarr;</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-speedometer2"></i></div>
+            <h3>Admin Panel</h3>
+            <p>Authorized staff and admins can manage registered students, hostel buildings, ferry routes, and active bookings.</p>
+            <a href="admin-login.html" class="text-primary fw-semibold small text-decoration-none mt-3 d-inline-flex align-items-center gap-1">Admin Access &rarr;</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-database-fill-gear"></i></div>
+            <h3>Database Management</h3>
+            <p>Uses structured database schemas for users, hostels, ferries, token approvals, inquiries, and reviews.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 • System Flow Section -->
+  <section id="flow">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-tag">05 • System Flow</span>
+        <h2>How The Booking Process Works</h2>
+        <p>A streamlined 5-step flow from student sign-in to service reservation confirmation.</p>
+      </div>
+      
+      <div class="flow-wrapper">
+        <div class="flow-step">
+          <strong>Step 01</strong>
+          <span>Login / Register</span>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <strong>Step 02</strong>
+          <span>Select Service</span>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <strong>Step 03</strong>
+          <span>Check Availability</span>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <strong>Step 04</strong>
+          <span>Make Booking</span>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <strong>Step 05</strong>
+          <span>Confirmation</span>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-2">
+        <div class="col-md-6">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-building"></i></div>
+            <h3>Hostel Booking Workflow</h3>
+            <p>
+              Student logs in &rarr; views available hostel rooms &rarr; selects preferred room and floor &rarr; submits booking information &rarr; reservation details are saved for administrative confirmation.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-feature">
+            <div class="icon-box"><i class="bi bi-bus-front"></i></div>
+            <h3>Ferry Booking Workflow</h3>
+            <p>
+              Student logs in &rarr; inspects ferry pickup routes and schedules &rarr; selects route &rarr; submits booking &rarr; digital token is generated for campus travel verification.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 • Expected Benefits Section -->
+  <section id="benefits" style="background: #eef8ff;">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-tag">06 • Expected Results</span>
+        <h2>Expected Benefits</h2>
+        <p>Positive outcomes and efficiency gains delivered by the digital portal.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <h3><i class="bi bi-check2-circle text-primary me-2"></i>Easy Booking</h3>
+            <p>Students can complete hostel and ferry bookings anytime through a convenient online interface.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <h3><i class="bi bi-file-earmark-minus text-primary me-2"></i>Less Paperwork</h3>
+            <p>The system minimizes reliance on manual physical registration and paper record-keeping.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <h3><i class="bi bi-shield-check text-primary me-2"></i>Fewer Duplicates</h3>
+            <p>Centralized database constraints eliminate duplicate bookings and room over-allocation.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <h3><i class="bi bi-lightning-charge text-primary me-2"></i>Faster Access</h3>
+            <p>Students and administrators can search, retrieve, and update service records instantly.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <h3><i class="bi bi-kanban text-primary me-2"></i>Better Management</h3>
+            <p>Administrators manage student rosters, room allocations, ferry schedules, and inquiries systematically.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="card-feature">
+            <h3><i class="bi bi-award text-primary me-2"></i>Reliable Process</h3>
+            <p>The entire booking workflow becomes transparent, accurate, trackable, and dependable.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion & CTA Section -->
+  <section id="conclusion" class="py-5">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Conclusion</h2>
+        <p>
+          The Hostel and Ferry Booking System enhances the efficiency and
+          reliability of campus transportation and accommodation services. It provides a user-friendly
+          platform for students and an effective management suite for
+          administrators, making bookings faster, simpler, and more accurate.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+          <a class="btn btn-hero-white rounded-pill px-4 py-2.5" href="login.html">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Access Student Portal
+          </a>
+          <a class="btn btn-hero-outline rounded-pill px-4 py-2.5" href="home.html">
+            <i class="bi bi-house-door me-1"></i> Return to Homepage
+          </a>
+        </div>
+        <div class="mt-4 pt-3 border-top border-white border-opacity-25 small text-white-50">
+          UTYCC SMART CAMPUS ENTERPRISE PORTAL &bull; QUESTIONS &amp; ANSWERS
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-4">
+    <div class="container text-center">
+      <p class="mb-1 fw-semibold text-light">UTYCC Hostel &amp; Ferry Booking System</p>
+      <p class="mb-0 small text-muted">Department of Computer Engineering &bull; University of Technology (Yatanarpon Cyber City)</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Server Configuration Base URL
+    const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
+
+    // Session Detection & UI Sync
+    document.addEventListener('DOMContentLoaded', () => {
+      syncAuthHeader();
+    });
+
+    async function syncAuthHeader() {
+      const userJson = localStorage.getItem('user') || localStorage.getItem('utycc_user');
+      const adminJson = localStorage.getItem('utycc_admin') || localStorage.getItem('admin');
+      const authContainer = document.getElementById('authContainer');
+      const adminPortalBtnContainer = document.getElementById('adminPortalBtnContainer');
+
+      // Check if Admin is logged in
+      if (adminJson && adminPortalBtnContainer) {
+        try {
+          const admin = JSON.parse(adminJson);
+          if (admin && admin.name) {
+            adminPortalBtnContainer.innerHTML = `
+              <a class="btn btn-danger btn-sm rounded-pill px-3 fw-semibold d-flex align-items-center gap-1" href="admin.html">
+                <i class="bi bi-shield-check"></i> Admin Dashboard (${escapeHtml(admin.role || 'Admin')})
+              </a>
+            `;
+          }
+        } catch (e) {
+          console.error("Error parsing admin session:", e);
+        }
+      }
+
+      // Check if Student is logged in
+      if (userJson && authContainer) {
+        try {
+          const user = JSON.parse(userJson);
+          const studentId = user.student_id || user.id;
+
+          // Attempt to fetch fresh profile status from server if online
+          if (studentId) {
+            fetch(`${API_BASE_URL}/api/user-status/${encodeURIComponent(studentId)}`)
+              .then(res => res.json())
+              .then(data => {
+                if (data && data.success && data.user) {
+                  localStorage.setItem('user', JSON.stringify({ ...user, ...data.user }));
+                }
+              })
+              .catch(err => console.log('Offline / standalone mode:', err));
+          }
+
+          if (user && (user.name || user.student_id)) {
+            authContainer.innerHTML = `
+              <div class="dropdown">
+                <button class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold dropdown-toggle d-flex align-items-center gap-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-person-circle text-primary"></i>
+                  <span>${escapeHtml(user.name || user.student_id)}</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 mt-2">
+                  <li><a class="dropdown-item py-2" href="home.html"><i class="bi bi-house me-2 text-primary"></i>Campus Dashboard</a></li>
+                  <li><a class="dropdown-item py-2" href="hostel.html"><i class="bi bi-building me-2 text-primary"></i>Book Hostel</a></li>
+                  <li><a class="dropdown-item py-2" href="ferry.html"><i class="bi bi-bus-front me-2 text-primary"></i>Book Ferry</a></li>
+                  <li><a class="dropdown-item py-2" href="profile.html"><i class="bi bi-person-gear me-2 text-primary"></i>My Profile & Tokens</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item py-2 text-danger fw-semibold" href="#" onclick="logout(); return false;"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                </ul>
+              </div>
+            `;
+          }
+        } catch (e) {
+          console.error("Error parsing user session:", e);
+        }
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      localStorage.removeItem('utycc_user');
+      window.location.href = 'login.html';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
