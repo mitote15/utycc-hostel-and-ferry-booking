@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary-blue: #0284c7;
@@ -50,74 +52,24 @@
 
         .hostel-card {
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            white-space: pre-wrap;
         }
 
         .hostel-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(2, 132, 199, 0.15);
-            white-space: pre-wrap;
-        }
-        /* Responsive Mobile Styles */
-        @media (max-width: 991.98px) {
-            .navbar-enterprise {
-                margin: 8px 0.5rem 0 0.5rem;
-                width: calc(100% - 1rem);
-                border-radius: 16px;
-            }
-            .navbar-collapse {
-                background: #ffffff;
-                padding: 1.25rem;
-                border-radius: 16px;
-                margin-top: 10px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid var(--border-glass);
-            }
-            .hero-enterprise {
-                padding: 6.5rem 0.5rem 4rem 0.5rem;
-            }
-            .hero-enterprise h1 {
-                font-size: 2.2rem !important;
-            }
-            .hero-enterprise p.lead {
-                font-size: 0.95rem !important;
-            }
         }
 
-        @media (max-width: 575.98px) {
-            .hero-enterprise h1 {
-                font-size: 1.85rem !important;
-            }
-            .glass-card {
-                padding: 1.25rem !important;
-                border-radius: 16px !important;
-            }
-            .service-card-interactive {
-                padding: 1.25rem !important;
-            }
-            .about-image-container .image-wrapper img {
-                height: 250px !important;
-            }
-            .offcanvas-end {
-                width: 100% !important;
-            }
-            .scroll-fade-effect {
-                bottom: 16px;
-                right: 16px;
-                width: 44px;
-                height: 44px;
-                font-size: 1.2rem;
-            }
-            .hero-btn-container {
-                flex-direction: column;
-                width: 100%;
-            }
-            .hero-btn-container .btn {
-                width: 100%;
-            }
+        .navbar-nav .nav-link {
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #0d6efd !important;
+            transform: translateY(-2px);
         }
     </style>
 </head>
+
 <body>
     <!-- Enterprise Navbar -->
     <nav class="navbar navbar-expand-lg navbar-enterprise fixed-top px-3 py-2">
@@ -126,31 +78,54 @@
                 <div class="bg-primary text-white rounded-3 px-2 py-1 fs-6 fw-bold">UTYCC</div>
                 <span class="brand-font fs-5 fw-bold text-dark">Smart Campus Portal</span>
             </a>
+
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
                     <li class="nav-item"><a class="nav-link fw-medium text-secondary" href="home.html"><i class="bi bi-house me-1"></i>Home</a></li>
                     <li class="nav-item"><a class="nav-link fw-bold text-primary active" href="hostel.html"><i class="bi bi-building me-1"></i>Hostel Portal</a></li>
                     <li class="nav-item"><a class="nav-link fw-medium text-secondary" href="ferry.html"><i class="bi bi-bus-front me-1"></i>Ferry Lines</a></li>
                 </ul>
+
                 <div class="d-flex align-items-center gap-3">
-                    <a href="login.html" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold" id="loginBtn">
+                    <a href="login.html?reset=true" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold" id="loginBtn">
                         <i class="bi bi-box-arrow-in-right me-1"></i>Student Login
                     </a>
+                    
                     <div class="dropdown d-none" id="profileMenu">
-                        <button class="btn btn-light btn-sm rounded-pill border dropdown-toggle px-3 py-1.5 fw-semibold d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#userProfileDrawer">
-                            <i class="bi bi-person-circle text-primary fs-6"></i>
-                            <span id="userName">Student</span>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="navAvatarImg" src="" class="rounded-circle d-none" style="width: 24px; height: 24px; object-fit: cover;">
+                            <i id="navAvatarIcon" class="bi bi-person-circle text-primary fs-6"></i>
+                            <span id="userName" class="fw-semibold">Student</span>
                         </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 mt-2">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#" data-bs-toggle="offcanvas" data-bs-target="#userProfileDrawer">
+                                    <i class="bi bi-person text-primary"></i> Profile Drawer
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="profile.html">
+                                    <i class="bi bi-speedometer2 text-primary"></i> Profile Dashboard
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger fw-semibold" href="#" onclick="logout(); return false;">
+                                    <i class="bi bi-box-arrow-right text-danger"></i> Terminate Session
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- User Profile Offcanvas Drawer -->
+    <!-- Student Profile Slide-in Drawer (Offcanvas) -->
     <div class="offcanvas offcanvas-end shadow-lg" tabindex="-1" id="userProfileDrawer" style="width: 380px;">
         <div class="offcanvas-header border-bottom bg-light">
             <h5 class="offcanvas-title fw-bold text-dark d-flex align-items-center gap-2">
@@ -158,38 +133,68 @@
             </h5>
             <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body p-4">
-            <div class="text-center mb-4">
-                <div class="bg-primary bg-opacity-10 text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                    <i class="bi bi-person-fill fs-2"></i>
+        <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+            <div>
+                <div class="text-center mb-4">
+                    <div class="position-relative d-inline-block mb-2">
+                        <div id="drawerAvatarWrapper" class="bg-primary bg-opacity-10 text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center overflow-hidden shadow-sm" style="width: 80px; height: 80px; border: 2px solid #0284c7;">
+                            <img id="drawerAvatarImg" src="" class="w-100 h-100 d-none" style="object-fit: cover;">
+                            <i id="drawerAvatarIcon" class="bi bi-person-fill fs-1"></i>
+                        </div>
+                        <label for="profilePicInputDrawer" class="btn btn-sm btn-primary rounded-circle position-absolute d-flex align-items-center justify-content-center p-0 shadow" style="width: 28px; height: 28px; bottom: 0; right: 0; cursor: pointer;" title="Change Profile Picture">
+                            <i class="bi bi-camera-fill text-white" style="font-size: 0.75rem;"></i>
+                        </label>
+                        <input type="file" id="profilePicInputDrawer" accept="image/*" class="d-none" onchange="handleProfilePicUpload(event)">
+                    </div>
+                    <h5 class="fw-bold text-dark mb-0" id="drawerName">Student</h5>
+                    <p class="text-muted small mb-1" id="drawerStudentId">Roll ID: Syncing...</p>
+                    <p class="text-muted small mb-0" id="drawerPhone">Phone: Syncing...</p>
                 </div>
-                <h5 class="fw-bold text-dark mb-0" id="drawerName">Student</h5>
-                <p class="text-muted small mb-1" id="drawerStudentId">Roll ID: N/A</p>
-                <p class="text-muted small mb-0" id="drawerPhone">Phone: N/A</p>
-            </div>
-            <div class="card glass-card p-3 mb-3 border">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold text-dark small"><i class="bi bi-building me-1 text-primary"></i>Hostel Allocation</span>
-                    <span id="hostelBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unallocated</span>
+
+                <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.7rem; letter-spacing: 1px;">Live Allocation Status</h6>
+
+                <!-- Hostel Slot Card -->
+                <div class="card glass-card p-3 mb-3 border">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-dark small"><i class="bi bi-house-door me-1 text-primary"></i>Hostel Slot</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <span id="hostelBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unallocated</span>
+                        </div>
+                    </div>
+                    <div id="hostelDetail" class="text-muted small mb-2">No hostel reservation found</div>
+                    <div class="text-end">
+                        <span id="hostelActionBtn"></span>
+                    </div>
                 </div>
-                <div id="hostelDetail" class="text-muted small">No hostel reservation found</div>
-            </div>
-            <div class="card glass-card p-3 mb-4 border">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold text-dark small"><i class="bi bi-bus-front me-1 text-info"></i>Ferry Seat Token</span>
-                    <span id="ferryBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unassigned</span>
+
+                <!-- Ferry Route Token Card -->
+                <div class="card glass-card p-3 mb-4 border">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-dark small"><i class="bi bi-bus-front me-1 text-success"></i>Ferry Route Token</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <span id="ferryBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unassigned</span>
+                        </div>
+                    </div>
+                    <div id="ferryDetail" class="text-muted small mb-2">No active transit tokens</div>
+                    <div class="text-end">
+                        <span id="ferryActionBtn"></span>
+                    </div>
                 </div>
-                <div id="ferryDetail" class="text-muted small">No active transit tokens</div>
             </div>
-            <button class="btn btn-outline-danger w-100 rounded-pill fw-semibold py-2" onclick="logout()">
-                <i class="bi bi-box-arrow-right me-1"></i>Sign Out
-            </button>
+
+            <div>
+                <a href="profile.html" class="btn btn-primary w-100 rounded-pill py-2 fw-semibold d-flex align-items-center justify-content-center gap-2 mb-2">
+                    <i class="bi bi-speedometer2"></i> Profile Dashboard Page
+                </a>
+                <button class="btn btn-outline-danger w-100 rounded-pill py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i> Terminate Session
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Content: Hostel Block Allocation Grid -->
     <main class="container my-5 pt-5">
-        <!-- Page Header -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
             <div>
                 <h3 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
@@ -197,7 +202,7 @@
                 </h3>
                 <p class="text-muted small mb-0">Explore available campus hostel rooms and reserve your accommodation seat</p>
             </div>
-            <!-- Filter Controls -->
+
             <div class="d-flex flex-wrap gap-2">
                 <div class="input-group shadow-sm" style="max-width: 260px;">
                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
@@ -211,7 +216,6 @@
             </div>
         </div>
 
-        <!-- Hostel Grid -->
         <div class="row g-4" id="hostelGrid">
             <div class="text-center my-5 w-100">
                 <div class="spinner-border text-primary"></div>
@@ -219,22 +223,23 @@
             </div>
         </div>
 
-        <!-- No Results -->
-        <div id="noResults" class="glass-card text-center p-5 d-none my-4">
+        <div class="glass-card text-center p-5 d-none my-4" id="noResults">
             <i class="bi bi-building-x display-4 text-muted opacity-50 d-block mb-2"></i>
             <h5 class="fw-bold text-dark">No Hostel Blocks Found</h5>
             <p class="text-muted small mb-0">Try adjusting your search query or gender filter.</p>
         </div>
     </main>
 
-    <!-- Hostel Booking Modal (KPay Payment Gateway Integration) -->
+    <!-- Hostel Booking Modal -->
     <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content glass-card border-0 shadow-lg" style="border-radius: 1.5rem;">
                 <!-- Step 1: Student Details -->
                 <div id="formSection">
                     <div class="modal-header border-0 pt-4 px-4 pb-0">
-                        <h5 class="modal-title fw-bold text-dark">Hostel Room Reservation</h5>
+                        <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+                            <i class="bi bi-house-door text-primary fs-5"></i>Hostel Room Reservation
+                        </h5>
                         <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body p-4">
@@ -244,13 +249,14 @@
                                 <div class="small text-muted" id="modalRoomNo">Room 101</div>
                             </div>
                             <div class="text-end">
-                                <div class="fw-bold text-primary fs-5" id="modalHostelPrice"></div>
+                                <div class="small text-muted">Reservation Fee</div>
+                                <div class="fw-bold text-primary fs-5" id="modalHostelPrice">150,000 Ks</div>
                             </div>
                         </div>
-                        <form id="bookingForm" onsubmit="event.preventDefault(); goToPayment();">
+                        <form id="bookingForm" onsubmit="event.preventDefault(); goToPayment();" novalidate>
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold text-muted">Student Full Name</label>
-                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentName" required placeholder="e.g. Mg Mg">
+                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentName" placeholder="e.g. Mg Mg" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold text-muted">Academic Year</label>
@@ -259,90 +265,82 @@
                                     <option value="First Year">First Year</option>
                                     <option value="Second Year">Second Year</option>
                                     <option value="Third Year">Third Year</option>
+                                    <option value="Fourth Year">Fourth Year</option>
                                     <option value="Final Year">Final Year</option>
+                                    <option value="Master / CoE">Master / CoE</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold text-muted">Student Roll ID</label>
-                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentId" required placeholder="e.g. 5ECE-12">
+                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentId" placeholder="e.g. 5ECE-12" required>
                             </div>
                             <div class="mb-4">
-    <label class="form-label small fw-semibold text-muted">NRC ID</label>
-    <input type="text" 
-           class="form-control bg-white text-dark border rounded-3 shadow-none" 
-           id="nationalId" 
-           required 
-           placeholder="e.g. 12/YAKANA(N)123456"
-           pattern="^([0-9]{1,2})/([A-Za-z\u1000-\u109F\s]+)\(([NaAP]\))\s*([0-9]{6})$"
-           oninput="this.value = this.value.toUpperCase();">
-</div>
-                            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-medium rounded-pill"><i class="bi bi-qr-code-scan me-1"></i>Proceed to Payment</button>
+                            <label class="form-label small fw-semibold text-muted">NRC ID</label>
+                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="nationalId" placeholder="e.g. 12/YAKANA(N)123456" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-medium rounded-pill">
+                                <i class="bi bi-qr-code-scan me-1"></i>Proceed to Payment
+                            </button>
                         </form>
                     </div>
                 </div>
 
-                <!-- Step 2: KPay Payment Gateway UI -->
+                <!-- Step 2: Payment Gateway UI -->
                 <div id="paymentSection" class="d-none">
                     <div class="modal-header border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
                         <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
-                            <i class="bi bi-qr-code-scan text-success fs-5"></i>KPay Payment Gateway
+                            <i class="bi bi-qr-code-scan text-success fs-5"></i><span id="hostelPayHeaderLabel">KBZPay Payment Gateway</span>
                         </h5>
                         <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body p-4">
-                        <!-- Outer Dashed Soft Blue Container -->
                         <div class="p-4 rounded-4 text-center border-2" style="background-color: #f0f7ff; border: 2px dashed #93c5fd;">
-                            <h5 class="fw-bold text-dark mb-1" id="kpayItemTitle"></h5>
-                            <p class="text-secondary small mb-3">အောက်ပါ KBZPay QR Code ကို Scan ဖတ်၍ ကျသင့်ငွေ <span class="fw-bold text-primary fs-5" id="kpayAmountText"></span> ပေးချေပါ:</p>
-                            <!-- Blue Frame Center Box with QR Image -->
-                            <div id="kpayQrBoxContainer" class="p-3 rounded-4 shadow-sm mx-auto d-none" style="background: #0056b3; width: 100%; max-width: 270px; color: white;">
-                                <div class="small fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.2px;">Use KBZPay Scan to pay me</div>
-                                <img src="" id="kpayQrImg" alt="KBZPay QR Code" class="img-fluid rounded-3 bg-white p-2 mb-2 shadow-sm" style="width: 170px; height: 170px; object-fit: contain;">
-                                <div class="small fw-bold mb-2 text-truncate px-1" style="font-size: 0.82rem;">Hostel Admin Payment Account</div>
+                            <h5 class="fw-bold text-dark mb-1" id="kpayItemTitle">Hostel Block A</h5>
+                            <p class="text-secondary small mb-3">
+                                အောက်ပါ <span id="hostelPayMethodNameText" class="fw-bold text-dark">KBZPay</span> QR Code ကို Scan ဖတ်၍ ကျသင့်ငွေ 
+                                <span class="fw-bold text-primary fs-5" id="kpayAmountText">150,000 Ks</span> ပေးချေပါ:
+                            </p>
+                            <div id="kpayQrBoxContainer" class="p-3 rounded-4 shadow-sm mx-auto" style="background: #0056b3; width: 100%; max-width: 270px; color: white;">
+                                <div id="hostelQrFrameTitle" class="small fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.2px;">Use KBZPay Scan to pay me</div>
+                                <img id="kpayQrImg" src="qrcode.jpg" class="img-fluid rounded-3 bg-white p-2 mb-2 shadow-sm" style="width: 170px; height: 170px; object-fit: contain;" alt="Payment QR Code">
+                                <div id="hostelAccountName" class="small fw-bold mb-2 text-truncate px-1" style="font-size: 0.82rem;">UTYCC Central Hostel Service (09400212150)</div>
                                 <div>
-                                    <span class="badge bg-white text-primary px-2.5 py-1 fw-bold shadow-sm" style="font-size: 0.75rem;">
-                                        KBZ <span class="bg-primary text-white px-1 rounded ms-0.5" style="font-size: 0.65rem;">Pay</span>
-                                    </span>
+                                    <span id="hostelQrFrameBadge" class="badge bg-white text-primary px-2.5 py-1 fw-bold shadow-sm" style="font-size: 0.75rem;">KBZ <span class="bg-primary text-white px-1 rounded ms-0.5" style="font-size: 0.65rem;">Pay</span></span>
                                 </div>
                             </div>
-                            <div id="noKpayQrNotice" class="p-4 rounded-4 bg-white border text-muted small my-3 mx-auto" style="max-width: 320px;">
-                                <i class="bi bi-qr-code text-secondary fs-3 d-block mb-2 opacity-50"></i>
-                                <div class="fw-bold text-dark mb-1">KPay Scanner QR Code မထည့်သွင်းထားပါ</div>
-                            </div>
-                            <!-- Footer Badge Inside Box -->
                             <div class="mt-3 text-secondary small d-flex align-items-center justify-content-center gap-1.5" style="font-size: 0.8rem;">
                                 <i class="bi bi-shield-fill-check text-success fs-6"></i>
-                                <span class="fw-medium text-dark">UTYCC Hostel Admin Payment Account</span>
+                                <span class="fw-medium text-dark">UTYCC Super Admin Central Payment Account</span>
                             </div>
                         </div>
 
-                        <!-- Payment Form Fields -->
                         <div class="mt-3">
                             <label class="form-label small fw-bold text-dark mb-1">Payment Method</label>
-                            <select class="form-select bg-white border text-dark rounded-3 shadow-none mb-3" id="paymentMethodSelect">
+                            <select class="form-select bg-white border text-dark rounded-3 shadow-none mb-3" id="paymentMethodSelect" onchange="updateHostelQrDisplay()">
                                 <option value="KBZPay (KPay QR)" selected>KBZPay (KPay QR)</option>
+                                <option value="WavePay">WavePay</option>
                                 <option value="AYA Pay">AYA Pay</option>
                                 <option value="CB Pay">CB Pay</option>
-                                <option value="WavePay">WavePay</option>
                             </select>
-                            <label class="form-label small fw-bold text-danger mb-1" id="paymentTxnLabel">
-                                KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)
-                            </label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]{6,12}" minlength="6" maxlength="12" class="form-control bg-white border text-dark rounded-3 shadow-none mb-4" id="paymentTransactionId" placeholder="e.g. 123456" oninput="this.value = this.value.replace(/[^0-9]/g, '')" title="ကျေးဇူးပြု၍ ဂဏန်း ၆ လုံးမှ ၁၂ လုံးအတွင်းသာ ထည့်ပါ။" required>
-                        </div>
 
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-medium" onclick="backToForm()">
-                                <i class="bi bi-arrow-left me-1"></i>Back
-                            </button>
-                            <button type="button" class="btn btn-success flex-grow-1 py-2.5 rounded-pill fw-bold shadow-sm" id="submitPayBtn" onclick="submitHostelBooking()">
-                                <i class="bi bi-check-circle-fill me-1"></i>Confirm & Submit Payment
-                            </button>
+                            <label class="form-label small fw-bold text-danger mb-1" id="hostelTxnLabel">
+                                KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *
+                            </label>
+                            <input type="text" class="form-control bg-white border text-dark rounded-3 shadow-none mb-4" id="paymentTransactionId" placeholder="e.g. 123456" required>
+
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-medium" onclick="backToForm()">
+                                    <i class="bi bi-arrow-left me-1"></i>Back
+                                </button>
+                                <button type="button" class="btn btn-success flex-grow-1 py-2.5 rounded-pill fw-bold shadow-sm" id="submitPayBtn" onclick="submitHostelBooking()">
+                                    <i class="bi bi-check-circle-fill me-1"></i>Confirm & Submit Payment
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Success Section -->
+                <!-- Step 3: Success Section -->
                 <div id="successSection" class="d-none text-center p-5">
                     <i class="bi bi-clock-history text-warning display-3"></i>
                     <h4 class="fw-bold text-dark mt-2">Payment Verification Pending</h4>
@@ -353,14 +351,30 @@
         </div>
     </div>
 
+    <!-- Booking Limit Modal -->
+    <div class="modal fade" id="bookingLimitModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
+            <div class="modal-content border-0 shadow-lg text-center p-4" style="border-radius: 20px;">
+                <div class="modal-body py-4">
+                    <div class="mx-auto mb-4 d-flex align-items-center justify-content-center bg-danger bg-opacity-10 text-danger rounded-circle" style="width: 72px; height: 72px;">
+                        <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">Booking Limit Reached</h5>
+                    <p class="text-muted small px-2 mb-4" id="bookingLimitMsg">သင်သည် Booking ပြုလုပ်ထားပြီးဖြစ်သည်။ အကောင့်တစ်ခုလျှင် Booking တစ်ခုသာ တင်ခွင့်ရှိပါသည်။</p>
+                    <button type="button" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold" data-bs-dismiss="modal">နားလည်ပါပြီ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="py-4 text-center border-top bg-white bg-opacity-80 mt-auto">
         <div class="container">
-            <p class="text-muted small mb-0">&copy; 2026 UTYCC Transport &amp; Accommodation Board.</p>
+            <p class="text-muted small mb-0">&copy; 2026 University of Technology Yatanarpon Cyber City (UTYCC). Smart Campus Enterprise System.</p>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 Bundle JS -->
+    <!-- Bootstrap 5.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
@@ -368,7 +382,9 @@
         let selectedHostelId = null;
         let selectedHostelName = '';
         let selectedRoomNo = '';
-        let selectedHostelPrice = '';
+        let selectedHostelPrice = '150,000 Ks';
+        let currentHostelBooking = null;
+        let currentFerryBooking = null;
 
         document.addEventListener("DOMContentLoaded", () => {
             checkAuthAndLoadProfile();
@@ -380,7 +396,71 @@
             return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        async function checkAuthAndLoadProfile() {
+        function formatHostelPrice(price) {
+            if (!price && price !== 0) return '150,000 Ks';
+            const numeric = parseInt(String(price).replace(/[^0-9]/g, ''), 10);
+            if (isNaN(numeric) || numeric <= 0) return '150,000 Ks';
+            return numeric.toLocaleString() + ' Ks';
+        }
+
+        async function apiGet(endpoint) {
+            const origins = ["", window.location.origin.startsWith("http") ? window.location.origin : "", "http://localhost:8080"].filter((v, i, a) => v !== undefined && v !== null && a.indexOf(v) === i);
+            for (let origin of origins) {
+                try {
+                    const url = origin ? `${origin}${endpoint}` : endpoint;
+                    const res = await fetch(url, { method: "GET" });
+                    if (res.ok) return await res.json();
+                } catch (e) {}
+            }
+            throw new Error("Network error connecting to server.");
+        }
+
+        async function apiPost(endpoint, bodyData) {
+            const origins = ["", window.location.origin.startsWith("http") ? window.location.origin : "", "http://localhost:8080"].filter((v, i, a) => v !== undefined && v !== null && a.indexOf(v) === i);
+            for (let origin of origins) {
+                try {
+                    const url = origin ? `${origin}${endpoint}` : endpoint;
+                    const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(bodyData) });
+                    if (res.ok) return await res.json();
+                } catch (e) {}
+            }
+            throw new Error("Network error connecting to server.");
+        }
+
+        async function updateProfilePicUI(imageUrl) {
+            if (!imageUrl) return;
+            const navImg = document.getElementById('navAvatarImg');
+            const navIcon = document.getElementById('navAvatarIcon');
+            if (navImg) { navImg.src = imageUrl; navImg.classList.remove('d-none'); }
+            if (navIcon) { navIcon.classList.add('d-none'); }
+            const drawerImg = document.getElementById('drawerAvatarImg');
+            const drawerIcon = document.getElementById('drawerAvatarIcon');
+            if (drawerImg) { drawerImg.src = imageUrl; drawerImg.classList.remove('d-none'); }
+            if (drawerIcon) { drawerIcon.classList.add('d-none'); }
+        }
+
+        async function handleProfilePicUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const userJson = localStorage.getItem('user');
+            if (!userJson) return;
+            const user = JSON.parse(userJson);
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Data = e.target.result;
+                updateProfilePicUI(base64Data);
+                try {
+                    await apiPost('/api/user/update-profile', { student_id: user.student_id, avatar: base64Data });
+                    user.avatar = base64Data;
+                    user.profile_pic = base64Data;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    if (user.student_id) localStorage.setItem('userAvatar_' + user.student_id, base64Data);
+                } catch (err) {}
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function checkAuthAndLoadProfile() {
             const userJson = localStorage.getItem('user');
             const loginBtn = document.getElementById('loginBtn');
             const profileMenu = document.getElementById('profileMenu');
@@ -393,12 +473,12 @@
                 const drawerName = document.getElementById('drawerName');
                 if (drawerName) drawerName.textContent = user.name || 'Student';
                 const drawerStudentId = document.getElementById('drawerStudentId');
-                if (drawerStudentId) drawerStudentId.textContent = 'Roll ID: ' + (user.student_id || 'N/A');
+                if (drawerStudentId) drawerStudentId.textContent = `Roll ID: ${user.student_id || 'N/A'}`;
                 const drawerPhone = document.getElementById('drawerPhone');
-                if (drawerPhone) drawerPhone.textContent = 'Phone: ' + (user.phone || 'N/A');
-                if (user.student_id) {
-                    fetchUserStatus(user.student_id);
-                }
+                if (drawerPhone) drawerPhone.textContent = `Phone: ${user.phone || 'N/A'}`;
+                const savedAvatar = user.avatar || user.profile_pic || (user.student_id ? localStorage.getItem('userAvatar_' + user.student_id) : '');
+                if (savedAvatar) updateProfilePicUI(savedAvatar);
+                if (user.student_id) fetchUserStatus(user.student_id);
             } else {
                 if (loginBtn) loginBtn.classList.remove('d-none');
                 if (profileMenu) profileMenu.classList.add('d-none');
@@ -406,41 +486,65 @@
         }
 
         async function fetchUserStatus(studentId) {
+            if (!studentId) return;
             try {
-                const res = await fetch(API_BASE_URL + '/api/user-status/' + encodeURIComponent(studentId));
-                const data = await res.json();
+                const data = await apiGet(`/api/user-status/${encodeURIComponent(studentId)}`);
                 if (data.success) {
                     const hostelBadge = document.getElementById('hostelBadge');
                     const hostelDetail = document.getElementById('hostelDetail');
+                    const hostelActionBtn = document.getElementById('hostelActionBtn');
                     if (data.has_hostel && data.hostel) {
-                        const h = data.hostel;
-                        const isPending = h.payment_status === 'Pending' || h.status === 'Pending Approval';
-                        if (hostelBadge) {
-                            hostelBadge.className = isPending ? "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5" : "badge bg-success-subtle text-success rounded-pill px-3 py-1.5";
-                            hostelBadge.textContent = isPending ? "Pending Payment Approval" : "Allocated";
-                        }
-                        if (hostelDetail) hostelDetail.textContent = 'Block: ' + h.hostel_name + ' (' + (h.room_number || '') + ')';
+                        currentHostelBooking = data.hostel;
+                        const isPending = data.hostel.payment_status === 'Pending' || data.hostel.status === 'Pending Approval';
+                        const isRejected = data.hostel.status === 'Rejected' || data.hostel.payment_status === 'Rejected';
+                        let badgeClass = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5";
+                        let badgeText = "Pending Payment";
+                        if (isRejected) { badgeClass = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-1.5"; badgeText = "Payment Rejected"; }
+                        else if (!isPending) { badgeClass = "badge bg-success-subtle text-success rounded-pill px-3 py-1.5"; badgeText = "Allocated"; }
+                        if (hostelBadge) { hostelBadge.className = badgeClass; hostelBadge.textContent = badgeText; }
+                        if (hostelDetail) hostelDetail.textContent = `Block: ${data.hostel.hostel_name} (${data.hostel.room_number || ''})`;
+                        if (hostelActionBtn) hostelActionBtn.innerHTML = "";
+                    } else {
+                        currentHostelBooking = null;
+                        if (hostelBadge) { hostelBadge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5"; hostelBadge.textContent = "Unallocated"; }
+                        if (hostelDetail) hostelDetail.textContent = "No hostel reservation found";
+                        if (hostelActionBtn) hostelActionBtn.innerHTML = `<button class="btn btn-sm btn-outline-primary rounded-pill px-2 py-1 ms-1" onclick="window.location.href='hostel.html'"><i class="bi bi-plus-circle me-1"></i>Book</button>`;
                     }
+
                     const ferryBadge = document.getElementById('ferryBadge');
                     const ferryDetail = document.getElementById('ferryDetail');
+                    const ferryActionBtn = document.getElementById('ferryActionBtn');
                     if (data.has_ferry && data.ferry) {
-                        const f = data.ferry;
-                        const isPending = f.payment_status === 'Pending' || f.status === 'Pending Approval';
-                        if (ferryBadge) {
-                            ferryBadge.className = isPending ? "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5" : "badge bg-success-subtle text-success rounded-pill px-3 py-1.5";
-                            ferryBadge.textContent = isPending ? "Pending Payment Approval" : "Assigned";
-                        }
-                        if (ferryDetail) ferryDetail.textContent = 'Line: ' + f.ferry_name;
+                        currentFerryBooking = data.ferry;
+                        const isPending = data.ferry.payment_status === 'Pending' || data.ferry.status === 'Pending Approval';
+                        const isRejected = data.ferry.status === 'Rejected' || data.ferry.payment_status === 'Rejected';
+                        let badgeClass = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5";
+                        let badgeText = "Pending Payment";
+                        if (isRejected) { badgeClass = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-1.5"; badgeText = "Payment Rejected"; }
+                        else if (!isPending) { badgeClass = "badge bg-success-subtle text-success rounded-pill px-3 py-1.5"; badgeText = "Assigned"; }
+                        if (ferryBadge) { ferryBadge.className = badgeClass; ferryBadge.textContent = badgeText; }
+                        if (ferryDetail) ferryDetail.textContent = `Line: ${data.ferry.ferry_name}`;
+                        if (ferryActionBtn) ferryActionBtn.innerHTML = "";
+                    } else {
+                        currentFerryBooking = null;
+                        if (ferryBadge) { ferryBadge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5"; ferryBadge.textContent = "Unassigned"; }
+                        if (ferryDetail) ferryDetail.textContent = "No active transit tokens";
+                        if (ferryActionBtn) ferryActionBtn.innerHTML = `<button class="btn btn-sm btn-outline-primary rounded-pill px-2 py-1 ms-1" onclick="window.location.href='ferry.html'"><i class="bi bi-plus-circle me-1"></i>Reserve</button>`;
                     }
                 }
-            } catch (err) {
-                console.error("User status fetch error:", err);
-            }
+            } catch (err) {}
+        }
+
+        function showBookingLimitModal(msg) {
+            const msgEl = document.getElementById('bookingLimitMsg');
+            if (msgEl && msg) msgEl.textContent = msg;
+            const modalEl = document.getElementById('bookingLimitModal');
+            if (modalEl) bootstrap.Modal.getOrCreateInstance(modalEl).show();
         }
 
         function logout() {
             localStorage.removeItem('user');
-            window.location.reload();
+            window.location.href = 'login.html?reset=true';
         }
 
         async function fetchHostels() {
@@ -457,12 +561,13 @@
                     document.getElementById('noResults').classList.remove('d-none');
                 }
             } catch (err) {
-                console.error("Fetch error:", err);
                 grid.innerHTML = '<div class="glass-card text-center p-4 text-danger w-100"><p class="mb-0">Database Connection Error: ' + escapeHtml(err.message) + '</p></div>';
             }
         }
 
         function renderHostels(list) {
+            const activeList = (list || []).filter(h => h.status !== 'Inactive');
+            list = activeList;
             const grid = document.getElementById('hostelGrid');
             grid.innerHTML = '';
             if (!list || list.length === 0) {
@@ -473,32 +578,41 @@
 
             list.forEach(h => {
                 const gender = (h.gender_type || h.gender || 'Boys').toLowerCase();
-                const genderBadge = gender.includes('male') || gender === 'boys' ? '<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1.5 rounded-pill"><i class="bi bi-gender-male me-1"></i>Boys Only</span>' : '<span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1.5 rounded-pill"><i class="bi bi-gender-female me-1"></i>Girls Only</span>';
-                const imgUrl = h.image_url || 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80';
+                const genderBadge = gender.includes('male') || gender === 'boys' ? 
+                    '<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1.5 rounded-pill"><i class="bi bi-gender-male me-1"></i>Boys Only</span>' : 
+                    '<span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1.5 rounded-pill"><i class="bi bi-gender-female me-1"></i>Girls Only</span>';
 
-                grid.innerHTML += ' ' +
-                '<div class="col-12 col-md-6 col-lg-4">' +
-                    '<div class="glass-card hostel-card h-100 overflow-hidden d-flex flex-column">' +
-                        '<div class="position-relative" style="height: 180px;">' +
-                            '<img src="' + imgUrl + '" class="w-100 h-100 object-fit-cover" alt="Hostel">' +
-                            '<div class="position-absolute top-0 end-0 p-3">' + genderBadge + '</div>' +
-                        '</div>' +
-                        '<div class="p-4 d-flex flex-column flex-grow-1">' +
-                            '<h5 class="fw-bold text-dark mb-1">' + escapeHtml(h.hostel_name) + '</h5>' +
-                            '<div class="small text-muted mb-2"><i class="bi bi-door-open me-1"></i>' + escapeHtml(h.room_number) + '</div>' +
-                            '<p class="text-muted small mb-3 flex-grow-1">' + escapeHtml(h.description || 'Comfortable campus hostel accommodation.') + '</p>' +
-                            '<div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">' +
-                                '<div>' +
-                                    '<div class="small text-muted">Available Beds</div>' +
-                                    '<div class="fw-bold text-primary">' + h.available_beds + ' / ' + h.capacity + ' Beds</div>' +
-                                '</div>' +
-                                '<button class="btn btn-primary rounded-pill px-3 py-2 fw-semibold" onclick="handleBookingClick(' + h.hostel_id + ', \'' + escapeHtml(h.hostel_name) + '\', \'' + escapeHtml(h.room_number) + '\')">' +
-                                    '<i class="bi bi-journal-plus me-1"></i>Book Room' +
-                                '</button>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
+                const defaultImg = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80';
+                const imgUrl = (h.image_url && h.image_url.startsWith('http')) ? h.image_url : defaultImg;
+                const displayPrice = formatHostelPrice(h.price);
+
+                grid.innerHTML += `
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="glass-card hostel-card h-100 overflow-hidden d-flex flex-column">
+                            <div class="position-relative" style="height: 180px;">
+                                <img src="${imgUrl}" class="w-100 h-100 object-fit-cover" alt="Hostel">
+                                <div class="position-absolute top-0 end-0 p-3">${genderBadge}</div>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h5 class="fw-bold text-dark mb-1">${escapeHtml(h.hostel_name)}</h5>
+                                <div class="small text-muted mb-2"><i class="bi bi-door-open me-1"></i>${escapeHtml(h.room_number)}</div>
+                                <p class="text-muted small mb-3 flex-grow-1" style="white-space: pre-line;">${escapeHtml(h.description || 'Comfortable campus accommodation.')}</p>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="small text-muted">Reservation Fee</span>
+                                    <span class="fw-bold text-primary">${displayPrice}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
+                                    <div>
+                                        <div class="small text-muted">Available Beds</div>
+                                        <div class="fw-bold text-primary">${h.available_beds} / ${h.capacity} Beds</div>
+                                    </div>
+                                    <button class="btn btn-primary rounded-pill px-3 py-2 fw-semibold" onclick="handleBookingClick(${h.hostel_id}, '${escapeHtml(h.hostel_name)}', '${escapeHtml(h.room_number)}', '${displayPrice}')">
+                                        <i class="bi bi-journal-plus me-1"></i>Book Room
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
             });
         }
 
@@ -525,186 +639,124 @@
                 window.location.href = "login.html";
                 return;
             }
+            if (currentHostelBooking) {
+                showBookingLimitModal("သင်သည် Hostel Booking ပြုလုပ်ထားပြီးဖြစ်သည်။ အကောင့်တစ်ခုလျှင် Booking တစ်ခုသာ တင်ခွင့်ရှိပါသည်။");
+                return;
+            }
 
             selectedHostelId = id;
             selectedHostelName = name;
             selectedRoomNo = roomNo;
-            selectedHostelPrice = price ? ('Ks ' + Number(price).toLocaleString()) : '';
+            selectedHostelPrice = formatHostelPrice(price);
 
-            const modalHostelName = document.getElementById("modalHostelName");
-            if (modalHostelName) modalHostelName.textContent = name;
+            document.getElementById("modalHostelName").textContent = name;
+            document.getElementById("modalRoomNo").textContent = roomNo;
+            if (document.getElementById("modalHostelPrice")) document.getElementById("modalHostelPrice").textContent = selectedHostelPrice;
 
-            const modalRoomNo = document.getElementById("modalRoomNo");
-            if (modalRoomNo) modalRoomNo.textContent = roomNo;
-
-            const modalHostelPrice = document.getElementById("modalHostelPrice");
-            if (modalHostelPrice) modalHostelPrice.textContent = selectedHostelPrice;
-
-            const formSection = document.getElementById("formSection");
-            if (formSection) formSection.classList.remove("d-none");
-
-            const paymentSection = document.getElementById("paymentSection");
-            if (paymentSection) paymentSection.classList.add("d-none");
-
-            const successSection = document.getElementById("successSection");
-            if (successSection) successSection.classList.add("d-none");
-
-            const bookingForm = document.getElementById("bookingForm");
-            if (bookingForm) bookingForm.reset();
+            document.getElementById("formSection").classList.remove("d-none");
+            document.getElementById("paymentSection").classList.add("d-none");
+            document.getElementById("successSection").classList.add("d-none");
+            document.getElementById("bookingForm").reset();
 
             if (userJson) {
-                try {
-                    const user = JSON.parse(userJson);
-                    if (user.student_id) {
-                        const studentIdInput = document.getElementById("studentId");
-                        if (studentIdInput) studentIdInput.value = user.student_id;
-                    }
-                    if (user.name) {
-                        const studentNameInput = document.getElementById("studentName");
-                        if (studentNameInput) studentNameInput.value = user.name;
-                    }
-                } catch(e) {}
+                const user = JSON.parse(userJson);
+                if (user.student_id) document.getElementById("studentId").value = user.student_id;
+                if (user.name) document.getElementById("studentName").value = user.name;
             }
 
-            const modalEl = document.getElementById('bookingModal');
-            if (modalEl) {
-                const modalObj = bootstrap.Modal.getOrCreateInstance(modalEl);
-                modalObj.show();
-            }
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('bookingModal')).show();
         }
 
         function goToPayment() {
-            const nameEl = document.getElementById("studentName");
-            const name = nameEl ? nameEl.value.trim() : "";
+            const nameField = document.getElementById("studentName");
+            const yearField = document.getElementById("studentYear");
+            const rollField = document.getElementById("studentId");
+            const nrcField = document.getElementById("nationalId");
 
-            const yearEl = document.getElementById("studentYear");
-            const year = yearEl ? yearEl.value : "";
-
-            const rollEl = document.getElementById("studentId");
-            const roll = rollEl ? rollEl.value.trim() : "";
-
-            const nrcEl = document.getElementById("nationalId");
-            const nrc = nrcEl ? nrcEl.value.trim() : "";
-
-            if (!name || !year || !roll || !nrc) {
-                alert("ကျေးဇူးပြု၍ အချက်အလက်များကို ပြည့်စုံစွာ ဖြည့်သွင်းပါ။");
+            // Required Input Check
+            if (!nameField.value.trim() || !yearField.value || !rollField.value.trim() || !nrcField.value.trim()) {
+                alert("ကျေးဇူးပြု၍ လိုအပ်သော အချက်အလက်များ (အမည်၊ နှစ်၊ Roll ID၊ NRC ID) အားလုံးကို ဖြည့်သွင်းပါ။");
                 return;
             }
 
             updateHostelQrDisplay();
+            document.getElementById('kpayItemTitle').textContent = selectedHostelName + ' (' + selectedRoomNo + ')';
+            if (document.getElementById('kpayAmountText')) document.getElementById('kpayAmountText').textContent = selectedHostelPrice;
 
-            const titleEl = document.getElementById('kpayItemTitle');
-            if (titleEl) titleEl.textContent = selectedHostelName + ' (' + selectedRoomNo + ')';
-
-            const amountEl = document.getElementById('kpayAmountText');
-            if (amountEl) amountEl.textContent = selectedHostelPrice;
-
-            const formSec = document.getElementById("formSection");
-            if (formSec) formSec.classList.add("d-none");
-
-            const paySec = document.getElementById("paymentSection");
-            if (paySec) paySec.classList.remove("d-none");
+            document.getElementById("formSection").classList.add("d-none");
+            document.getElementById("paymentSection").classList.remove("d-none");
         }
 
         function updateHostelQrDisplay() {
             const payMethodSelect = document.getElementById("paymentMethodSelect");
             const payMethod = payMethodSelect ? payMethodSelect.value : "KBZPay (KPay QR)";
             const targetHostel = (hostelsData || []).find(h => (h.hostel_id === selectedHostelId || h.id === selectedHostelId));
-
-            let qrUrl = '';
+            let qrUrl = targetHostel ? (targetHostel.kpay_qr_url || '') : '';
             let methodName = 'KBZPay';
             let frameTitle = 'Use KBZPay Scan to pay me';
-            let frameBadge = 'KBZ Pay';
             let frameBg = '#0056b3';
-            let txnLabel = 'KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)';
+            let txnLabel = 'KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
 
             if (payMethod.includes('Wave')) {
                 methodName = 'WavePay';
                 frameTitle = 'Use WavePay Scan to pay me';
-                frameBadge = 'Wave Pay';
                 frameBg = '#f58220';
-                txnLabel = 'WavePay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)';
-                qrUrl = targetHostel ? (targetHostel.wave_qr_url || targetHostel.wavepay_qr_url || '') : '';
+                txnLabel = 'WavePay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
             } else if (payMethod.includes('AYA')) {
                 methodName = 'AYA Pay';
                 frameTitle = 'Use AYA Pay Scan to pay me';
-                frameBadge = 'AYA Pay';
                 frameBg = '#d32f2f';
-                txnLabel = 'AYA Pay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)';
-                qrUrl = targetHostel ? (targetHostel.ayapay_qr_url || '') : '';
+                txnLabel = 'AYA Pay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
             } else if (payMethod.includes('CB')) {
                 methodName = 'CB Pay';
                 frameTitle = 'Use CB Pay Scan to pay me';
-                frameBadge = 'CB Pay';
                 frameBg = '#0288d1';
-                txnLabel = 'CB Pay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)';
-                qrUrl = targetHostel ? (targetHostel.cbpay_qr_url || '') : '';
-            } else {
-                methodName = 'KBZPay';
-                frameTitle = 'Use KBZPay Scan to pay me';
-                frameBadge = 'KBZ Pay';
-                frameBg = '#0056b3';
-                txnLabel = 'KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)';
-                qrUrl = targetHostel ? (targetHostel.kpay_qr_url || '') : '';
+                txnLabel = 'CB Pay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
             }
 
-            const rawQr = targetHostel ? (targetHostel.kpay_qr_url || '') : '';
-            const ownerKpayQr = (rawQr && rawQr !== 'qrcode.jpg') ? rawQr.trim() : '';
+            const cleanQr = (qrUrl && qrUrl !== 'qrcode.jpg') ? qrUrl.trim() : 'qrcode.jpg';
+            const headerLabel = document.getElementById('hostelPayHeaderLabel');
+            if (headerLabel) headerLabel.textContent = methodName + ' Payment Gateway';
+            const methodText = document.getElementById('hostelPayMethodNameText');
+            if (methodText) methodText.textContent = methodName;
+
             const qrContainer = document.getElementById('kpayQrBoxContainer');
             const qrImg = document.getElementById('kpayQrImg');
-            const noQrNotice = document.getElementById('noKpayQrNotice');
-
-            if (ownerKpayQr) {
-                if (qrImg) qrImg.src = ownerKpayQr;
-                if (qrContainer) qrContainer.classList.remove('d-none');
-                if (noQrNotice) noQrNotice.classList.add('d-none');
-            } else {
-                if (qrContainer) qrContainer.classList.add('d-none');
-                if (noQrNotice) noQrNotice.classList.remove('d-none');
-            }
+            const qrFrameTitle = document.getElementById('hostelQrFrameTitle');
+            if (qrFrameTitle) qrFrameTitle.textContent = frameTitle;
+            const qrFrameBadge = document.getElementById('hostelQrFrameBadge');
+            if (qrFrameBadge) qrFrameBadge.innerHTML = `<span class="badge bg-white text-primary px-2.5 py-1 fw-bold shadow-sm">${methodName}</span>`;
+            if (qrContainer) qrContainer.style.background = frameBg;
+            const txnInputLabel = document.getElementById('hostelTxnLabel');
+            if (txnInputLabel) txnInputLabel.textContent = txnLabel;
+            if (qrImg) qrImg.src = cleanQr;
         }
 
         function backToForm() {
-            const paySec = document.getElementById("paymentSection");
-            if (paySec) paySec.classList.add("d-none");
-
-            const formSec = document.getElementById("formSection");
-            if (formSec) formSec.classList.remove("d-none");
+            document.getElementById("paymentSection").classList.add("d-none");
+            document.getElementById("formSection").classList.remove("d-none");
         }
 
         async function submitHostelBooking() {
-            const nameEl = document.getElementById("studentName");
-            const name = nameEl ? nameEl.value.trim() : "";
+            const name = document.getElementById("studentName").value.trim();
+            const year = document.getElementById("studentYear").value;
+            const roll = document.getElementById("studentId").value.trim();
+            const nrc = document.getElementById("nationalId").value.trim();
+            const payMethod = document.getElementById("paymentMethodSelect").value;
+            const txnId = document.getElementById("paymentTransactionId").value.trim();
 
-            const yearEl = document.getElementById("studentYear");
-            const year = yearEl ? yearEl.value : "";
-
-            const rollEl = document.getElementById("studentId");
-            const roll = rollEl ? rollEl.value.trim() : "";
-
-            const nrcEl = document.getElementById("nationalId");
-            const nrc = nrcEl ? nrcEl.value.trim() : "";
-
-            const payMethodEl = document.getElementById("paymentMethodSelect");
-            const payMethod = payMethodEl ? payMethodEl.value : "KBZPay (KPay QR)";
-
-            const txnIdEl = document.getElementById("paymentTransactionId");
-            const txnId = txnIdEl ? txnIdEl.value.trim() : "";
-
-            if (!txnId || txnId.length < 6 || txnId.length > 12 || !/^[0-9]{6,12}$/.test(txnId)) {
-                alert("ကျေးဇူးပြု၍ KBZPay / Slip Transaction ID ဂဏန်း ၆ လုံးမှ ၁၂ လုံးအတွင်းသာ မှန်ကန်စွာ ထည့်သွင်းပေးပါ။");
-                if (txnIdEl) txnIdEl.focus();
+            if (!txnId) {
+                alert("ကျေးဇူးပြု၍ Transaction ID ကို ဖြည့်သွင်းပေးပါ။ (Required)");
+                document.getElementById("paymentTransactionId").focus();
                 return;
             }
 
             const submitBtn = document.getElementById('submitPayBtn');
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
-            }
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
 
             try {
-                const res = await fetch(API_BASE_URL + '/api/book-hostel', {
+                const res = await fetch(API_BASE_URL + '/api/hostel/book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -712,36 +764,58 @@
                         student_name: name,
                         student_year: year,
                         student_id: roll,
-                        nrc_id: nrc,
+                        national_id: nrc,
                         payment_method: payMethod,
                         transaction_id: txnId,
                         amount: selectedHostelPrice
                     })
                 });
-
                 const data = await res.json();
                 if (data.success) {
-                    const paySec = document.getElementById("paymentSection");
-                    if (paySec) paySec.classList.add("d-none");
-
-                    const succSec = document.getElementById("successSection");
-                    if (succSec) succSec.classList.remove("d-none");
-
+                    document.getElementById("paymentSection").classList.add("d-none");
+                    document.getElementById("successSection").classList.remove("d-none");
                     fetchUserStatus(roll);
                     fetchHostels();
                 } else {
                     alert(data.message || "Booking failed");
                 }
             } catch (err) {
-                console.error("Booking error:", err);
                 alert("Network error occurred.");
             } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Confirm & Submit Payment';
-                }
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Confirm & Submit Payment';
             }
         }
+        function goToPayment() {
+    const nameField = document.getElementById("studentName");
+    const yearField = document.getElementById("studentYear");
+    const rollField = document.getElementById("studentId");
+    const nrcField = document.getElementById("nationalId");
+
+    // ကွက်လ่างလပ်နေခြင်း ရှိမရှိ စစ်ဆေးခြင်း
+    if (!nameField.value.trim() || !yearField.value || !rollField.value.trim() || !nrcField.value.trim()) {
+        alert("ကျေးဇူးပြု၍ လိုအပ်သော အချက်အလက်များ အားလုံးကို ဖြည့်သွင်းပါ။");
+        return;
+    }
+
+    // NRC ထဲတွင် " / " (slash) ပါဝင်ခြင်း ရှိမရှိ ရိုးရှင်းစွာ စစ်ဆေးခြင်း (Loading မဖြစ်စေရန်)
+    const nrcVal = nrcField.value.trim();
+    if (!nrcVal.includes('/')) {
+        alert("ကျေးဇူးပြု၍ NRC နံပါတ်တွင် ( / ) ထည့်သွင်းပေးပါ (ဥပမာ - 12/YAKANA(N)123456)။");
+        nrcField.focus();
+        return;
+    }
+
+    updateHostelQrDisplay();
+
+    document.getElementById('kpayItemTitle').textContent = selectedHostelName + ' (' + selectedRoomNo + ')';
+    if (document.getElementById('kpayAmountText')) document.getElementById('kpayAmountText').textContent = selectedHostelPrice;
+
+    document.getElementById("formSection").classList.add("d-none");
+    document.getElementById("paymentSection").classList.remove("d-none");
+}
+
+        
     </script>
 </body>
 </html>

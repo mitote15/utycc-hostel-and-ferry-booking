@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +11,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --primary-blue: #0284c7;
       --primary-hover: #0369a1;
       --accent-teal: #0d9488;
       --bg-light: #f8fafc;
+      --border-glass: rgba(14, 165, 233, 0.18);
       --text-main: #0f172a;
     }
 
@@ -23,233 +26,250 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-light);
       color: var(--text-main);
+      overflow-x: hidden;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     h1, h2, h3, h4, h5, h6, .brand-font {
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    .navbar-glass {
+    .navbar-enterprise {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      border-bottom: 1px solid var(--border-glass);
     }
 
     .card-glass {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 1.25rem;
+      box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.08);
+    }
+
+    .stat-card {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(2, 132, 199, 0.12);
     }
 
     .nav-pills .nav-link {
       color: #64748b;
+      font-weight: 500;
       border-radius: 0.75rem;
-      padding: 0.6rem 1.2rem;
+      padding: 0.65rem 1.25rem;
       transition: all 0.2s ease;
     }
 
     .nav-pills .nav-link.active {
       background-color: var(--primary-blue);
-      color: white;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
     }
 
     .status-badge-pending {
-      background-color: #fef3c7;
+      background: #fef3c7;
       color: #d97706;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
+      border: 1px solid #fde68a;
+      border-radius: 50rem;
+      padding: 0.25rem 0.75rem;
       font-size: 0.75rem;
       font-weight: 600;
     }
 
     .status-badge-confirmed {
-      background-color: #dcfce7;
-      color: #16a34a;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+      border-radius: 50rem;
+      padding: 0.25rem 0.75rem;
       font-size: 0.75rem;
       font-weight: 600;
     }
 
     .status-badge-rejected {
-      background-color: #fee2e2;
-      color: #dc2626;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+      border-radius: 50rem;
+      padding: 0.25rem 0.75rem;
       font-size: 0.75rem;
       font-weight: 600;
     }
 
-    /* Responsive Mobile Styles */
-    @media (max-width: 991.98px) {
-      .navbar-enterprise {
-        margin: 8px 0.5rem 0 0.5rem;
-        width: calc(100% - 1rem);
-        border-radius: 16px;
-      }
-      .navbar-collapse {
-        background: #ffffff;
-        padding: 1.25rem;
-        border-radius: 16px;
-        margin-top: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        border: 1px solid var(--border-glass);
-      }
-      .hero-enterprise {
-        padding: 6.5rem 0.5rem 4rem 0.5rem;
-      }
-      .hero-enterprise h1 {
-        font-size: 2.2rem !important;
-      }
-      .hero-enterprise p.lead {
-        font-size: 0.95rem !important;
-      }
+    .status-badge-cancelled {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      border-radius: 50rem;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
 
-    @media (max-width: 575.98px) {
-      .hero-enterprise h1 {
-        font-size: 1.85rem !important;
-      }
-      .glass-card {
-        padding: 1.25rem !important;
-        border-radius: 16px !important;
-      }
-      .service-card-interactive {
-        padding: 1.25rem !important;
-      }
-      .about-image-container .image-wrapper img {
-        height: 250px !important;
-      }
-      .offcanvas-end {
-        width: 100% !important;
-      }
-      .scroll-fade-effect {
-        bottom: 16px;
-        right: 16px;
-        width: 44px;
-        height: 44px;
-        font-size: 1.2rem;
-      }
-      .hero-btn-container {
-        flex-direction: column;
-        width: 100%;
-      }
-      .hero-btn-container .btn {
-        width: 100%;
-      }
+    .table {
+      width: 100%;
+      margin-bottom: 0;
+      font-size: 0.875rem;
+    }
+
+    .table th, 
+    .table td {
+      padding: 8px 10px !important;
+      vertical-align: middle !important;
+    }
+
+    .table td:nth-child(1),
+    .table td:nth-child(5),
+    .table td:nth-child(6),
+    .table td:nth-child(7),
+    .table td:nth-child(8),
+    .table td:nth-child(9) {
+      white-space: nowrap;
+    }
+
+    .table .btn {
+      padding: 3px 8px;
+      font-size: 0.78rem;
     }
   </style>
 </head>
+
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-glass sticky-top py-3">
-    <div class="container-fluid px-4">
-      <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="home.html">
+  <!-- Admin Enterprise Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-enterprise fixed-top px-3 py-2">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="admin.html">
         <div class="bg-primary text-white rounded-3 px-2 py-1 fs-6 fw-bold">UTYCC</div>
-        <span class="brand-font text-dark" id="headerTitle">Enterprise Admin Console</span>
+        <span class="brand-font fs-5 fw-bold text-dark">Admin Console</span>
+        <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 ms-1 small" id="adminRoleBadge">Super Admin</span>
       </a>
+
       <div class="d-flex align-items-center gap-3 ms-auto">
-        <div class="text-end d-none d-md-block me-1">
-          <div class="fw-bold text-dark small" id="adminNameDisplay">Administrator</div>
-          <div class="text-muted small" id="adminEmailDisplay">admin@utycc.edu.mm</div>
+        <div class="d-none d-md-block text-end">
+          <div class="fw-bold text-dark small" id="adminNameDisplay">Admin User</div>
+          <div class="text-muted" style="font-size: 0.75rem;" id="adminEmailDisplay">admin@utycc.edu.mm</div>
         </div>
-        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-medium" id="adminRoleBadge">
-          <i class="bi bi-shield-lock-fill me-1"></i><span id="adminRoleText">Super Admin</span>
-        </span>
-        <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1.5 fw-medium" onclick="adminLogout()">
-          <i class="bi bi-box-arrow-right me-1"></i>Logout
+        <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5 shadow-sm" onclick="adminLogout()">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Logout</span>
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- Main Container -->
-  <main class="container-fluid px-4 py-4">
-    <!-- Metric Stat Cards Row -->
-    <div class="row g-3 mb-4" id="statCardsRow">
-      <div class="col-12 col-sm-6 col-lg-4" id="cardTotalHostels">
-        <div class="card card-glass p-3">
-          <div class="d-flex align-items-center justify-content-between">
-            <div>
-              <div class="text-muted small fw-medium">My Owned Hostels</div>
-              <div class="fs-3 fw-bold text-dark" id="statHostels">0</div>
-            </div>
-            <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
-              <i class="bi bi-building fs-4"></i>
+  <!-- Admin Dashboard Container -->
+  <main class="container-fluid px-lg-4 my-5 pt-4 flex-grow-1">
+    <!-- Quick Stat Cards Row -->
+    <div class="row g-3 mb-4 pt-3" id="statsRow">
+      <div class="col-6 col-md-3">
+        <div class="card card-glass stat-card p-3 border-0">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="text-muted small fw-medium">Hostel Blocks</span>
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+              <i class="bi bi-building fs-6"></i>
             </div>
           </div>
+          <h3 class="fw-bold text-dark mb-0" id="statHostelsCount">0</h3>
         </div>
       </div>
-
-      <div class="col-12 col-sm-6 col-lg-4" id="cardTotalFerries">
-        <div class="card card-glass p-3">
-          <div class="d-flex align-items-center justify-content-between">
-            <div>
-              <div class="text-muted small fw-medium">My Owned Ferries</div>
-              <div class="fs-3 fw-bold text-dark" id="statFerries">0</div>
-            </div>
-            <div class="bg-info bg-opacity-10 text-info rounded-3 p-3">
-              <i class="bi bi-bus-front fs-4"></i>
+      <div class="col-6 col-md-3">
+        <div class="card card-glass stat-card p-3 border-0">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="text-muted small fw-medium">Ferry Lines</span>
+            <div class="bg-info bg-opacity-10 text-info rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+              <i class="bi bi-bus-front fs-6"></i>
             </div>
           </div>
+          <h3 class="fw-bold text-dark mb-0" id="statFerriesCount">0</h3>
         </div>
       </div>
-
-      <!-- Pending Verifications (Hidden for Super Admin, Visible for Hostel & Ferry Admins) -->
-      <div class="col-12 col-sm-6" id="cardPendingPayments">
-        <div class="card card-glass p-3">
-          <div class="d-flex align-items-center justify-content-between">
-            <div>
-              <div class="text-muted small fw-medium">Pending Verifications</div>
-              <div class="fs-3 fw-bold text-warning" id="statPendingPayments">0</div>
-            </div>
-            <div class="bg-warning bg-opacity-10 text-warning rounded-3 p-3">
-              <i class="bi bi-shield-check fs-4"></i>
+      <div class="col-6 col-md-3">
+        <div class="card card-glass stat-card p-3 border-0">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="text-muted small fw-medium">Pending Verifications</span>
+            <div class="bg-warning bg-opacity-10 text-warning rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+              <i class="bi bi-hourglass-split fs-6"></i>
             </div>
           </div>
+          <h3 class="fw-bold text-warning mb-0" id="statPendingCount">0</h3>
         </div>
       </div>
-
-      <div class="col-12 col-sm-6 col-lg-4" id="cardTotalStudents">
-        <div class="card card-glass p-3">
-          <div class="d-flex align-items-center justify-content-between">
-            <div>
-              <div class="text-muted small fw-medium">Registered Students</div>
-              <div class="fs-3 fw-bold text-dark" id="statStudents">0</div>
-            </div>
-            <div class="bg-success bg-opacity-10 text-success rounded-3 p-3">
-              <i class="bi bi-people fs-4"></i>
+      <div class="col-6 col-md-3" id="statStudentsCardCol">
+        <div class="card card-glass stat-card p-3 border-0">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="text-muted small fw-medium">Registered Students</span>
+            <div class="bg-success bg-opacity-10 text-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+              <i class="bi bi-people fs-6"></i>
             </div>
           </div>
+          <h3 class="fw-bold text-dark mb-0" id="statStudentsCount">0</h3>
         </div>
       </div>
     </div>
 
     <!-- Navigation Tabs -->
-    <ul class="nav nav-pills bg-white p-2 rounded-3 card-glass mb-4 gap-2" id="adminNavTabs" role="tablist">
-      <li class="nav-item" id="navItemHostels"><button class="nav-link active fw-semibold" id="tabHostelsBtn" data-bs-toggle="pill" data-bs-target="#tab-hostels"><i class="bi bi-building me-1"></i> Hostel Management</button></li>
-      <li class="nav-item" id="navItemFerries"><button class="nav-link fw-semibold" id="tabFerriesBtn" data-bs-toggle="pill" data-bs-target="#tab-ferries"><i class="bi bi-bus-front me-1"></i> Ferry Management</button></li>
-      <li class="nav-item" id="navItemPaymentVerification"><button class="nav-link fw-semibold text-warning" id="tabPaymentVerificationBtn" data-bs-toggle="pill" data-bs-target="#tab-payment-verification"><i class="bi bi-shield-check me-1"></i> Payment Verification <span class="badge bg-warning text-dark rounded-pill ms-1" id="pendingBadgeCount">0</span></button></li>
-      <li class="nav-item" id="navItemHostelBookings"><button class="nav-link fw-semibold" id="tabHostelBookingsBtn" data-bs-toggle="pill" data-bs-target="#tab-hostel-bookings"><i class="bi bi-journal-check me-1"></i> Hostel Bookings</button></li>
-      <li class="nav-item" id="navItemFerryBookings"><button class="nav-link fw-semibold" id="tabFerryBookingsBtn" data-bs-toggle="pill" data-bs-target="#tab-ferry-bookings"><i class="bi bi-ticket-detailed me-1"></i> Ferry Bookings</button></li>
-      <li class="nav-item" id="navItemInquiries"><button class="nav-link fw-semibold" id="tabInquiriesBtn" data-bs-toggle="pill" data-bs-target="#tab-inquiries"><i class="bi bi-envelope-paper me-1"></i> Inquiries</button></li>
-      <li class="nav-item" id="navItemStudents"><button class="nav-link fw-semibold" id="tabStudentsBtn" data-bs-toggle="pill" data-bs-target="#tab-students"><i class="bi bi-people me-1"></i> Registered Students</button></li>
-      <li class="nav-item" id="navItemAdmins"><button class="nav-link fw-semibold text-danger" id="tabAdminsBtn" data-bs-toggle="pill" data-bs-target="#tab-admins"><i class="bi bi-shield-person me-1"></i> Admin Directory</button></li>
+    <ul class="nav nav-pills gap-2 mb-4 bg-white p-2 rounded-4 shadow-sm border" id="adminTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="tab-hostels-btn" data-bs-toggle="pill" data-bs-target="#tab-hostels" type="button" role="tab">
+          <i class="bi bi-building me-1.5"></i>Hostel Management
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-ferries-btn" data-bs-toggle="pill" data-bs-target="#tab-ferries" type="button" role="tab">
+          <i class="bi bi-bus-front me-1.5"></i>Ferry Management
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link position-relative" id="tab-payment-verification-btn" data-bs-toggle="pill" data-bs-target="#tab-payment-verification" type="button" role="tab">
+          <i class="bi bi-shield-check me-1.5"></i>Payment Verification
+          <span class="badge bg-danger rounded-pill ms-1" id="pendingVerificationBadge">0</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-hostel-bookings-btn" data-bs-toggle="pill" data-bs-target="#tab-hostel-bookings" type="button" role="tab">
+          <i class="bi bi-journal-check me-1.5"></i>Hostel Bookings
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-ferry-bookings-btn" data-bs-toggle="pill" data-bs-target="#tab-ferry-bookings" type="button" role="tab">
+          <i class="bi bi-ticket-detailed me-1.5"></i>Ferry Bookings
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-inquiries-btn" data-bs-toggle="pill" data-bs-target="#tab-inquiries" type="button" role="tab">
+          <i class="bi bi-envelope-paper me-1.5"></i>Inquiries
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-students-btn" data-bs-toggle="pill" data-bs-target="#tab-students" type="button" role="tab">
+          <i class="bi bi-people me-1.5"></i>Registered Students
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-admins-btn" data-bs-toggle="pill" data-bs-target="#tab-admins" type="button" role="tab">
+          <i class="bi bi-shield-person me-1.5"></i>Admin Directory
+        </button>
+      </li>
     </ul>
 
-    <!-- Tab Content Panes -->
-    <div class="tab-content" id="adminTabContent">
-      <!-- Hostels Tab -->
-      <div class="tab-pane fade show active" id="tab-hostels">
+    <!-- Tab Contents Container -->
+    <div class="tab-content" id="adminTabsContent">
+      <!-- 1. Hostel Management Tab -->
+      <div class="tab-pane fade show active" id="tab-hostels" role="tabpanel">
         <div class="card card-glass p-4">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-building text-primary me-2"></i>My Owned Hostel Blocks</h5>
-            <button id="btnAddHostel" class="btn btn-primary btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addHostelModal">
-              <i class="bi bi-plus-lg me-1"></i> Add New Hostel Block
+            <h5 class="fw-bold text-dark mb-0">
+              <i class="bi bi-building text-primary me-2"></i>Hostel Blocks Inventory
+            </h5>
+            <button class="d-none btn btn-primary btn-sm rounded-pill px-3 fw-bold" id="btnAddHostelSuper" data-bs-toggle="modal" data-bs-target="#addHostelModal">
+              <i class="bi bi-plus-lg me-1"></i>Add New Hostel Block
             </button>
           </div>
           <div class="table-responsive">
@@ -258,29 +278,32 @@
                 <tr>
                   <th>ID</th>
                   <th>Hostel Block Name</th>
-                  <th>Room</th>
+                  <th>Room Number</th>
                   <th>Owner Admin</th>
-                  <th>Gender</th>
+                  <th>Gender Type</th>
+                  <th>Reservation Fee</th>
                   <th>Available Beds</th>
                   <th>Status</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody id="hostelsTableBody">
-                <tr><td colspan="8" class="text-center text-muted py-4">Loading hostels...</td></tr>
+                <tr><td colspan="9" class="text-center text-muted py-4">Loading hostels...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Ferries Tab -->
-      <div class="tab-pane fade" id="tab-ferries">
+      <!-- 2. Ferry Management Tab -->
+      <div class="tab-pane fade" id="tab-ferries" role="tabpanel">
         <div class="card card-glass p-4 mb-4" id="ferryGroupsSection">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-diagram-3 text-info me-2"></i>Ferry Route Groups</h5>
-            <button id="btnAddFerryGroup" class="btn btn-outline-info btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addFerryGroupModal">
-              <i class="bi bi-plus-circle me-1"></i> Add Ferry Group
+            <h5 class="fw-bold text-dark mb-0">
+              <i class="bi bi-diagram-3 text-info me-2"></i>Ferry Route Groups
+            </h5>
+            <button class="d-none btn btn-outline-info btn-sm rounded-pill px-3 fw-bold" id="btnAddFerryGroupSuper" data-bs-toggle="modal" data-bs-target="#addFerryGroupModal">
+              <i class="bi bi-plus-circle me-1"></i>Add Ferry Group
             </button>
           </div>
           <div class="table-responsive">
@@ -290,7 +313,7 @@
                   <th>Group ID</th>
                   <th>Group Name</th>
                   <th>Description</th>
-                  <th class="text-center">Actions</th>
+                  <th class="text-center" id="ferryGroupActionsHeader">Actions</th>
                 </tr>
               </thead>
               <tbody id="ferryGroupsTableBody">
@@ -302,9 +325,11 @@
 
         <div class="card card-glass p-4">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-bus-front text-info me-2"></i>My Owned Ferry Routes</h5>
-            <button id="btnAddFerry" class="btn btn-info text-white btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addFerryModal">
-              <i class="bi bi-plus-lg me-1"></i> Add New Ferry Route
+            <h5 class="fw-bold text-dark mb-0">
+              <i class="bi bi-bus-front text-info me-2"></i>Ferry Transit Lines
+            </h5>
+            <button class="d-none btn btn-info text-white btn-sm rounded-pill px-3 fw-bold" id="btnAddFerrySuper" data-bs-toggle="modal" data-bs-target="#addFerryModal">
+              <i class="bi bi-plus-lg me-1"></i>Add Ferry Route Line
             </button>
           </div>
           <div class="table-responsive">
@@ -312,113 +337,176 @@
               <thead class="table-light">
                 <tr>
                   <th>ID</th>
-                  <th>Ferry Name</th>
-                  <th>Route Name</th>
+                  <th>Ferry Line Name</th>
+                  <th>Route / Stops</th>
                   <th>Owner Admin</th>
                   <th>Departure Time</th>
+                  <th>Monthly Fee</th>
                   <th>Available Seats</th>
                   <th>Status</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody id="ferriesTableBody">
-                <tr><td colspan="8" class="text-center text-muted py-4">Loading ferries...</td></tr>
+                <tr><td colspan="9" class="text-center text-muted py-4">Loading ferry lines...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Payment Verification Tab (For Hostel & Ferry Admins) -->
-      <div class="tab-pane fade" id="tab-payment-verification">
+      <!-- 3. Payment Verification Tab -->
+      <div class="tab-pane fade" id="tab-payment-verification" role="tabpanel">
         <div class="card card-glass p-4">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-shield-check text-warning me-2"></i>Pending Payment Verifications</h5>
-            <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill fw-bold" id="pvCountBadge">0 Pending</span>
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+            <div>
+              <h5 class="fw-bold text-dark mb-1">
+                <i class="bi bi-shield-check text-primary me-2"></i>Payment Verification & Transactions
+              </h5>
+              <p class="text-muted small mb-0">Student payment slips, KBZPay/WavePay transaction records, and confirmation status</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-outline-secondary btn-sm rounded-pill px-3" onclick="fetchAdminData()">
+                <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+              </button>
+            </div>
           </div>
+
+          <div id="superAdminPaymentNotice" class="alert alert-primary bg-primary-subtle border-0 rounded-4 d-flex align-items-center mb-4 p-3 d-none">
+            <div class="bg-primary text-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+              <i class="bi bi-shield-lock-fill fs-5"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-primary">Super Admin Access Level: View-Only (ငွေပေးချေမှုမှတ်တမ်း ကြည့်ရှုခွင့်သာ)[cite: 7, 8]</div>
+              <div class="small text-secondary mt-0.5">Super Admin အနေဖြင့် Payment Confirmation အခြေအနေများနှင့် ငွေလွှဲပြေစာမှတ်တမ်းများကို ကြည့်ရှုစစ်ဆေးခွင့် (View Only) သာ ရရှိပါသည်။ ငွေပေးချေမှု အတည်ပြုခြင်း/ပယ်ဖျက်ခြင်း (Confirm / Reject) ကို သက်ဆိုင်ရာ Hostel Admin နှင့် Ferry Admin များမှသာ ဆောင်ရွက်နိုင်ပါသည်။</div>
+            </div>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="row g-2 mb-3 align-items-center">
+            <div class="col-12 col-md-auto">
+              <div class="btn-group p-1 bg-light border rounded-pill shadow-sm" role="group" id="paymentStatusFilters">
+                <button type="button" class="btn btn-sm rounded-pill px-3 fw-semibold active btn-primary" onclick="filterPaymentStatus('pending', this)" id="btnFilterPending">
+                  <i class="bi bi-hourglass-split me-1"></i>Pending (<span id="countPendingBadge">0</span>)
+                </button>
+                <button type="button" class="btn btn-sm rounded-pill px-3 fw-semibold btn-light text-dark" onclick="filterPaymentStatus('confirmed', this)" id="btnFilterConfirmed">
+                  <i class="bi bi-check-circle me-1"></i>Confirmed (<span id="countConfirmedBadge">0</span>)
+                </button>
+                <button type="button" class="btn btn-sm rounded-pill px-3 fw-semibold btn-light text-dark" onclick="filterPaymentStatus('cancelled', this)" id="btnFilterCancelled">
+                  <i class="bi bi-x-octagon me-1"></i>Cancelled (<span id="countCancelledBadge">0</span>)
+                </button>
+                <button type="button" class="btn btn-sm rounded-pill px-3 fw-semibold btn-light text-dark" onclick="filterPaymentStatus('all', this)" id="btnFilterAll">
+                  <i class="bi bi-list-check me-1"></i>All Records (<span id="countAllBadge">0</span>)
+                </button>
+                <button type="button" class="btn btn-sm rounded-pill px-3 fw-semibold btn-light text-dark" onclick="filterPaymentStatus('rejected', this)" id="btnFilterRejected">
+                  <i class="bi bi-x-circle me-1"></i>Rejected (<span id="countRejectedBadge">0</span>)
+                </button>
+              </div>
+            </div>
+            <div class="col-6 col-md-auto ms-md-auto">
+              <select class="form-select form-select-sm rounded-pill border shadow-sm" id="paymentTypeFilter" onchange="applyPaymentFilters()">
+                <option value="all">All Services (Hostel & Ferry)</option>
+                <option value="hostel">Hostel Accommodation</option>
+                <option value="ferry">Ferry Transportation</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="input-group input-group-sm">
+                <span class="input-group-text bg-white border-end-0 rounded-start-pill text-muted"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control rounded-end-pill border-start-0 shadow-sm" id="paymentSearchInput" placeholder="Search Roll ID, Name, Txn..." oninput="applyPaymentFilters()">
+              </div>
+            </div>
+          </div>
+
           <div class="table-responsive">
             <table class="table table-hover align-middle">
               <thead class="table-light">
                 <tr>
                   <th>ID</th>
                   <th>Type</th>
-                  <th>Service / Route</th>
+                  <th>Service / Allocation</th>
                   <th>Student Name & Roll ID</th>
-                  <th>Method</th>
-                  <th>Txn ID</th>
+                  <th>Payment Method</th>
+                  <th>Transaction ID</th>
                   <th>Amount</th>
                   <th>Status</th>
                   <th class="text-center">Verification Action</th>
                 </tr>
               </thead>
-              <tbody id="paymentVerificationTableBody">
-                <tr><td colspan="9" class="text-center text-muted py-4">No pending payment verifications.</td></tr>
+              <tbody id="pendingPaymentsTableBody">
+                <tr><td colspan="9" class="text-center text-muted py-4">Loading payment records...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Hostel Bookings Tab -->
-      <div class="tab-pane fade" id="tab-hostel-bookings">
+      <!-- 4. Hostel Bookings Records Tab -->
+      <div class="tab-pane fade" id="tab-hostel-bookings" role="tabpanel">
         <div class="card card-glass p-4">
-          <h5 class="fw-bold text-dark mb-4"><i class="bi bi-journal-check text-success me-2"></i>Hostel Reservation Records</h5>
+          <h5 class="fw-bold text-dark mb-4">
+            <i class="bi bi-journal-check text-success me-2"></i>Hostel Reservation Records
+          </h5>
           <div class="table-responsive">
             <table class="table table-hover align-middle">
               <thead class="table-light">
                 <tr>
-                  <th>ID</th>
+                  <th>Booking ID</th>
                   <th>Hostel & Room</th>
                   <th>Student Name & Roll ID</th>
-                  <th>Method</th>
-                  <th>Txn ID</th>
+                  <th>Payment Method</th>
+                  <th>Transaction ID</th>
                   <th>Amount</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody id="hostelBookingsTableBody">
-                <tr><td colspan="7" class="text-center text-muted py-4">Loading hostel records...</td></tr>
+                <tr><td colspan="7" class="text-center text-muted py-4">Loading hostel bookings...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Ferry Bookings Tab -->
-      <div class="tab-pane fade" id="tab-ferry-bookings">
+      <!-- 5. Ferry Bookings Records Tab -->
+      <div class="tab-pane fade" id="tab-ferry-bookings" role="tabpanel">
         <div class="card card-glass p-4">
-          <h5 class="fw-bold text-dark mb-4"><i class="bi bi-ticket-detailed text-primary me-2"></i>Ferry Transit Tokens & Records</h5>
+          <h5 class="fw-bold text-dark mb-4">
+            <i class="bi bi-ticket-detailed text-primary me-2"></i>Ferry Transit Tokens & Records
+          </h5>
           <div class="table-responsive">
             <table class="table table-hover align-middle">
               <thead class="table-light">
                 <tr>
-                  <th>ID</th>
-                  <th>Ferry Route</th>
+                  <th>Booking ID</th>
+                  <th>Ferry Line Name</th>
                   <th>Student Name & Roll ID</th>
-                  <th>Method</th>
-                  <th>Txn ID</th>
+                  <th>Payment Method</th>
+                  <th>Transaction ID</th>
                   <th>Amount</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody id="ferryBookingsTableBody">
-                <tr><td colspan="7" class="text-center text-muted py-4">Loading ferry records...</td></tr>
+                <tr><td colspan="7" class="text-center text-muted py-4">Loading ferry bookings...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Inquiries Tab -->
-      <div class="tab-pane fade" id="tab-inquiries">
+      <!-- 6. Inquiries Tab -->
+      <div class="tab-pane fade" id="tab-inquiries" role="tabpanel">
         <div class="card card-glass p-4">
-          <h5 class="fw-bold text-dark mb-4"><i class="bi bi-envelope-paper text-warning me-2"></i>Support & Inquiry Tickets</h5>
+          <h5 class="fw-bold text-dark mb-4">
+            <i class="bi bi-envelope-paper text-warning me-2"></i>Support & Inquiry Tickets
+          </h5>
           <div class="table-responsive">
             <table class="table table-hover align-middle">
               <thead class="table-light">
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
+                  <th>Full Name</th>
                   <th>Roll ID</th>
                   <th>Email</th>
                   <th>Category</th>
@@ -428,20 +516,22 @@
                 </tr>
               </thead>
               <tbody id="inquiriesTableBody">
-                <tr><td colspan="8" class="text-center text-muted py-4">Loading support tickets...</td></tr>
+                <tr><td colspan="8" class="text-center text-muted py-4">No support tickets found.</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Students Tab -->
-      <div class="tab-pane fade" id="tab-students">
+      <!-- 7. Registered Students Tab -->
+      <div class="tab-pane fade" id="tab-students" role="tabpanel">
         <div class="card card-glass p-4">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-people text-secondary me-2"></i>Registered Campus Users</h5>
-            <button class="btn btn-danger btn-sm rounded-pill px-3 fw-bold" onclick="deleteAllStudents()">
-              <i class="bi bi-trash-fill me-1"></i> Delete All Students
+            <h5 class="fw-bold text-dark mb-0">
+              <i class="bi bi-people text-secondary me-2"></i>Registered Campus Users
+            </h5>
+            <button class="btn btn-outline-danger btn-sm rounded-pill px-3 fw-bold" onclick="deleteAllStudents()">
+              <i class="bi bi-trash3 me-1"></i>Delete All Students
             </button>
           </div>
           <div class="table-responsive">
@@ -458,20 +548,22 @@
                 </tr>
               </thead>
               <tbody id="studentsTableBody">
-                <tr><td colspan="7" class="text-center text-muted py-4">Loading user directory...</td></tr>
+                <tr><td colspan="7" class="text-center text-muted py-4">Loading registered students...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- Admins Directory Tab -->
-      <div class="tab-pane fade" id="tab-admins">
+      <!-- 8. Admin Directory Tab -->
+      <div class="tab-pane fade" id="tab-admins" role="tabpanel">
         <div class="card card-glass p-4">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="fw-bold text-dark mb-0"><i class="bi bi-shield-person text-danger me-2"></i>Registered Admin Directory</h5>
-            <button class="btn btn-danger btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createAdminModal">
-              <i class="bi bi-person-plus-fill me-1"></i> Create Admin Account
+            <h5 class="fw-bold text-dark mb-0">
+              <i class="bi bi-shield-person text-danger me-2"></i>Registered Admin Directory
+            </h5>
+            <button class="btn btn-primary btn-sm rounded-pill px-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createAdminModal" id="btnCreateAdmin">
+              <i class="bi bi-person-plus me-1"></i>Create New Admin
             </button>
           </div>
           <div class="table-responsive">
@@ -488,7 +580,7 @@
                 </tr>
               </thead>
               <tbody id="adminsTableBody">
-                <tr><td colspan="7" class="text-center text-muted py-4">Loading admin directory...</td></tr>
+                <tr><td colspan="7" class="text-center text-muted py-4">Loading admin accounts...</td></tr>
               </tbody>
             </table>
           </div>
@@ -497,149 +589,353 @@
     </div>
   </main>
 
-  <!-- Modals -->
-  <!-- Add Hostel Modal -->
-  <div class="modal fade" id="addHostelModal" tabindex="-1">
+  <!-- ================= MODALS ================= -->
+
+  <!-- Modals omitted for brevity, keeping all existing ones -->
+  <div class="modal fade" id="addHostelModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 card-glass p-3">
-        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Add Hostel Block</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-header border-0 pb-0">
+          <h5 class="fw-bold text-dark"><i class="bi bi-building text-primary me-2"></i>Add Hostel Block</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
         <div class="modal-body">
           <form id="addHostelForm" onsubmit="submitAddHostel(event)">
             <div class="mb-3" id="hostelOwnerSelectGroup">
               <label class="form-label small fw-bold text-primary">Owner Admin</label>
-              <select id="hostelOwnerSelect" class="form-select"><option value="">Select Owner Admin...</option></select>
+              <select class="form-select" id="hostelOwnerSelect">
+                <option value="">Select Owner Admin...</option>
+              </select>
             </div>
-            <div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text" id="hostelNameInput" class="form-control" required></div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Hostel Block Name</label>
+              <input type="text" class="form-control" id="hostelNameInput" placeholder="e.g. Thiri Hostel Block A" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Room Number</label>
+              <input type="text" class="form-control" id="hostelRoomInput" placeholder="e.g. Room 101" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Gender Type</label>
+              <select class="form-select" id="hostelGenderInput">
+                <option value="Boys">Boys</option>
+                <option value="Girls">Girls</option>
+              </select>
+            </div>
             <div class="row g-2 mb-3">
-              <div class="col-6"><label class="form-label small fw-bold">Room</label><input type="text" id="hostelRoomInput" class="form-control" required></div>
-              <div class="col-6"><label class="form-label small fw-bold">Gender</label><select id="hostelGenderInput" class="form-select"><option value="Boys">Boys</option><option value="Girls">Girls</option></select></div>
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Capacity</label>
+                <input type="number" class="form-control" id="hostelCapInput" value="4" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Available Beds</label>
+                <input type="number" class="form-control" id="hostelBedsInput" value="4" required>
+              </div>
             </div>
-            <div class="row g-2 mb-3">
-              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="hostelCapInput" class="form-control" value="4" required></div>
-              <div class="col-6"><label class="form-label small fw-bold">Beds</label><input type="number" id="hostelBedsInput" class="form-control" value="4" required></div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Reservation Fee / Price</label>
+              <input type="text" class="form-control" id="hostelPriceInput" placeholder="e.g. 150,000 Ks" value="150,000 Ks" required>
             </div>
-            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="hostelKpayQrInput" class="form-control" value="qrcode.jpg"></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Hostel Image URL</label><input type="url" id="hostelImgInput" class="form-control"></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea id="hostelDescInput" class="form-control" rows="2"></textarea></div>
-            <button type="submit" class="btn btn-primary w-100 fw-bold">Save</button>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">KBZPay QR URL / Path</label>
+              <input type="text" class="form-control" id="hostelKpayQrInput" placeholder="qrcode.jpg">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Image URL</label>
+              <input type="url" class="form-control" id="hostelImgInput" placeholder="https://images.unsplash.com/...">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Description</label>
+              <textarea class="form-control" id="hostelDescInput" rows="2" placeholder="Hostel facilities and location details..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold rounded-pill py-2">Save Hostel Block</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Edit Hostel Modal -->
-  <div class="modal fade" id="editHostelModal" tabindex="-1">
+  <div class="modal fade" id="editHostelModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 card-glass p-3">
-        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Edit Hostel</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-header border-0 pb-0">
+          <h5 class="fw-bold text-dark"><i class="bi bi-pencil-square text-primary me-2"></i>Edit Hostel</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
         <div class="modal-body">
           <form id="editHostelForm" onsubmit="submitEditHostel(event)">
             <input type="hidden" id="editHostelId">
-            <div class="mb-3"><label class="form-label small fw-bold">Name</label><input type="text" id="editHostelNameInput" class="form-control" required></div>
-            <div class="row g-2 mb-3">
-              <div class="col-6"><label class="form-label small fw-bold">Room</label><input type="text" id="editHostelRoomInput" class="form-control" required></div>
-              <div class="col-6"><label class="form-label small fw-bold">Gender</label><select id="editHostelGenderInput" class="form-select"><option value="Boys">Boys</option><option value="Girls">Girls</option></select></div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Hostel Block Name</label>
+              <input type="text" class="form-control" id="editHostelNameInput" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Room Number</label>
+              <input type="text" class="form-control" id="editHostelRoomInput" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Gender Type</label>
+              <select class="form-select" id="editHostelGenderInput">
+                <option value="Boys">Boys</option>
+                <option value="Girls">Girls</option>
+              </select>
             </div>
             <div class="row g-2 mb-3">
-              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="editHostelCapInput" class="form-control" required></div>
-              <div class="col-6"><label class="form-label small fw-bold">Beds</label><input type="number" id="editHostelBedsInput" class="form-control" required></div>
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Capacity</label>
+                <input type="number" class="form-control" id="editHostelCapInput" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Available Beds</label>
+                <input type="number" class="form-control" id="editHostelBedsInput" required>
+              </div>
             </div>
-            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="editHostelKpayQrInput" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Hostel Image URL</label><input type="url" id="editHostelImgInput" class="form-control"></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea id="editHostelDescInput" class="form-control" rows="2"></textarea></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Status</label><select id="editHostelStatusSelect" class="form-select"><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
-            <button type="submit" class="btn btn-primary w-100 fw-bold">Update</button>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Reservation Fee / Price</label>
+              <input type="text" class="form-control" id="editHostelPriceInput" placeholder="e.g. 150,000 Ks" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">KBZPay QR URL</label>
+              <input type="text" class="form-control" id="editHostelKpayQrInput">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Image URL</label>
+              <input type="url" class="form-control" id="editHostelImgInput">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Description</label>
+              <textarea class="form-control" id="editHostelDescInput" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Status</label>
+              <select class="form-select" id="editHostelStatusSelect">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold rounded-pill py-2">Update Hostel</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Add Ferry Group Modal -->
-  <div class="modal fade" id="addFerryGroupModal" tabindex="-1">
+  <div class="modal fade" id="addFerryGroupModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 card-glass p-3">
-        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Add Ferry Group</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-header border-0 pb-0">
+          <h5 class="fw-bold text-dark"><i class="bi bi-diagram-3 text-info me-2"></i>Add Ferry Group</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
         <div class="modal-body">
           <form id="addFerryGroupForm" onsubmit="submitAddFerryGroup(event)">
-            <div class="mb-3"><label class="form-label small fw-bold">Group Name</label><input type="text" id="fgNameInput" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Description</label><textarea id="fgDescInput" class="form-control" rows="2"></textarea></div>
-            <button type="submit" class="btn btn-info text-white w-100 fw-bold">Save Group</button>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Group Name</label>
+              <input type="text" class="form-control" id="groupNameInput" placeholder="e.g. Mandalay Route Group" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Description</label>
+              <textarea class="form-control" id="groupDescInput" rows="2" placeholder="Daily ferries between Mandalay and UTYCC..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-info text-white w-100 fw-bold rounded-pill py-2">Save Ferry Group</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Add Ferry Route Modal -->
-  <div class="modal fade" id="addFerryModal" tabindex="-1">
+  <div class="modal fade" id="addFerryModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 card-glass p-3">
-        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Add Ferry Route</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-header border-0 pb-0">
+          <h5 class="fw-bold text-dark"><i class="bi bi-bus-front text-info me-2"></i>Add Ferry Route Line</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
         <div class="modal-body">
           <form id="addFerryForm" onsubmit="submitAddFerry(event)">
-            <div class="mb-3" id="ferryOwnerSelectGroup"><label class="form-label small fw-bold text-info">Owner Admin</label><select id="ferryOwnerSelect" class="form-select"><option value="">Select Owner Admin...</option></select></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Group</label><select id="ferryGroupSelect" class="form-select"></select></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Ferry Name</label><input type="text" id="ferryNameInput" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Route Name</label><input type="text" id="ferryRouteInput" class="form-control" required></div>
-            <div class="row g-2 mb-3">
-              <div class="col-6"><label class="form-label small fw-bold">Time</label><input type="text" id="ferryTimeInput" class="form-control" value="07:00 AM" required></div>
-              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="ferryCapInput" class="form-control" value="40" required></div>
+            <div class="mb-3" id="ferryOwnerSelectGroup">
+              <label class="form-label small fw-bold text-info">Owner Admin</label>
+              <select class="form-select" id="ferryOwnerSelect">
+                <option value="">Select Owner Admin...</option>
+              </select>
             </div>
-            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="ferryKpayQrInput" class="form-control" value="qrcode.jpg"></div>
-            <button type="submit" class="btn btn-info text-white w-100 fw-bold">Save Ferry</button>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Route Group</label>
+              <select class="form-select" id="ferryGroupSelect"></select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Ferry Line Name</label>
+              <input type="text" class="form-control" id="ferryNameInput" placeholder="e.g. Mandalay Ferry Line A" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Route / Stops Details</label>
+              <input type="text" class="form-control" id="ferryDriverInput" placeholder="e.g. 73rd Street -> UTYCC" required>
+            </div>
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Departure Time</label>
+                <input type="text" class="form-control" id="ferryTimeInput" placeholder="e.g. 06:30 AM" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Capacity</label>
+                <input type="number" class="form-control" id="ferryCapInput" value="40" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Monthly Transit Fee / Price</label>
+              <input type="text" class="form-control" id="ferryPriceInput" placeholder="e.g. 30,000 Ks" value="30,000 Ks" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">KBZPay QR URL</label>
+              <input type="text" class="form-control" id="ferryKpayQrInput" placeholder="qrcode.jpg">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Ferry Bus Image URL</label>
+              <input type="url" class="form-control" id="ferryImgInput" placeholder="https://images.unsplash.com/...">
+            </div>
+            <button type="submit" class="btn btn-info text-white w-100 fw-bold rounded-pill py-2">Save Ferry Line</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Edit Ferry Route Modal -->
-  <div class="modal fade" id="editFerryModal" tabindex="-1">
+  <div class="modal fade" id="editFerryModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 card-glass p-3">
-        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Edit Ferry Route</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-header border-0 pb-0">
+          <h5 class="fw-bold text-dark"><i class="bi bi-pencil-square text-info me-2"></i>Edit Ferry Route Line</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
         <div class="modal-body">
           <form id="editFerryForm" onsubmit="submitEditFerry(event)">
             <input type="hidden" id="editFerryId">
-            <div class="mb-3"><label class="form-label small fw-bold">Group</label><select id="editFerryGroupSelect" class="form-select" required></select></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Ferry Name</label><input type="text" id="editFerryNameInput" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Route Name</label><input type="text" id="editFerryRouteInput" class="form-control" required></div>
-            <div class="row g-2 mb-3">
-              <div class="col-6"><label class="form-label small fw-bold">Departure Time</label><input type="text" id="editFerryTimeInput" class="form-control" required></div>
-              <div class="col-6"><label class="form-label small fw-bold">Capacity</label><input type="number" id="editFerryCapInput" class="form-control" required></div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Route Group</label>
+              <select class="form-select" id="editFerryGroupSelect" required></select>
             </div>
-            <div class="mb-3"><label class="form-label small fw-bold">Available Seats</label><input type="number" id="editFerrySeatsInput" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">KBZPay QR URL</label><input type="text" id="editFerryKpayQrInput" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Status</label><select id="editFerryStatusSelect" class="form-select"><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
-            <button type="submit" class="btn btn-info text-white w-100 fw-bold">Update Ferry Route</button>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Ferry Line Name</label>
+              <input type="text" class="form-control" id="editFerryNameInput" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Route / Stops Details</label>
+              <input type="text" class="form-control" id="editFerryDriverInput" required>
+            </div>
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Departure Time</label>
+                <input type="text" class="form-control" id="editFerryTimeInput" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold text-muted">Capacity</label>
+                <input type="number" class="form-control" id="editFerryCapInput" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Available Seats</label>
+              <input type="number" class="form-control" id="editFerrySeatsInput" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Monthly Transit Fee / Price</label>
+              <input type="text" class="form-control" id="editFerryPriceInput" placeholder="e.g. 30,000 Ks" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">KBZPay QR URL</label>
+              <input type="text" class="form-control" id="editFerryKpayQrInput">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Ferry Bus Image URL</label>
+              <input type="url" class="form-control" id="editFerryImgInput" placeholder="https://images.unsplash.com/...">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Status</label>
+              <select class="form-select" id="editFerryStatusSelect">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-info text-white w-100 fw-bold rounded-pill py-2">Update Ferry Route Line</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Create Admin Modal -->
-  <div class="modal fade" id="createAdminModal" tabindex="-1">
+  <div class="modal fade" id="paymentDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="modal-header border-0 bg-primary text-white p-4">
+          <div class="d-flex align-items-center">
+            <div class="bg-white bg-opacity-20 text-white rounded-3 p-2 me-3">
+              <i class="bi bi-receipt-cutoff fs-4"></i>
+            </div>
+            <div>
+              <h5 class="modal-title fw-bold mb-0">Payment Transaction & Slip Details</h5>
+              <small class="text-white-50">UTYCC Smart Campus Enterprise Verification</small>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" id="paymentDetailModalBody"></div>
+        <div class="modal-footer border-0 bg-light p-3" id="paymentDetailModalFooter">
+          <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="createAdminModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 card-glass p-3">
-        <div class="modal-header border-0 pb-0"><h5 class="fw-bold">Create Admin</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-header border-0 pb-0">
+          <h5 class="fw-bold text-dark"><i class="bi bi-person-plus text-primary me-2"></i>Create Admin Account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
         <div class="modal-body">
           <form id="createAdminForm" onsubmit="submitCreateAdmin(event)">
-            <div class="mb-3"><label class="form-label small fw-bold">Role</label><select id="newAdminRole" class="form-select"><option value="hostel">Hostel Admin</option><option value="ferry">Ferry Admin</option></select></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Full Name</label><input type="text" id="newAdminName" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Username</label><input type="text" id="newAdminUsername" class="form-control" required></div>
-            <div class="mb-3"><label class="form-label small fw-bold">Password</label><input type="password" id="newAdminPassword" class="form-control" required></div>
-            <button type="submit" class="btn btn-danger w-100 fw-bold">Create Account</button>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Full Name</label>
+              <input type="text" class="form-control" id="newAdminName" placeholder="e.g. U Kyaw Kyaw" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Username</label>
+              <input type="text" class="form-control" id="newAdminUsername" placeholder="e.g. hostel_admin_1" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Email Address</label>
+              <input type="email" class="form-control" id="newAdminEmail" placeholder="admin@utycc.edu.mm" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Password</label>
+              <input type="password" class="form-control" id="newAdminPassword" placeholder="Enter secure password" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted">Assigned Department Role</label>
+              <select class="form-select" id="newAdminRole">
+                <option value="hostel">Hostel Administrator (အဆောင်တာဝန်ခံ)</option>
+                <option value="ferry">Ferry Administrator (ဖယ်ရီတာဝန်ခံ)</option>
+                <option value="super_admin">Super Administrator (ဗဟိုချုပ်ကိုင်သူ)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold rounded-pill py-2">Register Admin Account</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bootstrap 5 Bundle JS -->
+  <!-- Footer -->
+  <footer class="py-4 text-center border-top bg-white bg-opacity-80 mt-auto">
+    <div class="container">
+      <p class="text-muted small mb-0">&copy; 2026 University of Technology Yatanarpon Cyber City (UTYCC). Smart Campus Enterprise System.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Admin Application Logic Script -->
   <script>
     const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
     let currentAdminRole = 'super_admin';
@@ -649,6 +945,11 @@
     let cachedFerries = [];
     let cachedAdmins = [];
     let cachedPendingPayments = [];
+    let cachedConfirmedPayments = [];
+    let cachedCancelledPayments = [];
+    let cachedRejectedPayments = [];
+    let cachedAllPayments = [];
+    let activePaymentFilter = 'pending';
 
     document.addEventListener('DOMContentLoaded', () => {
       const adminUser = localStorage.getItem('utycc_admin') || localStorage.getItem('admin');
@@ -694,219 +995,151 @@
           if (pane) pane.classList.add('show', 'active');
         }
       } catch (e) {
-        console.warn('Tab switch fallback:', e);
+        console.error("Error switching tab:", e);
       }
     }
 
     function applyRolePermissions(role) {
+      const isSuper = role.includes('super');
+      const notice = document.getElementById('superAdminPaymentNotice');
+      if (notice) {
+        if (isSuper) {
+          notice.classList.remove('d-none');
+        } else {
+          notice.classList.add('d-none');
+        }
+      }
+      const roleBadge = document.getElementById('adminRoleBadge');
       const isHostel = role.includes('hostel');
       const isFerry = role.includes('ferry');
-      const roleBadge = document.getElementById('adminRoleBadge');
-      const roleText = document.getElementById('adminRoleText');
-      const headerTitle = document.getElementById('headerTitle');
-      const btnAddHostel = document.getElementById('btnAddHostel');
-      const btnAddFerryGroup = document.getElementById('btnAddFerryGroup');
-      const btnAddFerry = document.getElementById('btnAddFerry');
-      const hostelOwnerSelectGroup = document.getElementById('hostelOwnerSelectGroup');
-      const ferryOwnerSelectGroup = document.getElementById('ferryOwnerSelectGroup');
+
+      const btnAddHostelSuper = document.getElementById('btnAddHostelSuper');
+      const btnAddFerryGroupSuper = document.getElementById('btnAddFerryGroupSuper');
+      const btnAddFerrySuper = document.getElementById('btnAddFerrySuper');
 
       if (isHostel) {
-        // --- HOSTEL ADMIN ---
-        if (roleText) roleText.textContent = 'Hostel Admin';
-        if (roleBadge) roleBadge.className = 'badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-medium';
-        if (headerTitle) headerTitle.textContent = 'Hostel Management Console';
+        if (roleBadge) {
+          roleBadge.textContent = 'Hostel Admin';
+          roleBadge.className = 'badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 ms-1 small';
+        }
+        if (btnAddHostelSuper) btnAddHostelSuper.classList.add('d-none');
+        if (btnAddFerryGroupSuper) btnAddFerryGroupSuper.classList.add('d-none');
+        if (btnAddFerrySuper) btnAddFerrySuper.classList.add('d-none');
 
-        // Show Hostel & Payment Verification sections
-        document.getElementById('cardTotalHostels')?.classList.remove('d-none');
-        document.getElementById('cardPendingPayments')?.classList.remove('d-none');
-        document.getElementById('navItemHostels')?.classList.remove('d-none');
-        document.getElementById('navItemHostelBookings')?.classList.remove('d-none');
-        document.getElementById('navItemPaymentVerification')?.classList.remove('d-none');
-        document.getElementById('navItemInquiries')?.classList.remove('d-none');
-
-        // Hide Ferry, Student, Admin directory & creation buttons
-        document.getElementById('cardTotalFerries')?.classList.add('d-none');
-        document.getElementById('cardTotalStudents')?.classList.add('d-none');
-        document.getElementById('navItemFerries')?.classList.add('d-none');
-        document.getElementById('navItemFerryBookings')?.classList.add('d-none');
-        document.getElementById('navItemStudents')?.classList.add('d-none');
-        document.getElementById('navItemAdmins')?.classList.add('d-none');
-        if (btnAddHostel) btnAddHostel.classList.add('d-none');
-        if (hostelOwnerSelectGroup) hostelOwnerSelectGroup.classList.add('d-none');
-
-        safeSwitchTab('tabHostelsBtn', 'tab-hostels');
-
+        document.getElementById('tab-ferries-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('tab-ferry-bookings-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('tab-admins-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('tab-students-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('statStudentsCardCol')?.classList.add('d-none');
+        safeSwitchTab('tab-hostels-btn', 'tab-hostels');
       } else if (isFerry) {
-        // --- FERRY ADMIN ---
-        if (roleText) roleText.textContent = 'Ferry Admin';
-        if (roleBadge) roleBadge.className = 'badge bg-info-subtle text-info px-3 py-2 rounded-pill fw-medium';
-        if (headerTitle) headerTitle.textContent = 'Ferry Management Console';
+        if (roleBadge) {
+          roleBadge.textContent = 'Ferry Admin';
+          roleBadge.className = 'badge bg-info-subtle text-info border rounded-pill px-2.5 py-1 ms-1 small';
+        }
+        if (btnAddHostelSuper) btnAddHostelSuper.classList.add('d-none');
+        if (btnAddFerryGroupSuper) btnAddFerryGroupSuper.classList.add('d-none');
+        if (btnAddFerrySuper) btnAddFerrySuper.classList.add('d-none');
 
-        // Show Ferry & Payment Verification sections
-        document.getElementById('cardTotalFerries')?.classList.remove('d-none');
-        document.getElementById('cardPendingPayments')?.classList.remove('d-none');
-        document.getElementById('navItemFerries')?.classList.remove('d-none');
-        document.getElementById('navItemFerryBookings')?.classList.remove('d-none');
-        document.getElementById('navItemPaymentVerification')?.classList.remove('d-none');
-        document.getElementById('navItemInquiries')?.classList.remove('d-none');
-
-        // Hide Hostel, Student, Admin directory & creation buttons
-        document.getElementById('cardTotalHostels')?.classList.add('d-none');
-        document.getElementById('cardTotalStudents')?.classList.add('d-none');
-        document.getElementById('navItemHostels')?.classList.add('d-none');
-        document.getElementById('navItemHostelBookings')?.classList.add('d-none');
-        document.getElementById('navItemStudents')?.classList.add('d-none');
-        document.getElementById('navItemAdmins')?.classList.add('d-none');
-        if (btnAddFerryGroup) btnAddFerryGroup.classList.add('d-none');
-        if (btnAddFerry) btnAddFerry.classList.add('d-none');
-        if (ferryOwnerSelectGroup) ferryOwnerSelectGroup.classList.add('d-none');
-
-        safeSwitchTab('tabFerriesBtn', 'tab-ferries');
-
+        document.getElementById('tab-hostels-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('tab-hostel-bookings-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('tab-admins-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('tab-students-btn')?.parentElement.classList.add('d-none');
+        document.getElementById('statStudentsCardCol')?.classList.add('d-none');
+        safeSwitchTab('tab-ferries-btn', 'tab-ferries');
       } else {
-        // --- SUPER ADMIN ---
-        if (roleText) roleText.textContent = 'Super Admin';
-        if (roleBadge) roleBadge.className = 'badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-medium';
-        if (headerTitle) headerTitle.textContent = 'Enterprise Super Admin Console';
+        if (roleBadge) {
+          roleBadge.textContent = 'Super Admin';
+          roleBadge.className = 'badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 ms-1 small';
+        }
+        if (btnAddHostelSuper) btnAddHostelSuper.classList.remove('d-none');
+        if (btnAddFerryGroupSuper) btnAddFerryGroupSuper.classList.remove('d-none');
+        if (btnAddFerrySuper) btnAddFerrySuper.classList.remove('d-none');
 
-        // Show all general management cards
-        document.getElementById('cardTotalHostels')?.classList.remove('d-none');
-        document.getElementById('cardTotalFerries')?.classList.remove('d-none');
-        document.getElementById('cardTotalStudents')?.classList.remove('d-none');
-
-        // HIDE PAYMENT VERIFICATION ONLY FOR SUPER ADMIN
-        document.getElementById('cardPendingPayments')?.classList.add('d-none');
-        document.getElementById('navItemPaymentVerification')?.classList.add('d-none');
-
-        // Show all management tabs and action buttons
-        document.getElementById('navItemHostels')?.classList.remove('d-none');
-        document.getElementById('navItemFerries')?.classList.remove('d-none');
-        document.getElementById('navItemHostelBookings')?.classList.remove('d-none');
-        document.getElementById('navItemFerryBookings')?.classList.remove('d-none');
-        document.getElementById('navItemInquiries')?.classList.remove('d-none');
-        document.getElementById('navItemStudents')?.classList.remove('d-none');
-        document.getElementById('navItemAdmins')?.classList.remove('d-none');
-
-        if (btnAddHostel) btnAddHostel.classList.remove('d-none');
-        if (btnAddFerryGroup) btnAddFerryGroup.classList.remove('d-none');
-        if (btnAddFerry) btnAddFerry.classList.remove('d-none');
-        if (hostelOwnerSelectGroup) hostelOwnerSelectGroup.classList.remove('d-none');
-        if (ferryOwnerSelectGroup) ferryOwnerSelectGroup.classList.remove('d-none');
-
-        safeSwitchTab('tabHostelsBtn', 'tab-hostels');
+        document.getElementById('tab-hostels-btn')?.parentElement.classList.remove('d-none');
+        document.getElementById('tab-ferries-btn')?.parentElement.classList.remove('d-none');
+        document.getElementById('tab-hostel-bookings-btn')?.parentElement.classList.remove('d-none');
+        document.getElementById('tab-ferry-bookings-btn')?.parentElement.classList.remove('d-none');
+        document.getElementById('tab-admins-btn')?.parentElement.classList.remove('d-none');
+        document.getElementById('tab-students-btn')?.parentElement.classList.remove('d-none');
+        document.getElementById('statStudentsCardCol')?.classList.remove('d-none');
       }
     }
 
     async function fetchAdminData() {
       try {
-        let url = API_BASE_URL + '/api/admin/overview?role=' + encodeURIComponent(currentAdminRole);
-        if (currentAdminId) {
-          url += '&admin_id=' + encodeURIComponent(currentAdminId);
-        }
+        let url = `${API_BASE_URL}/api/admin/overview?role=${encodeURIComponent(currentAdminRole)}`;
+        if (currentAdminId) url += `&admin_id=${encodeURIComponent(currentAdminId)}`;
+
         const res = await fetch(url);
-        if (!res.ok) {
-          if (res.status === 401) {
-            adminLogout();
-            return;
-          }
-          showEmptyDataState();
-          return;
-        }
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
-        if (!data.success) {
+
+        if (data.success) {
+          cachedAdmins = data.admins || [];
+          cachedFerryGroups = data.ferry_groups || [];
+
+          populateAdminOwnerSelects(cachedAdmins);
+          updateFerryGroupSelectOptions(cachedFerryGroups, 'ferryGroupSelect');
+          updateFerryGroupSelectOptions(cachedFerryGroups, 'editFerryGroupSelect');
+
+          renderHostels(data.hostels || []);
+          renderFerryGroups(cachedFerryGroups);
+          renderFerries(data.ferries || []);
+          
+          cachedPendingPayments = data.pending_payments || [];
+          cachedConfirmedPayments = data.confirmed_payments || [];
+          cachedRejectedPayments = data.rejected_payments || [];
+          cachedCancelledPayments = data.cancelled_payments || (data.all_payments || []).filter(p => p.payment_status === 'Cancelled' || p.status === 'Cancelled');
+          cachedAllPayments = data.all_payments || [];
+
+          if (document.getElementById('countPendingBadge')) document.getElementById('countPendingBadge').textContent = cachedPendingPayments.length;
+          if (document.getElementById('countConfirmedBadge')) document.getElementById('countConfirmedBadge').textContent = cachedConfirmedPayments.length;
+          if (document.getElementById('countCancelledBadge')) document.getElementById('countCancelledBadge').textContent = cachedCancelledPayments.length;
+          if (document.getElementById('countRejectedBadge')) document.getElementById('countRejectedBadge').textContent = cachedRejectedPayments.length;
+          if (document.getElementById('countAllBadge')) document.getElementById('countAllBadge').textContent = cachedAllPayments.length;
+
+          applyPaymentFilters();
+          renderHostelBookings(data.hostel_bookings || []);
+          renderFerryBookings(data.ferry_bookings || []);
+          renderInquiries(data.inquiries || []);
+          const isSuperAdmin = currentAdminRole.includes('super');
+          if (isSuperAdmin) {
+            renderStudents(data.students || []);
+          } else {
+            renderStudents([]);
+          }
+          renderAdmins(cachedAdmins);
+
+          document.getElementById('statHostelsCount').textContent = (data.hostels || []).length;
+          document.getElementById('statFerriesCount').textContent = (data.ferries || []).length;
+          document.getElementById('statPendingCount').textContent = (data.pending_payments || []).length;
+          document.getElementById('statStudentsCount').textContent = (data.students || []).length;
+          document.getElementById('pendingVerificationBadge').textContent = (data.pending_payments || []).length;
+        } else {
           showEmptyDataState();
-          return;
         }
-
-        const pendingCount = data.pending_payments_count !== undefined ? data.pending_payments_count : (data.pending_payments ? data.pending_payments.length : 0);
-        const elStatPending = document.getElementById('statPendingPayments');
-        if (elStatPending) elStatPending.textContent = pendingCount;
-        const elPayBadge1 = document.getElementById('pendingPayBadge');
-        if (elPayBadge1) elPayBadge1.textContent = pendingCount;
-        const elPayBadge2 = document.getElementById('pendingBadgeCount');
-        if (elPayBadge2) elPayBadge2.textContent = pendingCount;
-        const elPvCount = document.getElementById('pvCountBadge');
-        if (elPvCount) elPvCount.textContent = pendingCount + ' Pending';
-
-        const elStatHostels = document.getElementById('statHostels');
-        if (elStatHostels && data.hostels) elStatHostels.textContent = data.hostels.length + ' Blocks';
-
-        const elStatFerries = document.getElementById('statFerries');
-        if (elStatFerries && data.ferries) elStatFerries.textContent = data.ferries.length + ' Lines';
-
-        const elStatStudents = document.getElementById('statStudents');
-        if (elStatStudents && data.students) elStatStudents.textContent = data.students.length;
-
-        cachedAdmins = data.admins || [];
-        populateAdminOwnerSelects(cachedAdmins);
-
-        cachedFerryGroups = data.ferry_groups || [];
-        updateFerryGroupSelectOptions(cachedFerryGroups, 'ferryGroupSelect');
-
-        cachedFerries = data.ferries || [];
-        cachedPendingPayments = data.pending_payments || [];
-
-        renderPendingPayments(cachedPendingPayments);
-        renderPaymentVerification(cachedPendingPayments);
-        renderHostels(data.hostels || []);
-        renderFerryGroups(cachedFerryGroups);
-        renderFerries(cachedFerries);
-        renderHostelBookings(data.hostel_bookings || []);
-        renderFerryBookings(data.ferry_bookings || []);
-        renderInquiries(data.inquiries || []);
-        renderStudents(data.students || []);
-        renderAdmins(cachedAdmins);
-
       } catch (err) {
-        console.error('Fetch admin data error:', err);
+        console.error("Admin data fetch error:", err);
         showEmptyDataState();
       }
     }
 
     function showEmptyDataState() {
-      renderPendingPayments([]);
-      renderPaymentVerification([]);
       renderHostels([]);
       renderFerryGroups([]);
       renderFerries([]);
+      cachedPendingPayments = [];
+      cachedConfirmedPayments = [];
+      cachedCancelledPayments = [];
+      cachedRejectedPayments = [];
+      cachedAllPayments = [];
+      applyPaymentFilters();
       renderHostelBookings([]);
       renderFerryBookings([]);
       renderInquiries([]);
       renderStudents([]);
       renderAdmins([]);
-    }
-
-    function renderPendingPayments(payments) {
-      const tbody = document.getElementById('pendingPaymentsTableBody') || document.getElementById('paymentVerificationTableBody');
-      if (!tbody) return;
-      if (!payments || payments.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4"><i class="bi bi-check-circle text-success me-2"></i>All payments verified! No pending transactions.</td></tr>';
-        return;
-      }
-      tbody.innerHTML = payments.map(p => {
-        const isHostel = p.hostel_name !== undefined;
-        const typeBadge = isHostel ? '<span class="badge bg-primary-subtle text-primary fw-bold">Hostel</span>' : '<span class="badge bg-info-subtle text-info fw-bold">Ferry</span>';
-        const serviceName = isHostel ? (escapeHtml(p.hostel_name) + ' (' + escapeHtml(p.room_number) + ')') : (escapeHtml(p.ferry_name || p.route_name));
-        const bType = isHostel ? 'hostel' : 'ferry';
-        return '<tr>' +
-          '<td>#' + p.booking_id + '</td>' +
-          '<td>' + typeBadge + '</td>' +
-          '<td class="fw-semibold text-dark">' + serviceName + '</td>' +
-          '<td><div class="fw-bold text-dark">' + escapeHtml(p.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(p.student_id) + '</div></td>' +
-          '<td><span class="badge bg-light text-dark border">' + escapeHtml(p.payment_method || 'KBZPay') + '</span></td>' +
-          '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(p.transaction_id || '-') + '</span></td>' +
-          '<td class="fw-bold text-success">' + escapeHtml(p.amount || 'Ks') + '</td>' +
-          '<td><span class="status-badge-pending">Pending Approval</span></td>' +
-          '<td class="text-center">' +
-            '<button class="btn btn-sm btn-success rounded-pill px-3 py-1 me-1 fw-bold" onclick="confirmPayment(\'' + bType + '\', ' + p.booking_id + ', \'approve\')"><i class="bi bi-check-lg me-1"></i>Confirm</button>' +
-            '<button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold" onclick="confirmPayment(\'' + bType + '\', ' + p.booking_id + ', \'reject\')"><i class="bi bi-x-lg me-1"></i>Reject</button>' +
-          '</td>' +
-        '</tr>';
-      }).join('');
-    }
-
-    function renderPaymentVerification(payments) {
-      renderPendingPayments(payments);
     }
 
     function populateAdminOwnerSelects(admins) {
@@ -928,14 +1161,14 @@
       if (ferrySelect) ferrySelect.innerHTML = ferryOpts;
     }
 
-    function updateFerryGroupSelectOptions(groups, targetSelectId = 'ferryGroupSelect') {
-      const select = document.getElementById(targetSelectId);
+    function updateFerryGroupSelectOptions(groups, selectId) {
+      const select = document.getElementById(selectId);
       if (!select) return;
       if (!groups || groups.length === 0) {
-        select.innerHTML = '<option value="1">General Route Group</option>';
+        select.innerHTML = '<option value="1">Default Route Group</option>';
         return;
       }
-      select.innerHTML = groups.map(g => '<option value="' + g.group_id + '">' + escapeHtml(g.group_name) + '</option>').join('');
+      select.innerHTML = groups.map(g => `<option value="${g.group_id}">${escapeHtml(g.group_name)}</option>`).join('');
     }
 
     function renderHostels(hostels) {
@@ -943,9 +1176,11 @@
       const tbody = document.getElementById('hostelsTableBody');
       if (!tbody) return;
       if (!hostels || hostels.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No owned hostel blocks found.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No hostel blocks found.</td></tr>';
         return;
       }
+      const isSuper = currentAdminRole.includes('super');
+
       tbody.innerHTML = hostels.map(h => {
         const isActive = h.status === 'Active';
         const statusBadge = isActive ? '<span class="status-badge-confirmed"><i class="bi bi-check-circle me-1"></i>Active</span>' : '<span class="status-badge-rejected"><i class="bi bi-x-circle me-1"></i>Inactive</span>';
@@ -954,40 +1189,57 @@
         const ownerObj = cachedAdmins.find(a => a.id === h.admin_id);
         const ownerName = ownerObj ? ownerObj.name : 'Super Admin';
 
-        return '<tr>' +
-          '<td>#' + h.id + '</td>' +
-          '<td class="fw-bold text-dark">' + escapeHtml(h.name) + '</td>' +
-          '<td>' + escapeHtml(h.room) + '</td>' +
-          '<td><span class="badge bg-primary-subtle text-primary border fw-semibold">' + escapeHtml(ownerName) + '</span></td>' +
-          '<td><span class="badge bg-secondary-subtle text-secondary">' + escapeHtml(h.gender) + '</span></td>' +
-          '<td class="fw-bold text-primary">' + h.available_beds + ' / ' + h.capacity + ' beds</td>' +
-          '<td>' + statusBadge + '</td>' +
-          '<td class="text-center">' +
-            '<button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditHostelModal(' + h.id + ')"><i class="bi bi-pencil me-1"></i>Edit</button>' +
-            '<button class="btn btn-sm ' + toggleBtnClass + ' rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="toggleHostelStatus(' + h.id + ')"><i class="bi bi-power me-1"></i>' + toggleBtnText + '</button>' +
-            '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteHostel(' + h.id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
-          '</td>' +
-        '</tr>';
+        let deleteBtnHtml = '';
+        if (isSuper) {
+          deleteBtnHtml = `<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteHostel(${h.id || h.hostel_id})"><i class="bi bi-trash me-1"></i>Delete</button>`;
+        }
+
+        return `<tr>
+          <td>#${h.id || h.hostel_id}</td>
+          <td class="fw-bold text-dark">${escapeHtml(h.name || h.hostel_name)}</td>
+          <td>${escapeHtml(h.room || h.room_number)}</td>
+          <td><span class="badge bg-primary-subtle text-primary border fw-semibold">${escapeHtml(ownerName)}</span></td>
+          <td><span class="badge bg-secondary-subtle text-secondary">${escapeHtml(h.gender || h.gender_type || 'Boys')}</span></td>
+          <td><span class="fw-bold text-success">${escapeHtml(h.price || '150,000 Ks')}</span></td>
+          <td class="fw-bold text-primary">${h.available_beds} / ${h.capacity} beds</td>
+          <td>${statusBadge}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditHostelModal(${h.id || h.hostel_id})"><i class="bi bi-pencil me-1"></i>Edit</button>
+            <button class="btn btn-sm ${toggleBtnClass} rounded-pill px-2.5 py-0.5 fw-bold" onclick="toggleHostelStatus(${h.id || h.hostel_id})"><i class="bi bi-power me-1"></i>${toggleBtnText}</button>
+            ${deleteBtnHtml}
+          </td>
+        </tr>`;
       }).join('');
     }
 
     function renderFerryGroups(groups) {
       const tbody = document.getElementById('ferryGroupsTableBody');
+      const actionHeader = document.getElementById('ferryGroupActionsHeader');
       if (!tbody) return;
+      const isSuper = currentAdminRole.includes('super');
+
+      if (actionHeader) {
+        actionHeader.style.display = isSuper ? '' : 'none';
+      }
+
       if (!groups || groups.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">No ferry route groups found.</td></tr>';
         return;
       }
-      tbody.innerHTML = groups.map(g =>
-        '<tr>' +
-          '<td>#' + g.group_id + '</td>' +
-          '<td class="fw-bold text-dark">' + escapeHtml(g.group_name) + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(g.description || '-') + '</td>' +
-          '<td class="text-center">' +
-            '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerryGroup(' + g.group_id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
-          '</td>' +
-        '</tr>'
-      ).join('');
+      tbody.innerHTML = groups.map(g => {
+        let actionCol = '';
+        if (isSuper) {
+          actionCol = `<td class="text-center"><button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerryGroup(${g.group_id})"><i class="bi bi-trash me-1"></i>Delete</button></td>`;
+        }
+        return `
+          <tr>
+            <td>#${g.group_id}</td>
+            <td class="fw-bold text-dark">${escapeHtml(g.group_name)}</td>
+            <td class="small text-muted">${escapeHtml(g.description || '-')}</td>
+            ${actionCol}
+          </tr>
+        `;
+      }).join('');
     }
 
     function renderFerries(ferries) {
@@ -995,9 +1247,11 @@
       const tbody = document.getElementById('ferriesTableBody');
       if (!tbody) return;
       if (!ferries || ferries.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No owned ferry routes found.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No ferry routes found.</td></tr>';
         return;
       }
+      const isSuper = currentAdminRole.includes('super');
+
       tbody.innerHTML = ferries.map(f => {
         const isActive = f.status === 'Active';
         const statusBadge = isActive ? '<span class="status-badge-confirmed"><i class="bi bi-check-circle me-1"></i>Active</span>' : '<span class="status-badge-rejected"><i class="bi bi-x-circle me-1"></i>Inactive</span>';
@@ -1006,21 +1260,254 @@
         const ownerObj = cachedAdmins.find(a => a.id === f.admin_id);
         const ownerName = ownerObj ? ownerObj.name : 'Super Admin';
 
-        return '<tr>' +
-          '<td>#' + f.id + '</td>' +
-          '<td class="fw-bold text-dark">' + escapeHtml(f.name) + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(f.route) + '</td>' +
-          '<td><span class="badge bg-info-subtle text-info border fw-semibold">' + escapeHtml(ownerName) + '</span></td>' +
-          '<td><span class="badge bg-light text-dark border">' + escapeHtml(f.time) + '</span></td>' +
-          '<td class="fw-bold text-info">' + f.available_seats + ' / ' + f.capacity + ' seats</td>' +
-          '<td>' + statusBadge + '</td>' +
-          '<td class="text-center">' +
-            '<button class="btn btn-sm btn-outline-info rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditFerryModal(' + f.id + ')"><i class="bi bi-pencil me-1"></i>Edit</button>' +
-            '<button class="btn btn-sm ' + toggleBtnClass + ' rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="toggleFerryStatus(' + f.id + ')"><i class="bi bi-power me-1"></i>' + toggleBtnText + '</button>' +
-            '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerry(' + f.id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
-          '</td>' +
-        '</tr>';
+        let deleteBtnHtml = '';
+        if (isSuper) {
+          deleteBtnHtml = `<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteFerry(${f.id || f.ferry_id})"><i class="bi bi-trash me-1"></i>Delete</button>`;
+        }
+
+        return `<tr>
+          <td>#${f.id || f.ferry_id}</td>
+          <td class="fw-bold text-dark">${escapeHtml(f.name || f.ferry_name)}</td>
+          <td class="small text-muted">${escapeHtml(f.route || f.route_name)}</td>
+          <td><span class="badge bg-info-subtle text-info border fw-semibold">${escapeHtml(ownerName)}</span></td>
+          <td><span class="badge bg-light text-dark border">${escapeHtml(f.time || f.departure_time || '06:30 AM')}</span></td>
+          <td><span class="fw-bold text-success">${escapeHtml(f.price || '30,000 Ks')}</span></td>
+          <td class="fw-bold text-info">${f.available_seats} / ${f.capacity} seats</td>
+          <td>${statusBadge}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-info rounded-pill px-2.5 py-0.5 me-1 fw-bold" onclick="openEditFerryModal(${f.id || f.ferry_id})"><i class="bi bi-pencil me-1"></i>Edit</button>
+            <button class="btn btn-sm ${toggleBtnClass} rounded-pill px-2.5 py-0.5 fw-bold" onclick="toggleFerryStatus(${f.id || f.ferry_id})"><i class="bi bi-power me-1"></i>${toggleBtnText}</button>
+            ${deleteBtnHtml}
+          </td>
+        </tr>`;
       }).join('');
+    }
+
+    function filterPaymentStatus(status, btnElement) {
+      activePaymentFilter = status;
+      const group = document.getElementById('paymentStatusFilters');
+      if (group) {
+        group.querySelectorAll('button').forEach(btn => {
+          btn.classList.remove('active', 'btn-primary');
+          btn.classList.add('btn-light', 'text-dark');
+        });
+      }
+      if (btnElement) {
+        btnElement.classList.remove('btn-light', 'text-dark');
+        btnElement.classList.add('active', 'btn-primary');
+      }
+      applyPaymentFilters();
+    }
+
+    function applyPaymentFilters() {
+      let list = [];
+      if (activePaymentFilter === 'pending') {
+        list = cachedPendingPayments;
+      } else if (activePaymentFilter === 'confirmed') {
+        list = cachedConfirmedPayments;
+      } else if (activePaymentFilter === 'cancelled') {
+        list = cachedCancelledPayments;
+      } else if (activePaymentFilter === 'rejected') {
+        list = cachedRejectedPayments;
+      } else {
+        list = cachedAllPayments;
+      }
+
+      const typeFilter = document.getElementById('paymentTypeFilter')?.value || 'all';
+      if (typeFilter !== 'all') {
+        list = list.filter(p => {
+          const isHostel = p.hostel_name !== undefined || p.type === 'hostel' || p.service_type === 'hostel';
+          return typeFilter === 'hostel' ? isHostel : !isHostel;
+        });
+      }
+
+      const searchKeyword = (document.getElementById('paymentSearchInput')?.value || '').trim().toLowerCase();
+      if (searchKeyword) {
+        list = list.filter(p => {
+          const sName = (p.student_name || '').toLowerCase();
+          const sId = (p.student_id || '').toLowerCase();
+          const txId = (p.transaction_id || '').toLowerCase();
+          const pMethod = (p.payment_method || '').toLowerCase();
+          const sAlloc = (p.hostel_name || p.ferry_name || p.route_name || '').toLowerCase();
+          return sName.includes(searchKeyword) || sId.includes(searchKeyword) || txId.includes(searchKeyword) || pMethod.includes(searchKeyword) || sAlloc.includes(searchKeyword);
+        });
+      }
+
+      renderPaymentVerification(list);
+    }
+
+    function renderPaymentVerification(payments) {
+      const tbody = document.getElementById('pendingPaymentsTableBody');
+      if (!tbody) return;
+      if (!payments || payments.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4"><i class="bi bi-inbox text-muted fs-4 d-block mb-1"></i>No payment records found matching the current filter.</td></tr>';
+        return;
+      }
+      const isSuper = currentAdminRole.includes('super');
+      const isHostelAdmin = currentAdminRole.includes('hostel');
+      const isFerryAdmin = currentAdminRole.includes('ferry');
+
+      tbody.innerHTML = payments.map(p => {
+        const isHostel = p.hostel_name !== undefined || p.type === 'hostel' || p.service_type === 'hostel';
+        const typeBadge = isHostel ? '<span class="badge bg-primary-subtle text-primary fw-bold">Hostel</span>' : '<span class="badge bg-info-subtle text-info fw-bold">Ferry</span>';
+        const serviceName = isHostel ? (escapeHtml(p.hostel_name) + ' (' + escapeHtml(p.room_number || 'Room') + ')') : (escapeHtml(p.ferry_name || p.route_name));
+        const bType = isHostel ? 'hostel' : 'ferry';
+
+        const isCancelled = p.payment_status === 'Cancelled' || p.status === 'Cancelled';
+        const isConfirmed = !isCancelled && (p.payment_status === 'Confirmed' || p.status === 'Allocated' || p.status === 'Assigned' || p.status === 'Confirmed');
+        const isRejected = !isCancelled && (p.payment_status === 'Rejected' || p.status === 'Rejected');
+        const isPending = !isCancelled && !isConfirmed && !isRejected;
+
+        let statusBadge = '';
+        if (isCancelled) {
+          statusBadge = '<span class="status-badge-cancelled"><i class="bi bi-x-octagon me-1"></i>Cancelled by Student</span>';
+        } else if (isConfirmed) {
+          statusBadge = '<span class="status-badge-confirmed"><i class="bi bi-check-circle me-1"></i>Confirmed</span>';
+        } else if (isRejected) {
+          statusBadge = '<span class="status-badge-rejected"><i class="bi bi-x-circle me-1"></i>Rejected</span>';
+        } else {
+          statusBadge = '<span class="status-badge-pending"><i class="bi bi-hourglass-split me-1"></i>Pending Approval</span>';
+        }
+
+        let actionHtml = '';
+        if (isSuper) {
+          if (isCancelled) {
+            actionHtml = `<span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2.5 py-1 me-1">Cancelled</span><button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold" onclick="openPaymentDetailModal('${bType}', ${p.booking_id})"><i class="bi bi-receipt me-1"></i>View Slip</button>`;
+          } else if (isConfirmed) {
+            actionHtml = `<span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 me-1"><i class="bi bi-check-circle-fill me-1"></i>Confirmed</span><button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold" onclick="openPaymentDetailModal('${bType}', ${p.booking_id})"><i class="bi bi-receipt me-1"></i>View Slip</button>`;
+          } else if (isRejected) {
+            actionHtml = `<span class="badge bg-danger-subtle text-danger border rounded-pill px-2.5 py-1 me-1"><i class="bi bi-x-circle me-1"></i>Rejected</span><button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold" onclick="openPaymentDetailModal('${bType}', ${p.booking_id})"><i class="bi bi-receipt me-1"></i>View Slip</button>`;
+          } else {
+            actionHtml = `<span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2.5 py-1 me-1"><i class="bi bi-eye me-1"></i>View Only</span><button class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold" onclick="openPaymentDetailModal('${bType}', ${p.booking_id})"><i class="bi bi-receipt me-1"></i>View Slip</button>`;
+          }
+        } else if (isHostelAdmin) {
+          if (isHostel) {
+            if (isCancelled) {
+              actionHtml = `<span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2.5 py-1 me-1">Cancelled</span><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" onclick="openPaymentDetailModal('hostel', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            } else if (isPending) {
+              actionHtml = `<button class="btn btn-sm btn-success rounded-pill px-3 py-1 me-1 fw-bold" onclick="confirmPayment('hostel', ${p.booking_id}, 'approve')"><i class="bi bi-check-lg me-1"></i>Confirm</button><button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold" onclick="confirmPayment('hostel', ${p.booking_id}, 'reject')"><i class="bi bi-x-lg me-1"></i>Reject</button><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 ms-1" onclick="openPaymentDetailModal('hostel', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            } else if (isConfirmed) {
+              actionHtml = `<span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 me-1"><i class="bi bi-check-circle-fill me-1"></i>Confirmed</span><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" onclick="openPaymentDetailModal('hostel', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            } else {
+              actionHtml = `<span class="badge bg-danger-subtle text-danger border rounded-pill px-2.5 py-1 me-1"><i class="bi bi-x-circle me-1"></i>Rejected</span><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" onclick="openPaymentDetailModal('hostel', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            }
+          } else {
+            actionHtml = `<span class="badge bg-light text-muted border px-2.5 py-1 rounded-pill"><i class="bi bi-lock me-1"></i>Ferry Admin Only</span>`;
+          }
+        } else if (isFerryAdmin) {
+          if (!isHostel) {
+            if (isCancelled) {
+              actionHtml = `<span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2.5 py-1 me-1">Cancelled</span><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" onclick="openPaymentDetailModal('ferry', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            } else if (isPending) {
+              actionHtml = `<button class="btn btn-sm btn-success rounded-pill px-3 py-1 me-1 fw-bold" onclick="confirmPayment('ferry', ${p.booking_id}, 'approve')"><i class="bi bi-check-lg me-1"></i>Confirm</button><button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold" onclick="confirmPayment('ferry', ${p.booking_id}, 'reject')"><i class="bi bi-x-lg me-1"></i>Reject</button><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 ms-1" onclick="openPaymentDetailModal('ferry', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            } else if (isConfirmed) {
+              actionHtml = `<span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 me-1"><i class="bi bi-check-circle-fill me-1"></i>Confirmed</span><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" onclick="openPaymentDetailModal('ferry', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            } else {
+              actionHtml = `<span class="badge bg-danger-subtle text-danger border rounded-pill px-2.5 py-1 me-1"><i class="bi bi-x-circle me-1"></i>Rejected</span><button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1" onclick="openPaymentDetailModal('ferry', ${p.booking_id})"><i class="bi bi-eye"></i></button>`;
+            }
+          } else {
+            actionHtml = `<span class="badge bg-light text-muted border px-2.5 py-1 rounded-pill"><i class="bi bi-lock me-1"></i>Hostel Admin Only</span>`;
+          }
+        }
+
+        return `<tr>
+          <td>#${p.booking_id}</td>
+          <td>${typeBadge}</td>
+          <td class="fw-semibold text-dark">${serviceName}</td>
+          <td><div class="fw-bold text-dark">${escapeHtml(p.student_name)}</div><div class="small text-muted">ID: ${escapeHtml(p.student_id)}</div></td>
+          <td><span class="badge bg-light text-dark border">${escapeHtml(p.payment_method || 'KBZPay')}</span></td>
+          <td><span class="font-monospace text-primary fw-bold">${escapeHtml(p.transaction_id || '-')}</span></td>
+          <td class="fw-bold text-success">${escapeHtml(p.amount || (isHostel ? '150,000 Ks' : '30,000 Ks'))}</td>
+          <td>${statusBadge}</td>
+          <td class="text-center">${actionHtml}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    function openPaymentDetailModal(bType, bId) {
+      const payment = cachedAllPayments.find(p => {
+        const isH = p.hostel_name !== undefined || p.type === 'hostel' || p.service_type === 'hostel';
+        return ((bType === 'hostel' && isH) || (bType === 'ferry' && !isH)) && String(p.booking_id) === String(bId);
+      });
+
+      if (!payment) {
+        alert('Payment record not found.');
+        return;
+      }
+
+      const isHostel = bType === 'hostel';
+      const isCancelled = payment.payment_status === 'Cancelled' || payment.status === 'Cancelled';
+      const isConfirmed = !isCancelled && (payment.payment_status === 'Confirmed' || payment.status === 'Allocated' || payment.status === 'Assigned' || payment.status === 'Confirmed');
+      const isRejected = !isCancelled && (payment.payment_status === 'Rejected' || payment.status === 'Rejected');
+      const isPending = !isCancelled && !isConfirmed && !isRejected;
+
+      let statusBadge = '';
+      if (isCancelled) {
+        statusBadge = '<span class="badge bg-secondary text-white border px-3 py-1.5 rounded-pill fs-6"><i class="bi bi-x-octagon me-1"></i>Cancelled by Student</span>';
+      } else if (isConfirmed) {
+        statusBadge = '<span class="badge bg-success-subtle text-success border px-3 py-1.5 rounded-pill fs-6"><i class="bi bi-check-circle-fill me-1"></i>Payment Confirmed</span>';
+      } else if (isRejected) {
+        statusBadge = '<span class="badge bg-danger-subtle text-danger border px-3 py-1.5 rounded-pill fs-6"><i class="bi bi-x-circle-fill me-1"></i>Payment Rejected</span>';
+      } else {
+        statusBadge = '<span class="badge bg-warning-subtle text-warning border px-3 py-1.5 rounded-pill fs-6"><i class="bi bi-hourglass-split me-1"></i>Pending Verification</span>';
+      }
+
+      const modalBody = document.getElementById('paymentDetailModalBody');
+      if (modalBody) {
+        modalBody.innerHTML = `
+          <div class="text-center mb-4">
+            <div class="mb-2">${statusBadge}</div>
+            <h4 class="fw-bold text-dark mb-0">${escapeHtml(payment.amount || (isHostel ? '150,000 Ks' : '30,000 Ks'))}</h4>
+            <div class="text-muted small">Booking Ref: #${payment.booking_id} &bull; ${escapeHtml(payment.booking_date || 'Recent')}</div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card bg-light border-0 rounded-4 p-3 h-100">
+                <h6 class="fw-bold text-dark mb-3"><i class="bi bi-person-circle text-primary me-2"></i>Student Information</h6>
+                <div class="mb-2"><span class="text-muted small d-block">Full Name:</span><strong class="text-dark">${escapeHtml(payment.student_name)}</strong></div>
+                <div class="mb-2"><span class="text-muted small d-block">Student Roll ID:</span><strong class="font-monospace text-primary">${escapeHtml(payment.student_id)}</strong></div>
+                <div class="mb-2"><span class="text-muted small d-block">Academic Year:</span><span class="text-dark">${escapeHtml(payment.student_year || 'N/A')}</span></div>
+                ${payment.national_id ? `<div class="mb-2"><span class="text-muted small d-block">NRC / National ID:</span><span class="text-dark">${escapeHtml(payment.national_id)}</span></div>` : ''}
+                ${payment.student_phone ? `<div class="mb-2"><span class="text-muted small d-block">Phone Number:</span><span class="text-dark">${escapeHtml(payment.student_phone)}</span></div>` : ''}
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card bg-light border-0 rounded-4 p-3 h-100">
+                <h6 class="fw-bold text-dark mb-3"><i class="bi bi-credit-card text-success me-2"></i>Payment & Allocation</h6>
+                <div class="mb-2"><span class="text-muted small d-block">Service Category:</span><strong class="text-dark">${isHostel ? 'Hostel Accommodation' : 'Ferry Transportation'}</strong></div>
+                <div class="mb-2"><span class="text-muted small d-block">Allocated Service:</span><strong class="text-primary">${isHostel ? (escapeHtml(payment.hostel_name) + ' - Room ' + escapeHtml(payment.room_number || '')) : (escapeHtml(payment.ferry_name || payment.route_name))}</strong></div>
+                <div class="mb-2"><span class="text-muted small d-block">Payment Method:</span><span class="badge bg-white text-dark border px-2 py-1">${escapeHtml(payment.payment_method || 'KBZPay')}</span></div>
+                <div class="mb-2"><span class="text-muted small d-block">Transaction Slip ID:</span><strong class="font-monospace text-success fs-6">${escapeHtml(payment.transaction_id || 'N/A')}</strong></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const modalFooter = document.getElementById('paymentDetailModalFooter');
+      if (modalFooter) {
+        if (!currentAdminRole.includes('super') && isPending) {
+          const isAllowedAdmin = (isHostel && currentAdminRole.includes('hostel')) || (!isHostel && currentAdminRole.includes('ferry'));
+          if (isAllowedAdmin) {
+            modalFooter.innerHTML = `
+              <button type="button" class="btn btn-secondary rounded-pill px-3" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger rounded-pill px-4 fw-bold" onclick="confirmPayment('${bType}', ${payment.booking_id}, 'reject'); bootstrap.Modal.getInstance(document.getElementById('paymentDetailModal'))?.hide();"><i class="bi bi-x-lg me-1"></i>Reject</button>
+              <button type="button" class="btn btn-success rounded-pill px-4 fw-bold" onclick="confirmPayment('${bType}', ${payment.booking_id}, 'approve'); bootstrap.Modal.getInstance(document.getElementById('paymentDetailModal'))?.hide();"><i class="bi bi-check-lg me-1"></i>Confirm Payment</button>
+            `;
+          } else {
+            modalFooter.innerHTML = `<button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>`;
+          }
+        } else {
+          modalFooter.innerHTML = `<button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>`;
+        }
+      }
+
+      const modalEl = document.getElementById('paymentDetailModal');
+      if (modalEl) {
+        bootstrap.Modal.getOrCreateInstance(modalEl).show();
+      }
     }
 
     function renderHostelBookings(bookings) {
@@ -1031,17 +1518,27 @@
         return;
       }
       tbody.innerHTML = bookings.map(b => {
-        const isPending = b.payment_status === 'Pending';
-        const statusBadge = isPending ? '<span class="status-badge-pending">Pending Approval</span>' : (b.payment_status === 'Confirmed' ? '<span class="status-badge-confirmed">Confirmed / Allocated</span>' : '<span class="status-badge-rejected">Rejected</span>');
-        return '<tr>' +
-          '<td>#' + b.booking_id + '</td>' +
-          '<td class="fw-semibold text-dark">' + escapeHtml(b.hostel_name) + ' (' + escapeHtml(b.room_number) + ')</td>' +
-          '<td><div class="fw-bold text-dark">' + escapeHtml(b.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(b.student_id) + '</div></td>' +
-          '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_method || 'KBZPay') + '</span></td>' +
-          '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(b.transaction_id || '-') + '</span></td>' +
-          '<td class="fw-bold text-success">' + escapeHtml(b.amount || 'Ks') + '</td>' +
-          '<td>' + statusBadge + '</td>' +
-        '</tr>';
+        const isCancelled = b.payment_status === 'Cancelled' || b.status === 'Cancelled';
+        const isPending = !isCancelled && b.payment_status === 'Pending';
+        let statusBadge = '';
+        if (isCancelled) {
+          statusBadge = '<span class="status-badge-cancelled">Cancelled by Student</span>';
+        } else if (isPending) {
+          statusBadge = '<span class="status-badge-pending">Pending Approval</span>';
+        } else if (b.payment_status === 'Confirmed') {
+          statusBadge = '<span class="status-badge-confirmed">Confirmed / Allocated</span>';
+        } else {
+          statusBadge = '<span class="status-badge-rejected">Rejected</span>';
+        }
+        return `<tr>
+          <td>#${b.booking_id}</td>
+          <td class="fw-semibold text-dark">${escapeHtml(b.hostel_name)} (${escapeHtml(b.room_number)})</td>
+          <td><div class="fw-bold text-dark">${escapeHtml(b.student_name)}</div><div class="small text-muted">ID: ${escapeHtml(b.student_id)}</div></td>
+          <td><span class="badge bg-light text-dark border">${escapeHtml(b.payment_method || 'KBZPay')}</span></td>
+          <td><span class="font-monospace text-primary fw-bold">${escapeHtml(b.transaction_id || '-')}</span></td>
+          <td class="fw-bold text-success">${escapeHtml(b.amount || (b.hostel_name ? '150,000 Ks' : '30,000 Ks'))}</td>
+          <td>${statusBadge}</td>
+        </tr>`;
       }).join('');
     }
 
@@ -1053,17 +1550,27 @@
         return;
       }
       tbody.innerHTML = bookings.map(b => {
-        const isPending = b.payment_status === 'Pending';
-        const statusBadge = isPending ? '<span class="status-badge-pending">Pending Approval</span>' : (b.payment_status === 'Confirmed' ? '<span class="status-badge-confirmed">Confirmed / Assigned</span>' : '<span class="status-badge-rejected">Rejected</span>');
-        return '<tr>' +
-          '<td>#' + b.booking_id + '</td>' +
-          '<td class="fw-semibold text-dark">' + escapeHtml(b.ferry_name) + '</td>' +
-          '<td><div class="fw-bold text-dark">' + escapeHtml(b.student_name) + '</div><div class="small text-muted">ID: ' + escapeHtml(b.student_id) + '</div></td>' +
-          '<td><span class="badge bg-light text-dark border">' + escapeHtml(b.payment_method || 'KBZPay') + '</span></td>' +
-          '<td><span class="font-monospace text-primary fw-bold">' + escapeHtml(b.transaction_id || '-') + '</span></td>' +
-          '<td class="fw-bold text-success">' + escapeHtml(b.amount || 'Ks') + '</td>' +
-          '<td>' + statusBadge + '</td>' +
-        '</tr>';
+        const isCancelled = b.payment_status === 'Cancelled' || b.status === 'Cancelled';
+        const isPending = !isCancelled && b.payment_status === 'Pending';
+        let statusBadge = '';
+        if (isCancelled) {
+          statusBadge = '<span class="status-badge-cancelled">Cancelled by Student</span>';
+        } else if (isPending) {
+          statusBadge = '<span class="status-badge-pending">Pending Approval</span>';
+        } else if (b.payment_status === 'Confirmed') {
+          statusBadge = '<span class="status-badge-confirmed">Confirmed / Assigned</span>';
+        } else {
+          statusBadge = '<span class="status-badge-rejected">Rejected</span>';
+        }
+        return `<tr>
+          <td>#${b.booking_id}</td>
+          <td class="fw-semibold text-dark">${escapeHtml(b.ferry_name)}</td>
+          <td><div class="fw-bold text-dark">${escapeHtml(b.student_name)}</div><div class="small text-muted">ID: ${escapeHtml(b.student_id)}</div></td>
+          <td><span class="badge bg-light text-dark border">${escapeHtml(b.payment_method || 'KBZPay')}</span></td>
+          <td><span class="font-monospace text-primary fw-bold">${escapeHtml(b.transaction_id || '-')}</span></td>
+          <td class="fw-bold text-success">${escapeHtml(b.amount || (b.hostel_name ? '150,000 Ks' : '30,000 Ks'))}</td>
+          <td>${statusBadge}</td>
+        </tr>`;
       }).join('');
     }
 
@@ -1074,18 +1581,18 @@
         tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No support tickets found.</td></tr>';
         return;
       }
-      tbody.innerHTML = inquiries.map(i =>
-        '<tr>' +
-          '<td>#' + (i.inquiry_id || i.id) + '</td>' +
-          '<td class="fw-bold text-dark">' + escapeHtml(i.full_name || i.name) + '</td>' +
-          '<td>' + escapeHtml(i.student_id) + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(i.email || '-') + '</td>' +
-          '<td><span class="badge bg-secondary-subtle text-dark">' + escapeHtml(i.service_category || i.category) + '</span></td>' +
-          '<td class="small text-muted">' + escapeHtml(i.message) + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(i.created_at) + '</td>' +
-          '<td><span class="status-badge-pending">' + escapeHtml(i.status) + '</span></td>' +
-        '</tr>'
-      ).join('');
+      tbody.innerHTML = inquiries.map(i => `
+        <tr>
+          <td>#${i.inquiry_id || i.id}</td>
+          <td class="fw-bold text-dark">${escapeHtml(i.full_name || i.name)}</td>
+          <td><span class="badge bg-light text-dark border">${escapeHtml(i.student_id || '-')}</span></td>
+          <td>${escapeHtml(i.email || '-')}</td>
+          <td><span class="badge bg-primary-subtle text-primary border">${escapeHtml(i.service_category || 'General')}</span></td>
+          <td class="small text-muted" style="max-width: 250px;">${escapeHtml(i.message)}</td>
+          <td class="small text-muted">${escapeHtml(i.created_at || '-')}</td>
+          <td><span class="badge bg-success-subtle text-success">${escapeHtml(i.status || 'Received')}</span></td>
+        </tr>
+      `).join('');
     }
 
     function renderStudents(students) {
@@ -1095,27 +1602,27 @@
         tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No registered students found.</td></tr>';
         return;
       }
-      tbody.innerHTML = students.map(s =>
-        '<tr>' +
-          '<td>#' + s.id + '</td>' +
-          '<td class="fw-bold text-dark">' + escapeHtml(s.name) + '</td>' +
-          '<td class="font-monospace text-primary fw-bold">' + escapeHtml(s.student_id) + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(s.email || '-') + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(s.phone || '-') + '</td>' +
-          '<td><span class="badge bg-primary-subtle text-primary">' + escapeHtml(s.role) + '</span></td>' +
-          '<td class="text-center">' +
-            '<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteStudent(' + s.id + ')"><i class="bi bi-trash me-1"></i>Delete</button>' +
-          '</td>' +
-        '</tr>'
-      ).join('');
+      tbody.innerHTML = students.map(s => `
+        <tr>
+          <td>#${s.id}</td>
+          <td class="fw-bold text-dark">${escapeHtml(s.name)}</td>
+          <td><span class="badge bg-light text-dark border font-monospace">${escapeHtml(s.student_id)}</span></td>
+          <td>${escapeHtml(s.email || '-')}</td>
+          <td>${escapeHtml(s.phone || '-')}</td>
+          <td><span class="badge bg-secondary-subtle text-secondary">${escapeHtml(s.role || 'student')}</span></td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteStudent(${s.id})"><i class="bi bi-trash me-1"></i>Delete</button>
+          </td>
+        </tr>
+      `).join('');
     }
 
     async function deleteStudent(studentId) {
-      if (!confirm('သင်သည် ဤ ကျောင်းသား အကောင့်ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+      if (!confirm(`သင်သည် Student #${studentId} အား ဖျက်ပစ်ရန် သေချာပါသလား?`)) return;
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/delete-student', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/delete-student`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ student_id: studentId, admin_id: currentAdminId })
         });
         const data = await res.json();
@@ -1123,19 +1630,19 @@
           alert(data.message);
           fetchAdminData();
         } else {
-          alert(data.message || 'Failed to delete student account.');
+          alert(data.message || 'Failed to delete student.');
         }
-      } catch (err) {
+      } catch (e) {
         alert('Network error.');
       }
     }
 
     async function deleteAllStudents() {
-      if (!confirm('သင်သည် ကျောင်းသား အကောင့်များ အားလုံးကို ဖျက်ပစ်ရန် သေချာပါသလား? ဤလုပ်ဆောင်ချက်ကို ပြန်ပြင်၍ မရပါ။')) return;
+      if (!confirm('သတိပေးချက်: သင်သည် ကျောင်းသားစာရင်းအားလုံးကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/delete-all-students', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/delete-all-students`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ admin_id: currentAdminId })
         });
         const data = await res.json();
@@ -1143,9 +1650,9 @@
           alert(data.message);
           fetchAdminData();
         } else {
-          alert(data.message || 'Failed to delete all student accounts.');
+          alert(data.message || 'Failed to delete all students.');
         }
-      } catch (err) {
+      } catch (e) {
         alert('Network error.');
       }
     }
@@ -1158,28 +1665,28 @@
         return;
       }
       tbody.innerHTML = admins.map(a => {
-        const roleBadge = a.role === 'super_admin' ? '<span class="badge bg-danger-subtle text-danger fw-bold">Super Admin</span>' : (a.role === 'hostel' ? '<span class="badge bg-primary-subtle text-primary fw-bold">Hostel Admin</span>' : '<span class="badge bg-info-subtle text-info fw-bold">Ferry Admin</span>');
-        const isMainAdmin = a.username === 'admin';
-        const deleteBtn = isMainAdmin ? '<span class="badge bg-secondary-subtle text-muted">System Reserved</span>' : `<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteAdmin(${a.id})"><i class="bi bi-trash me-1"></i>Delete</button>`;
+        const roleLabel = a.role === 'super_admin' ? '<span class="badge bg-danger-subtle text-danger border fw-bold">Super Admin</span>' : (a.role === 'hostel' ? '<span class="badge bg-primary-subtle text-primary border fw-bold">Hostel Admin</span>' : '<span class="badge bg-info-subtle text-info border fw-bold">Ferry Admin</span>');
+        const isSelf = a.id === currentAdminId;
+        const deleteBtn = isSelf ? '<span class="text-muted small">Current User</span>' : `<button class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-0.5 fw-bold" onclick="deleteAdmin(${a.id})"><i class="bi bi-trash me-1"></i>Delete</button>`;
 
-        return '<tr>' +
-          '<td>#' + a.id + '</td>' +
-          '<td class="fw-bold text-dark">' + escapeHtml(a.name) + '</td>' +
-          '<td class="font-monospace text-primary fw-bold">' + escapeHtml(a.username) + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(a.email || '-') + '</td>' +
-          '<td>' + roleBadge + '</td>' +
-          '<td class="small text-muted">' + escapeHtml(a.created_at || '-') + '</td>' +
-          '<td class="text-center">' + deleteBtn + '</td>' +
-        '</tr>';
+        return `<tr>
+          <td>#${a.id}</td>
+          <td class="fw-bold text-dark">${escapeHtml(a.name || a.username)}</td>
+          <td><span class="badge bg-light text-dark border font-monospace">@${escapeHtml(a.username)}</span></td>
+          <td>${escapeHtml(a.email || '-')}</td>
+          <td>${roleLabel}</td>
+          <td class="small text-muted">${escapeHtml(a.created_at || '-')}</td>
+          <td class="text-center">${deleteBtn}</td>
+        </tr>`;
       }).join('');
     }
 
     async function deleteAdmin(adminId) {
-      if (!confirm('သင်သည် ဤ Admin အကောင့်ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+      if (!confirm(`သင်သည် Admin Account #${adminId} အား ဖျက်ပစ်ရန် သေချာပါသလား?`)) return;
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/delete-admin', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/delete-admin`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ target_admin_id: adminId, admin_id: currentAdminId })
         });
         const data = await res.json();
@@ -1187,13 +1694,14 @@
           alert(data.message);
           fetchAdminData();
         } else {
-          alert(data.message || 'Failed to delete admin account.');
+          alert(data.message || 'Failed to delete admin.');
         }
-      } catch (err) {
+      } catch (e) {
         alert('Network error.');
       }
     }
 
+    // Super Admin Add Hostel Function
     async function submitAddHostel(e) {
       e.preventDefault();
       const hostelName = document.getElementById('hostelNameInput').value.trim();
@@ -1202,15 +1710,16 @@
       const capacity = document.getElementById('hostelCapInput').value;
       const availableBeds = document.getElementById('hostelBedsInput').value;
       const kpayQrUrl = document.getElementById('hostelKpayQrInput').value.trim() || 'qrcode.jpg';
-      const imageUrl = document.getElementById('hostelImgInput').value.trim();
-      const description = document.getElementById('hostelDescInput').value.trim();
+      const imageUrl = document.getElementById('hostelImgInput')?.value.trim() || '';
+      const description = document.getElementById('hostelDescInput')?.value.trim() || '';
+      const price = document.getElementById('hostelPriceInput')?.value.trim() || '150,000 Ks';
       const selectedOwnerId = document.getElementById('hostelOwnerSelect')?.value;
       const targetAdminId = selectedOwnerId ? parseInt(selectedOwnerId) : currentAdminId;
 
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/add-hostel', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/add-hostel`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             admin_id: targetAdminId,
             hostel_name: hostelName,
@@ -1218,9 +1727,10 @@
             gender_type: genderType,
             capacity: parseInt(capacity),
             available_beds: parseInt(availableBeds),
-            kpay_qr_url: kpayQrUrl,
+            description: description,
             image_url: imageUrl,
-            description: description
+            kpay_qr_url: kpayQrUrl,
+            price: price
           })
         });
         const data = await res.json();
@@ -1230,10 +1740,10 @@
           document.getElementById('addHostelForm').reset();
           fetchAdminData();
         } else {
-          alert(data.message || 'Failed to add hostel.');
+          alert(data.message || 'Failed.');
         }
       } catch (err) {
-        alert('Network error while adding hostel.');
+        alert('Network error.');
       }
     }
 
@@ -1241,14 +1751,21 @@
       const h = (cachedHostels || []).find(x => (x.id === id || x.hostel_id === id));
       if (!h) return;
       document.getElementById('editHostelId').value = h.id || h.hostel_id;
-      document.getElementById('editHostelNameInput').value = h.hostel_name || h.name || '';
-      document.getElementById('editHostelRoomInput').value = h.room_number || h.room || '';
-      document.getElementById('editHostelGenderInput').value = h.gender_type || h.gender || 'Boys';
+      document.getElementById('editHostelNameInput').value = h.name || h.hostel_name || '';
+      document.getElementById('editHostelRoomInput').value = h.room || h.room_number || '';
+      document.getElementById('editHostelGenderInput').value = h.gender || h.gender_type || 'Boys';
       document.getElementById('editHostelCapInput').value = h.capacity || 4;
       document.getElementById('editHostelBedsInput').value = h.available_beds !== undefined ? h.available_beds : 4;
       document.getElementById('editHostelKpayQrInput').value = h.kpay_qr_url || 'qrcode.jpg';
-      document.getElementById('editHostelImgInput').value = h.image_url || '';
-      document.getElementById('editHostelDescInput').value = h.description || '';
+      if (document.getElementById('editHostelImgInput')) {
+        document.getElementById('editHostelImgInput').value = h.image_url || '';
+      }
+      if (document.getElementById('editHostelDescInput')) {
+        document.getElementById('editHostelDescInput').value = h.description || '';
+      }
+      if (document.getElementById('editHostelPriceInput')) {
+        document.getElementById('editHostelPriceInput').value = h.price || '150,000 Ks';
+      }
       document.getElementById('editHostelStatusSelect').value = h.status || 'Active';
       bootstrap.Modal.getOrCreateInstance(document.getElementById('editHostelModal')).show();
     }
@@ -1262,14 +1779,15 @@
       const capacity = document.getElementById('editHostelCapInput').value;
       const availableBeds = document.getElementById('editHostelBedsInput').value;
       const kpayQrUrl = document.getElementById('editHostelKpayQrInput').value.trim();
-      const imageUrl = document.getElementById('editHostelImgInput').value.trim();
-      const description = document.getElementById('editHostelDescInput').value.trim();
+      const imageUrl = document.getElementById('editHostelImgInput')?.value.trim() || '';
+      const description = document.getElementById('editHostelDescInput')?.value.trim() || '';
+      const price = document.getElementById('editHostelPriceInput')?.value.trim() || '150,000 Ks';
       const status = document.getElementById('editHostelStatusSelect').value;
 
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/edit-hostel', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/edit-hostel`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             hostel_id: parseInt(id),
             admin_id: currentAdminId,
@@ -1278,10 +1796,11 @@
             gender_type: genderType,
             capacity: parseInt(capacity),
             available_beds: parseInt(availableBeds),
-            kpay_qr_url: kpayQrUrl,
-            image_url: imageUrl,
             description: description,
-            status: status
+            image_url: imageUrl,
+            kpay_qr_url: kpayQrUrl,
+            status: status,
+            price: price
           })
         });
         const data = await res.json();
@@ -1299,9 +1818,9 @@
 
     async function toggleHostelStatus(id) {
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/toggle-hostel-status', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/toggle-hostel-status`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ hostel_id: id, admin_id: currentAdminId })
         });
         const data = await res.json();
@@ -1315,13 +1834,13 @@
       }
     }
 
-    async function deleteHostel(hostelId) {
-      if (!confirm('သင်သည် ဤ Hostel Block ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+    async function deleteHostel(id) {
+      if (!confirm(`သင်သည် Hostel Block #${id} အား ဖျက်ပစ်ရန် သေချာပါသလား?`)) return;
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/delete-hostel', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/delete-hostel`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ hostel_id: hostelId, admin_id: currentAdminId })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ hostel_id: id, admin_id: currentAdminId })
         });
         const data = await res.json();
         if (data.success) {
@@ -1335,16 +1854,20 @@
       }
     }
 
+    // Super Admin Add Ferry Group Function
     async function submitAddFerryGroup(e) {
       e.preventDefault();
-      const groupName = document.getElementById('fgNameInput').value.trim();
-      const description = document.getElementById('fgDescInput').value.trim();
-
+      const groupName = document.getElementById('groupNameInput').value.trim();
+      const desc = document.getElementById('groupDescInput').value.trim();
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/add-ferry-group', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/add-ferry-group`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ admin_id: currentAdminId, group_name: groupName, description: description })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            admin_id: currentAdminId,
+            group_name: groupName,
+            description: desc
+          })
         });
         const data = await res.json();
         if (data.success) {
@@ -1360,13 +1883,13 @@
       }
     }
 
-    async function deleteFerryGroup(groupId) {
-      if (!confirm('သင်သည် ဤ Ferry Group ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+    async function deleteFerryGroup(id) {
+      if (!confirm(`သင်သည် Ferry Group #${id} အား ဖျက်ပစ်ရန် သေချာပါသလား?`)) return;
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/delete-ferry-group', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/delete-ferry-group`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ group_id: groupId, admin_id: currentAdminId })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ group_id: id, admin_id: currentAdminId })
         });
         const data = await res.json();
         if (data.success) {
@@ -1380,21 +1903,24 @@
       }
     }
 
+    // Super Admin Add Ferry Function
     async function submitAddFerry(e) {
       e.preventDefault();
       const groupId = document.getElementById('ferryGroupSelect').value;
       const ferryName = document.getElementById('ferryNameInput').value.trim();
-      const routeName = document.getElementById('ferryRouteInput').value.trim();
+      const routeName = document.getElementById('ferryDriverInput').value.trim();
       const departureTime = document.getElementById('ferryTimeInput').value.trim();
       const capacity = document.getElementById('ferryCapInput').value;
       const kpayQrUrl = document.getElementById('ferryKpayQrInput').value.trim() || 'qrcode.jpg';
+      const imageUrl = document.getElementById('ferryImgInput')?.value.trim() || '';
+      const price = document.getElementById('ferryPriceInput')?.value.trim() || '30,000 Ks';
       const selectedOwnerId = document.getElementById('ferryOwnerSelect')?.value;
       const targetAdminId = selectedOwnerId ? parseInt(selectedOwnerId) : currentAdminId;
 
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/add-ferry', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/add-ferry`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             admin_id: targetAdminId,
             group_id: parseInt(groupId),
@@ -1403,7 +1929,9 @@
             departure_time: departureTime,
             capacity: parseInt(capacity),
             available_seats: parseInt(capacity),
-            kpay_qr_url: kpayQrUrl
+            image_url: imageUrl,
+            kpay_qr_url: kpayQrUrl,
+            price: price
           })
         });
         const data = await res.json();
@@ -1427,11 +1955,17 @@
       updateFerryGroupSelectOptions(cachedFerryGroups, 'editFerryGroupSelect');
       document.getElementById('editFerryGroupSelect').value = f.group_id || 1;
       document.getElementById('editFerryNameInput').value = f.ferry_name || f.name || '';
-      document.getElementById('editFerryRouteInput').value = f.route_name || f.route || '';
-      document.getElementById('editFerryTimeInput').value = f.departure_time || f.time || '07:00 AM';
+      document.getElementById('editFerryDriverInput').value = f.route_name || f.route || '';
+      document.getElementById('editFerryTimeInput').value = f.departure_time || f.time || '06:30 AM';
       document.getElementById('editFerryCapInput').value = f.capacity || 40;
       document.getElementById('editFerrySeatsInput').value = f.available_seats !== undefined ? f.available_seats : 40;
       document.getElementById('editFerryKpayQrInput').value = f.kpay_qr_url || 'qrcode.jpg';
+      if (document.getElementById('editFerryImgInput')) {
+        document.getElementById('editFerryImgInput').value = f.image_url || '';
+      }
+      if (document.getElementById('editFerryPriceInput')) {
+        document.getElementById('editFerryPriceInput').value = f.price || '30,000 Ks';
+      }
       document.getElementById('editFerryStatusSelect').value = f.status || 'Active';
       bootstrap.Modal.getOrCreateInstance(document.getElementById('editFerryModal')).show();
     }
@@ -1441,17 +1975,19 @@
       const id = document.getElementById('editFerryId').value;
       const groupId = document.getElementById('editFerryGroupSelect').value;
       const ferryName = document.getElementById('editFerryNameInput').value.trim();
-      const routeName = document.getElementById('editFerryRouteInput').value.trim();
+      const routeName = document.getElementById('editFerryDriverInput').value.trim();
       const departureTime = document.getElementById('editFerryTimeInput').value.trim();
       const capacity = document.getElementById('editFerryCapInput').value;
       const availableSeats = document.getElementById('editFerrySeatsInput').value;
       const kpayQrUrl = document.getElementById('editFerryKpayQrInput').value.trim();
+      const imageUrl = document.getElementById('editFerryImgInput')?.value.trim() || '';
+      const price = document.getElementById('editFerryPriceInput')?.value.trim() || '30,000 Ks';
       const status = document.getElementById('editFerryStatusSelect').value;
 
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/edit-ferry', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/edit-ferry`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ferry_id: parseInt(id),
             admin_id: currentAdminId,
@@ -1461,8 +1997,10 @@
             departure_time: departureTime,
             capacity: parseInt(capacity),
             available_seats: parseInt(availableSeats),
+            image_url: imageUrl,
             kpay_qr_url: kpayQrUrl,
-            status: status
+            status: status,
+            price: price
           })
         });
         const data = await res.json();
@@ -1480,9 +2018,9 @@
 
     async function toggleFerryStatus(id) {
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/toggle-ferry-status', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/toggle-ferry-status`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ferry_id: id, admin_id: currentAdminId })
         });
         const data = await res.json();
@@ -1496,13 +2034,13 @@
       }
     }
 
-    async function deleteFerry(ferryId) {
-      if (!confirm('သင်သည် ဤ Ferry Route ကို ဖျက်ပစ်ရန် သေချာပါသလား?')) return;
+    async function deleteFerry(id) {
+      if (!confirm(`သင်သည် Ferry Line #${id} အား ဖျက်ပစ်ရန် သေချာပါသလား?`)) return;
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/delete-ferry', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/delete-ferry`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ ferry_id: ferryId, admin_id: currentAdminId })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ferry_id: id, admin_id: currentAdminId })
         });
         const data = await res.json();
         if (data.success) {
@@ -1518,16 +2056,24 @@
 
     async function submitCreateAdmin(e) {
       e.preventDefault();
-      const role = document.getElementById('newAdminRole').value;
       const name = document.getElementById('newAdminName').value.trim();
       const username = document.getElementById('newAdminUsername').value.trim();
+      const email = document.getElementById('newAdminEmail').value.trim();
       const password = document.getElementById('newAdminPassword').value.trim();
+      const role = document.getElementById('newAdminRole').value;
 
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/create-admin', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/create-admin`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ username, password, name, role })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            creator_admin_id: currentAdminId,
+            name: name,
+            username: username,
+            email: email,
+            password: password,
+            role: role
+          })
         });
         const data = await res.json();
         if (data.success) {
@@ -1536,7 +2082,7 @@
           document.getElementById('createAdminForm').reset();
           fetchAdminData();
         } else {
-          alert(data.message || 'Failed.');
+          alert(data.message || 'Failed to create admin.');
         }
       } catch (err) {
         alert('Network error.');
@@ -1544,13 +2090,23 @@
     }
 
     async function confirmPayment(bType, bId, action) {
+      if (currentAdminRole.includes('super')) {
+        alert('သတိပေးချက်: Super Admin သည် Payment အား အတည်ပြု/ပယ်ဖျက်ခွင့် မရှိပါ။ စစ်ဆေးကြည့်ရှုခွင့် (View Only) သာ ရရှိပါသည်။');
+        return;
+      }
       const actionText = action === 'approve' ? 'အတည်ပြု (Approve)' : 'ငြင်းပယ် (Reject)';
-      if (!confirm('သင်သည် ဤ ' + bType.toUpperCase() + ' ငွေပေးချေမှုကို ' + actionText + ' ရန် သေချာပါသလား?')) return;
+      if (!confirm(`သင်သည် ဤ ${bType.toUpperCase()} ငွေပေးချေမှုကို ${actionText} ရန် သေချာပါသလား?`)) return;
       try {
-        const res = await fetch(API_BASE_URL + '/api/admin/confirm-payment', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/confirm-payment`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ booking_type: bType, booking_id: bId, action: action })
+          body: JSON.stringify({ 
+            booking_type: bType, 
+            booking_id: bId, 
+            action: action,
+            role: currentAdminRole,
+            admin_id: currentAdminId
+          })
         });
         const data = await res.json();
         if (data.success) {
@@ -1560,6 +2116,7 @@
           alert(data.message || 'Operation failed');
         }
       } catch (err) {
+        console.error('Confirm payment error:', err);
         alert('Network error occurred.');
       }
     }
@@ -1570,4 +2127,5 @@
     }
   </script>
 </body>
+
 </html>

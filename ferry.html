@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary-blue: #0284c7;
@@ -48,93 +50,26 @@
             box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.08);
         }
 
-        .shuttle-card {
+        .hostel-card, .ferry-card {
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
         }
 
-        .shuttle-card:hover {
+        .hostel-card:hover, .ferry-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(2, 132, 199, 0.15);
-            border-color: var(--primary-blue);
         }
 
-        .app-step {
-            display: none;
+        .navbar-nav .nav-link {
+            transition: color 0.2s ease, transform 0.2s ease;
         }
 
-        .app-step.active {
-            display: block;
-        }
-
-        .status-pill-assigned {
-            background-color: #dcfce7;
-            color: #16a34a;
-            padding: 0.35rem 0.85rem;
-            border-radius: 9999px;
-            font-size: 0.78rem;
-            font-weight: 600;
-        }
-        /* Responsive Mobile Styles */
-        @media (max-width: 991.98px) {
-            .navbar-enterprise {
-                margin: 8px 0.5rem 0 0.5rem;
-                width: calc(100% - 1rem);
-                border-radius: 16px;
-            }
-            .navbar-collapse {
-                background: #ffffff;
-                padding: 1.25rem;
-                border-radius: 16px;
-                margin-top: 10px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid var(--border-glass);
-            }
-            .hero-enterprise {
-                padding: 6.5rem 0.5rem 4rem 0.5rem;
-            }
-            .hero-enterprise h1 {
-                font-size: 2.2rem !important;
-            }
-            .hero-enterprise p.lead {
-                font-size: 0.95rem !important;
-            }
-        }
-
-        @media (max-width: 575.98px) {
-            .hero-enterprise h1 {
-                font-size: 1.85rem !important;
-            }
-            .glass-card {
-                padding: 1.25rem !important;
-                border-radius: 16px !important;
-            }
-            .service-card-interactive {
-                padding: 1.25rem !important;
-            }
-            .about-image-container .image-wrapper img {
-                height: 250px !important;
-            }
-            .offcanvas-end {
-                width: 100% !important;
-            }
-            .scroll-fade-effect {
-                bottom: 16px;
-                right: 16px;
-                width: 44px;
-                height: 44px;
-                font-size: 1.2rem;
-            }
-            .hero-btn-container {
-                flex-direction: column;
-                width: 100%;
-            }
-            .hero-btn-container .btn {
-                width: 100%;
-            }
+        .navbar-nav .nav-link:hover {
+            color: #0d6efd !important;
+            transform: translateY(-2px);
         }
     </style>
 </head>
+
 <body>
     <!-- Enterprise Navbar -->
     <nav class="navbar navbar-expand-lg navbar-enterprise fixed-top px-3 py-2">
@@ -143,31 +78,54 @@
                 <div class="bg-primary text-white rounded-3 px-2 py-1 fs-6 fw-bold">UTYCC</div>
                 <span class="brand-font fs-5 fw-bold text-dark">Smart Campus Portal</span>
             </a>
+
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
                     <li class="nav-item"><a class="nav-link fw-medium text-secondary" href="home.html"><i class="bi bi-house me-1"></i>Home</a></li>
                     <li class="nav-item"><a class="nav-link fw-medium text-secondary" href="hostel.html"><i class="bi bi-building me-1"></i>Hostel Portal</a></li>
                     <li class="nav-item"><a class="nav-link fw-bold text-primary active" href="ferry.html"><i class="bi bi-bus-front me-1"></i>Ferry Lines</a></li>
                 </ul>
+
                 <div class="d-flex align-items-center gap-3">
-                    <a href="login.html" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold" id="loginBtn">
+                    <a href="login.html?reset=true" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold" id="loginBtn">
                         <i class="bi bi-box-arrow-in-right me-1"></i>Student Login
                     </a>
+                    
                     <div class="dropdown d-none" id="profileMenu">
-                        <button class="btn btn-light btn-sm rounded-pill border dropdown-toggle px-3 py-1.5 fw-semibold d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#userProfileDrawer">
-                            <i class="bi bi-person-circle text-primary fs-6"></i>
-                            <span id="userName">Student</span>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="navAvatarImg" src="" class="rounded-circle d-none" style="width: 24px; height: 24px; object-fit: cover;">
+                            <i id="navAvatarIcon" class="bi bi-person-circle text-primary fs-6"></i>
+                            <span id="userName" class="fw-semibold">Student</span>
                         </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 mt-2">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#" data-bs-toggle="offcanvas" data-bs-target="#userProfileDrawer">
+                                    <i class="bi bi-person text-primary"></i> Profile Drawer
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="profile.html">
+                                    <i class="bi bi-speedometer2 text-primary"></i> Profile Dashboard
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger fw-semibold" href="#" onclick="logout(); return false;">
+                                    <i class="bi bi-box-arrow-right text-danger"></i> Terminate Session
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- User Profile Offcanvas Drawer -->
+    <!-- Student Profile Slide-in Drawer (Offcanvas) -->
     <div class="offcanvas offcanvas-end shadow-lg" tabindex="-1" id="userProfileDrawer" style="width: 380px;">
         <div class="offcanvas-header border-bottom bg-light">
             <h5 class="offcanvas-title fw-bold text-dark d-flex align-items-center gap-2">
@@ -175,226 +133,206 @@
             </h5>
             <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
         </div>
-        <div class="offcanvas-body p-4">
-            <div class="text-center mb-4">
-                <div class="bg-primary bg-opacity-10 text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 70px; height: 70px;">
-                    <i class="bi bi-person-fill fs-2"></i>
+        <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+            <div>
+                <div class="text-center mb-4">
+                    <div class="position-relative d-inline-block mb-2">
+                        <div id="drawerAvatarWrapper" class="bg-primary bg-opacity-10 text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center overflow-hidden shadow-sm" style="width: 80px; height: 80px; border: 2px solid #0284c7;">
+                            <img id="drawerAvatarImg" src="" class="w-100 h-100 d-none" style="object-fit: cover;">
+                            <i id="drawerAvatarIcon" class="bi bi-person-fill fs-1"></i>
+                        </div>
+                        <label for="profilePicInputDrawer" class="btn btn-sm btn-primary rounded-circle position-absolute d-flex align-items-center justify-content-center p-0 shadow" style="width: 28px; height: 28px; bottom: 0; right: 0; cursor: pointer;" title="Change Profile Picture">
+                            <i class="bi bi-camera-fill text-white" style="font-size: 0.75rem;"></i>
+                        </label>
+                        <input type="file" id="profilePicInputDrawer" accept="image/*" class="d-none" onchange="handleProfilePicUpload(event)">
+                    </div>
+                    <h5 class="fw-bold text-dark mb-0" id="drawerName">Student</h5>
+                    <p class="text-muted small mb-1" id="drawerStudentId">Roll ID: Syncing...</p>
+                    <p class="text-muted small mb-0" id="drawerPhone">Phone: Syncing...</p>
                 </div>
-                <h5 class="fw-bold text-dark mb-0" id="drawerName">Student</h5>
-                <p class="text-muted small mb-1" id="drawerStudentId">Roll ID: N/A</p>
-                <p class="text-muted small mb-0" id="drawerPhone">Phone: N/A</p>
+
+                <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.7rem; letter-spacing: 1px;">Live Allocation Status</h6>
+
+                <!-- Hostel Slot Card -->
+                <div class="card glass-card p-3 mb-3 border">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-dark small"><i class="bi bi-house-door me-1 text-primary"></i>Hostel Slot</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <span id="hostelBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unallocated</span>
+                        </div>
+                    </div>
+                    <div id="hostelDetail" class="text-muted small mb-2">No hostel reservation found</div>
+                    <div class="text-end">
+                        <span id="hostelActionBtn"></span>
+                    </div>
+                </div>
+
+                <!-- Ferry Route Token Card -->
+                <div class="card glass-card p-3 mb-4 border">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-dark small"><i class="bi bi-bus-front me-1 text-success"></i>Ferry Route Token</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <span id="ferryBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unassigned</span>
+                        </div>
+                    </div>
+                    <div id="ferryDetail" class="text-muted small mb-2">No active transit tokens</div>
+                    <div class="text-end">
+                        <span id="ferryActionBtn"></span>
+                    </div>
+                </div>
             </div>
 
-            <div class="card glass-card p-3 mb-3 border">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold text-dark small"><i class="bi bi-building me-1 text-primary"></i>Hostel Allocation</span>
-                    <span id="hostelBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unallocated</span>
-                </div>
-                <div id="hostelDetail" class="text-muted small">No hostel reservation found</div>
+            <div>
+                <a href="profile.html" class="btn btn-primary w-100 rounded-pill py-2 fw-semibold d-flex align-items-center justify-content-center gap-2 mb-2">
+                    <i class="bi bi-speedometer2"></i> Profile Dashboard Page
+                </a>
+                <button class="btn btn-outline-danger w-100 rounded-pill py-2 fw-semibold d-flex align-items-center justify-content-center gap-2" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i> Terminate Session
+                </button>
             </div>
-
-            <div class="card glass-card p-3 mb-4 border">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold text-dark small"><i class="bi bi-bus-front me-1 text-info"></i>Ferry Seat Token</span>
-                    <span id="ferryBadge" class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5">Unassigned</span>
-                </div>
-                <div id="ferryDetail" class="text-muted small">No active transit tokens</div>
-            </div>
-
-            <button class="btn btn-outline-danger w-100 rounded-pill fw-semibold py-2" onclick="logout()">
-                <i class="bi bi-box-arrow-right me-1"></i>Sign Out
-            </button>
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Content: Ferry Line Allocation Grid -->
     <main class="container my-5 pt-5">
-        <!-- Step 2: Shuttle Route Group Selection -->
-        <div id="step2" class="app-step active">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h3 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
-                        <i class="bi bi-map text-primary fs-3"></i>Select Shuttle Route Line
-                    </h3>
-                    <p class="text-muted small mb-0">Choose a campus shuttle route below to view available daily line schedules</p>
-                </div>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+            <div>
+                <h3 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+                    <i class="bi bi-bus-front text-primary fs-3"></i>Ferry Line Allocation
+                </h3>
+                <p class="text-muted small mb-0">Explore available campus shuttle lines and reserve your daily transit seat</p>
             </div>
-            <div class="row g-4" id="shuttleGridContainer">
-                <div class="text-center my-5 w-100">
-                    <div class="spinner-border text-primary"></div>
-                    <p class="text-muted mt-2">Loading routes...</p>
+
+            <div class="d-flex flex-wrap gap-2">
+                <div class="input-group shadow-sm" style="max-width: 260px;">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" class="form-control border-start-0 shadow-none" id="searchFerry" placeholder="Search line/route..." oninput="filterFerries()">
                 </div>
+                <select class="form-select bg-white border shadow-sm w-auto" id="filterRoute" onchange="filterFerries()">
+                    <option value="all">All Ferry Lines</option>
+                </select>
             </div>
         </div>
 
-        <!-- Step 3: Fleets List in Group -->
-        <div id="step3" class="app-step">
-            <div class="mb-4">
-                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1.5 fw-medium mb-3" onclick="goToStep(2)">
-                    <i class="bi bi-arrow-left me-1"></i>Back to All Route Lines
-                </button>
-                <h3 class="fw-bold text-dark mb-1"><i class="bi bi-bus-front text-info me-2"></i>Available Transit Lines</h3>
-                <p class="text-muted small mb-0">Select a specific ferry line to register your daily seat token</p>
+        <div class="row g-4" id="ferryGrid">
+            <div class="text-center my-5 w-100">
+                <div class="spinner-border text-primary"></div>
+                <p class="text-muted mt-2">Loading ferry lines...</p>
             </div>
+        </div>
 
-            <div class="row g-4">
-                <div class="col-12 col-lg-7">
-                    <div id="step3FleetList" class="d-flex flex-column gap-3">
-                        <div class="text-center my-4"><div class="spinner-border text-primary spinner-border-sm"></div><p class="text-muted small mt-2">Loading line details...</p></div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-5">
-                    <div class="glass-card p-4 sticky-top" style="top: 100px;">
-                        <div id="rightPlaceholder" class="text-center py-5 text-muted">
-                            <i class="bi bi-info-circle display-4 d-block mb-2 text-primary opacity-50"></i>
-                            <p class="mb-0 small">Please select a ferry line from the left to view schedule &amp; reserve a seat.</p>
-                        </div>
-                        <div id="rightDetailPanel" style="display: none;">
-                            <h5 class="fw-bold text-dark mb-2" id="detailFerryName">Line A</h5>
-                            <p class="text-muted small mb-3" id="detailFerryRoute">Route Details</p>
-                            <div class="p-3 bg-light rounded-3 mb-3 border">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="small text-muted">Departure Time</span>
-                                    <span class="fw-bold text-dark badge bg-white border" id="detailDepartureTime">06:30 AM</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="small text-muted">Available Seats</span>
-                                    <span class="fw-bold text-success" id="detailAvailableSeats">38 Seats</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="small text-muted"></span>
-                                    <span class="fw-bold text-primary"></span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary w-100 py-2.5 rounded-pill fw-bold shadow-sm" onclick="openBookingModal()">
-                                <i class="bi bi-ticket-perforated me-1"></i>Reserve Seat Token
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="glass-card text-center p-5 d-none my-4" id="noResults">
+            <i class="bi bi-bus-front-x display-4 text-muted opacity-50 d-block mb-2"></i>
+            <h5 class="fw-bold text-dark">No Ferry Lines Found</h5>
+            <p class="text-muted small mb-0">Try adjusting your search query or route filter.</p>
         </div>
     </main>
 
-    <!-- Ferry Booking Modal (KPay Payment Integration) -->
-    <div class="modal fade" id="ferryBookingModal" tabindex="-1" aria-hidden="true">
+    <!-- Ferry Booking Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content glass-card border-0 shadow-lg" style="border-radius: 1.5rem;">
-                <!-- Step 1: Ferry Student Details -->
-                <div id="ferryFormSection">
+                <!-- Step 1: Student Details -->
+                <div id="formSection">
                     <div class="modal-header border-0 pt-4 px-4 pb-0">
-                        <h5 class="modal-title fw-bold text-dark">Ferry Seat Registration</h5>
+                        <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
+                            <i class="bi bi-ticket-detailed text-primary fs-5"></i>Ferry Seat Reservation
+                        </h5>
                         <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body p-4">
                         <div class="p-3 bg-light rounded-3 mb-3 border d-flex justify-content-between align-items-center">
                             <div>
                                 <div class="fw-bold text-dark fs-6" id="modalFerryName">Mandalay Ferry Line A</div>
-                                <div class="small text-muted" id="modalFerryRoute">73rd Street -> UTYCC</div>
+                                <div class="small text-muted" id="modalRouteName">73rd Street -> UTYCC</div>
+                                <div class="small text-primary fw-semibold" id="modalDepartureTime"><i class="bi bi-clock me-1"></i>06:30 AM</div>
                             </div>
                             <div class="text-end">
-                                <div class="small text-muted">Transit Fare</div>
-                                <div class="fw-bold text-primary fs-5" id="modalFerryPrice"></div>
+                                <div class="small text-muted">Monthly Transit Fee</div>
+                                <div class="fw-bold text-primary fs-5" id="modalFerryPrice">Ks 30,000</div>
                             </div>
                         </div>
-
-                        <form id="ferryBookingForm" onsubmit="event.preventDefault(); goToFerryPayment();">
+                        <!-- Added novalidate to handle via custom JS or standard required validation -->
+                        <form id="bookingForm" onsubmit="event.preventDefault(); goToPayment();" novalidate>
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold text-muted">Student Full Name</label>
-                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="ferryStudentName" required placeholder="e.g. Mg Mg">
+                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentName" placeholder="e.g. Mg Mg" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold text-muted">Academic Year</label>
-                                <select class="form-select bg-white text-dark border rounded-3 shadow-none" id="ferryStudentYear" required>
+                                <select class="form-select bg-white text-dark border rounded-3 shadow-none" id="studentYear" required>
                                     <option value="" disabled selected>Select Year...</option>
                                     <option value="First Year">First Year</option>
                                     <option value="Second Year">Second Year</option>
                                     <option value="Third Year">Third Year</option>
+                                    <option value="Fourth Year">Fourth Year</option>
                                     <option value="Final Year">Final Year</option>
+                                    <option value="Master / CoE">Master / CoE</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold text-muted">Student Roll ID</label>
-                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="ferryStudentId" required placeholder="e.g. 5ECE-12">
+                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentId" placeholder="e.g. 5ECE-12" required>
                             </div>
                             <div class="mb-4">
                                 <label class="form-label small fw-semibold text-muted">Phone Number</label>
-                                <input type="text" class="form-control bg-white text-dark border rounded-3 shadow-none" id="ferryStudentPhone" required placeholder="e.g. 09123456789">
+                                <input type="tel" class="form-control bg-white text-dark border rounded-3 shadow-none" id="studentPhone" placeholder="e.g. 09123456789" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-medium rounded-pill"><i class="bi bi-qr-code-scan me-1"></i>Proceed to Payment</button>
+                            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-medium rounded-pill">
+                                <i class="bi bi-qr-code-scan me-1"></i>Proceed to Payment
+                            </button>
                         </form>
                     </div>
                 </div>
 
-                <!-- Step 2: KPay Payment Gateway UI (matching screenshot) -->
-                <div id="ferryPaymentSection" class="d-none">
+                <!-- Step 2: Payment Gateway UI -->
+                <div id="paymentSection" class="d-none">
                     <div class="modal-header border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
                         <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2">
-                            <i class="bi bi-qr-code-scan text-success fs-5"></i>KPay Payment Gateway
+                            <i class="bi bi-qr-code-scan text-success fs-5"></i><span id="ferryPayHeaderLabel">KBZPay Payment Gateway</span>
                         </h5>
                         <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body p-4">
-                        <!-- Outer Dashed Soft Blue Container -->
                         <div class="p-4 rounded-4 text-center border-2" style="background-color: #f0f7ff; border: 2px dashed #93c5fd;">
-                            <h5 class="fw-bold text-dark mb-1" id="ferryKpayTitle">Mandalay Ferry Line A</h5>
-                            <p class="text-secondary small mb-3">အောက်ပါ KBZPay QR Code ကို Scan ဖတ်၍ ကျသင့်ငွေ <span class="fw-bold text-primary fs-5" id="ferryKpayAmountText"></span> ပေးချေပါ:</p>
-
-                            <!-- Blue Frame Center Box with QR Image (Shown ONLY when Ferry Admin adds kpay_qr_url) -->
-                            <div id="ferryKpayQrBoxContainer" class="p-3 rounded-4 shadow-sm mx-auto d-none" style="background: #0056b3; width: 100%; max-width: 270px; color: white;">
-                                <div class="small fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.2px;">Use KBZPay Scan to pay me</div>
-                                <img src="" id="ferryKpayQrImg" alt="KBZPay QR Code" class="img-fluid rounded-3 bg-white p-2 mb-2 shadow-sm" style="width: 170px; height: 170px; object-fit: contain;">
-                                <div class="small fw-bold mb-2 text-truncate px-1" style="font-size: 0.82rem;">Ferry Admin Payment Account</div>
+                            <h5 class="fw-bold text-dark mb-1" id="kpayItemTitle">Mandalay Ferry Line A</h5>
+                            <p class="text-secondary small mb-3">
+                                အောက်ပါ <span id="ferryPayMethodNameText" class="fw-bold text-dark">KBZPay</span> QR Code ကို Scan ဖတ်၍ ကျသင့်ငွေ 
+                                <span class="fw-bold text-primary fs-5" id="kpayAmountText">Ks 30,000</span> ပေးချေပါ:
+                            </p>
+                            <div id="kpayQrBoxContainer" class="p-3 rounded-4 shadow-sm mx-auto" style="background: #0056b3; width: 100%; max-width: 270px; color: white;">
+                                <div id="ferryQrFrameTitle" class="small fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.2px;">Use KBZPay Scan to pay me</div>
+                                <img id="kpayQrImg" src="qrcode.jpg" class="img-fluid rounded-3 bg-white p-2 mb-2 shadow-sm" style="width: 170px; height: 170px; object-fit: contain;" alt="Payment QR Code">
+                                <div id="kpayAccountName" class="small fw-bold mb-2 text-truncate px-1" style="font-size: 0.82rem;">UTYCC Central Transit Service (09400212150)</div>
                                 <div>
-                                    <span class="badge bg-white text-primary px-2.5 py-1 fw-bold shadow-sm" style="font-size: 0.75rem;">
-                                        KBZ <span class="bg-primary text-white px-1 rounded ms-0.5" style="font-size: 0.65rem;">Pay</span>
-                                    </span>
+                                    <span id="ferryQrFrameBadge" class="badge bg-white text-primary px-2.5 py-1 fw-bold shadow-sm" style="font-size: 0.75rem;">KBZ <span class="bg-primary text-white px-1 rounded ms-0.5" style="font-size: 0.65rem;">Pay</span></span>
                                 </div>
                             </div>
-
-                            <!-- Notice shown when Ferry Admin has NOT added a KPay Scanner -->
-                            <div id="noFerryKpayQrNotice" class="p-4 rounded-4 bg-white border text-muted small my-3 mx-auto" style="max-width: 320px;">
-                                <i class="bi bi-qr-code text-secondary fs-3 d-block mb-2 opacity-50"></i>
-                                <div class="fw-bold text-dark mb-1">KPay Scanner QR Code မထည့်သွင်းထားပါ</div>
-                                <div>ဖယ်ရီလိုင်းအက်မင် (Ferry Admin) မှ KPay QR Code ထည့်သွင်းထားခြင်း မရှိသေးပါ။</div>
-                            </div>
-
-                            <!-- Footer Badge Inside Box -->
                             <div class="mt-3 text-secondary small d-flex align-items-center justify-content-center gap-1.5" style="font-size: 0.8rem;">
                                 <i class="bi bi-shield-fill-check text-success fs-6"></i>
-                                <span class="fw-medium text-dark">UTYCC Ferry Admin Payment Account</span>
+                                <span class="fw-medium text-dark">UTYCC Super Admin Central Payment Account</span>
                             </div>
                         </div>
 
-                        <!-- Payment Form Fields -->
                         <div class="mt-3">
                             <label class="form-label small fw-bold text-dark mb-1">Payment Method</label>
-                            <select class="form-select bg-white border text-dark rounded-3 shadow-none mb-3" id="ferryPayMethodSelect">
+                            <select class="form-select bg-white border text-dark rounded-3 shadow-none mb-3" id="paymentMethodSelect" onchange="updateFerryQrDisplay()">
                                 <option value="KBZPay (KPay QR)" selected>KBZPay (KPay QR)</option>
+                                <option value="WavePay">WavePay</option>
                                 <option value="AYA Pay">AYA Pay</option>
                                 <option value="CB Pay">CB Pay</option>
-                                <option value="WavePay">WavePay</option>
                             </select>
 
-    <label class="form-label small fw-bold text-danger mb-1" id="paymentTxnLabel">
-        KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး)
-    </label>
-    <input type="text" 
-        inputmode="numeric" 
-        pattern="[0-9]{6,12}" 
-        minlength="6" 
-        maxlength="12" 
-        class="form-control bg-white border text-dark rounded-3 shadow-none" 
-        id="paymentTransactionId" 
-        placeholder="e.g. 123456" 
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-        title="ကျေးဇူးပြု၍ ဂဏန်း ၆ လုံးမှ ၁၂ လုံးအတွင်းသာ ထည့်ပါ။"
-        required>
+                            <label class="form-label small fw-bold text-danger mb-1" id="ferryTxnLabel">
+                                KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *
+                            </label>
+                            <input type="text" class="form-control bg-white border text-dark rounded-3 shadow-none mb-4" id="paymentTransactionId" placeholder="e.g. 123456" required>
+
                             <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-medium" onclick="backToFerryForm()">
+                                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-medium" onclick="backToForm()">
                                     <i class="bi bi-arrow-left me-1"></i>Back
                                 </button>
-                                <button type="button" class="btn btn-success flex-grow-1 py-2.5 rounded-pill fw-bold shadow-sm" id="submitFerryPayBtn" onclick="submitFerryBooking()">
+                                <button type="button" class="btn btn-success flex-grow-1 py-2.5 rounded-pill fw-bold shadow-sm" id="submitPayBtn" onclick="submitFerryBooking()">
                                     <i class="bi bi-check-circle-fill me-1"></i>Confirm & Submit Payment
                                 </button>
                             </div>
@@ -402,12 +340,12 @@
                     </div>
                 </div>
 
-                <!-- Success Section -->
-                <div id="ferrySuccessSection" class="d-none text-center p-5">
+                <!-- Step 3: Success Section -->
+                <div id="successSection" class="d-none text-center p-5">
                     <i class="bi bi-clock-history text-warning display-3"></i>
                     <h4 class="fw-bold text-dark mt-2">Payment Verification Pending</h4>
                     <p class="text-muted small mb-4">ငွေပေးချေမှုမှတ်တမ်း (Transaction ID) ကို ပေးပို့ပြီးပါပြီ။ Admin မှ စစ်ဆေးပြီးပါက အတည်ပြုပေးပါမည်။</p>
-                    <button type="button" class="btn btn-primary px-5 rounded-pill" data-bs-dismiss="modal" onclick="closeCenterModal()">Close</button>
+                    <button type="button" class="btn btn-primary px-5 rounded-pill" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -416,22 +354,26 @@
     <!-- Footer -->
     <footer class="py-4 text-center border-top bg-white bg-opacity-80 mt-auto">
         <div class="container">
-            <p class="text-muted small mb-0">&copy; 2026 UTYCC Transport &amp; Accommodation Board.</p>
+            <p class="text-muted small mb-0">&copy; 2026 University of Technology Yatanarpon Cyber City (UTYCC). Smart Campus Enterprise System.</p>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 Bundle JS -->
+    <!-- Bootstrap 5.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const API_BASE_URL = window.location.origin.includes("http") ? window.location.origin : "http://localhost:8080";
-        let currentGroupFerries = [];
+        let ferriesData = [];
         let selectedFerryId = null;
-        let selectedGroupId = null;
-        let selectedFerryPrice = '';
+        let selectedFerryName = '';
+        let selectedRouteName = '';
+        let selectedDepartureTime = '';
+        let selectedFerryPrice = 'Ks 30,000';
+        let currentFerryBooking = null;
+        let currentHostelBooking = null;
 
         document.addEventListener("DOMContentLoaded", () => {
             checkAuthAndLoadProfile();
-            goToStep(2);
+            fetchFerries();
         });
 
         function escapeHtml(str) {
@@ -439,31 +381,89 @@
             return str.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        async function checkAuthAndLoadProfile() {
+        function formatFerryPrice(price) {
+            if (!price && price !== 0) return 'Ks 30,000';
+            const numeric = parseInt(String(price).replace(/[^0-9]/g, ''), 10);
+            if (isNaN(numeric) || numeric <= 0) return 'Ks 30,000';
+            return 'Ks ' + numeric.toLocaleString();
+        }
+
+        async function apiGet(endpoint) {
+            const origins = ["", window.location.origin.startsWith("http") ? window.location.origin : "", "http://localhost:8080"].filter((v, i, a) => v !== undefined && v !== null && a.indexOf(v) === i);
+            for (let origin of origins) {
+                try {
+                    const url = origin ? `${origin}${endpoint}` : endpoint;
+                    const res = await fetch(url, { method: "GET" });
+                    if (res.ok) return await res.json();
+                } catch (e) {}
+            }
+            throw new Error("Network error connecting to server.");
+        }
+
+        async function apiPost(endpoint, bodyData) {
+            const origins = ["", window.location.origin.startsWith("http") ? window.location.origin : "", "http://localhost:8080"].filter((v, i, a) => v !== undefined && v !== null && a.indexOf(v) === i);
+            for (let origin of origins) {
+                try {
+                    const url = origin ? `${origin}${endpoint}` : endpoint;
+                    const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(bodyData) });
+                    if (res.ok) return await res.json();
+                } catch (e) {}
+            }
+            throw new Error("Network error connecting to server.");
+        }
+
+        async function updateProfilePicUI(imageUrl) {
+            if (!imageUrl) return;
+            const navImg = document.getElementById('navAvatarImg');
+            const navIcon = document.getElementById('navAvatarIcon');
+            if (navImg) { navImg.src = imageUrl; navImg.classList.remove('d-none'); }
+            if (navIcon) { navIcon.classList.add('d-none'); }
+            const drawerImg = document.getElementById('drawerAvatarImg');
+            const drawerIcon = document.getElementById('drawerAvatarIcon');
+            if (drawerImg) { drawerImg.src = imageUrl; drawerImg.classList.remove('d-none'); }
+            if (drawerIcon) { drawerIcon.classList.add('d-none'); }
+        }
+
+        async function handleProfilePicUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const userJson = localStorage.getItem('user');
+            if (!userJson) return;
+            const user = JSON.parse(userJson);
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Data = e.target.result;
+                updateProfilePicUI(base64Data);
+                try {
+                    await apiPost('/api/user/update-profile', { student_id: user.student_id, avatar: base64Data });
+                    user.avatar = base64Data;
+                    user.profile_pic = base64Data;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    if (user.student_id) localStorage.setItem('userAvatar_' + user.student_id, base64Data);
+                } catch (err) {}
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function checkAuthAndLoadProfile() {
             const userJson = localStorage.getItem('user');
             const loginBtn = document.getElementById('loginBtn');
             const profileMenu = document.getElementById('profileMenu');
-
             if (userJson) {
                 const user = JSON.parse(userJson);
                 if (loginBtn) loginBtn.classList.add('d-none');
                 if (profileMenu) profileMenu.classList.remove('d-none');
-
                 const userName = document.getElementById('userName');
                 if (userName) userName.textContent = user.name || 'Student';
-
                 const drawerName = document.getElementById('drawerName');
                 if (drawerName) drawerName.textContent = user.name || 'Student';
-
                 const drawerStudentId = document.getElementById('drawerStudentId');
-                if (drawerStudentId) drawerStudentId.textContent = 'Roll ID: ' + (user.student_id || 'N/A');
-
+                if (drawerStudentId) drawerStudentId.textContent = `Roll ID: ${user.student_id || 'N/A'}`;
                 const drawerPhone = document.getElementById('drawerPhone');
-                if (drawerPhone) drawerPhone.textContent = 'Phone: ' + (user.phone || 'N/A');
-
-                if (user.student_id) {
-                    fetchUserStatus(user.student_id);
-                }
+                if (drawerPhone) drawerPhone.textContent = `Phone: ${user.phone || 'N/A'}`;
+                const savedAvatar = user.avatar || user.profile_pic || (user.student_id ? localStorage.getItem('userAvatar_' + user.student_id) : '');
+                if (savedAvatar) updateProfilePicUI(savedAvatar);
+                if (user.student_id) fetchUserStatus(user.student_id);
             } else {
                 if (loginBtn) loginBtn.classList.remove('d-none');
                 if (profileMenu) profileMenu.classList.add('d-none');
@@ -471,249 +471,294 @@
         }
 
         async function fetchUserStatus(studentId) {
+            if (!studentId) return;
             try {
-                const res = await fetch(API_BASE_URL + '/api/user-status/' + encodeURIComponent(studentId));
-                const data = await res.json();
+                const data = await apiGet(`/api/user-status/${encodeURIComponent(studentId)}`);
                 if (data.success) {
                     const hostelBadge = document.getElementById('hostelBadge');
                     const hostelDetail = document.getElementById('hostelDetail');
+                    const hostelActionBtn = document.getElementById('hostelActionBtn');
                     if (data.has_hostel && data.hostel) {
-                        const h = data.hostel;
-                        const isPending = h.payment_status === 'Pending' || h.status === 'Pending Approval';
-                        if (hostelBadge) {
-                            hostelBadge.className = isPending ? "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5" : "badge bg-success-subtle text-success rounded-pill px-3 py-1.5";
-                            hostelBadge.textContent = isPending ? "Pending Payment Approval" : "Allocated";
-                        }
-                        if (hostelDetail) hostelDetail.textContent = 'Block: ' + h.hostel_name + ' (' + (h.room_number || '') + ')';
+                        currentHostelBooking = data.hostel;
+                        const isPending = data.hostel.payment_status === 'Pending' || data.hostel.status === 'Pending Approval';
+                        const isRejected = data.hostel.status === 'Rejected' || data.hostel.payment_status === 'Rejected';
+                        let badgeClass = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5";
+                        let badgeText = "Pending Payment";
+                        if (isRejected) { badgeClass = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-1.5"; badgeText = "Payment Rejected"; }
+                        else if (!isPending) { badgeClass = "badge bg-success-subtle text-success rounded-pill px-3 py-1.5"; badgeText = "Allocated"; }
+                        if (hostelBadge) { hostelBadge.className = badgeClass; hostelBadge.textContent = badgeText; }
+                        if (hostelDetail) hostelDetail.textContent = `Block: ${data.hostel.hostel_name} (${data.hostel.room_number || ''})`;
+                        if (hostelActionBtn) hostelActionBtn.innerHTML = "";
+                    } else {
+                        currentHostelBooking = null;
+                        if (hostelBadge) { hostelBadge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5"; hostelBadge.textContent = "Unallocated"; }
+                        if (hostelDetail) hostelDetail.textContent = "No hostel reservation found";
+                        if (hostelActionBtn) hostelActionBtn.innerHTML = `<button class="btn btn-sm btn-outline-primary rounded-pill px-2 py-1 ms-1" onclick="window.location.href='hostel.html'"><i class="bi bi-plus-circle me-1"></i>Book</button>`;
                     }
 
                     const ferryBadge = document.getElementById('ferryBadge');
                     const ferryDetail = document.getElementById('ferryDetail');
+                    const ferryActionBtn = document.getElementById('ferryActionBtn');
                     if (data.has_ferry && data.ferry) {
-                        const f = data.ferry;
-                        const isPending = f.payment_status === 'Pending' || f.status === 'Pending Approval';
-                        if (ferryBadge) {
-                            ferryBadge.className = isPending ? "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5" : "badge bg-success-subtle text-success rounded-pill px-3 py-1.5";
-                            ferryBadge.textContent = isPending ? "Pending Payment Approval" : "Assigned";
-                        }
-                        if (ferryDetail) ferryDetail.textContent = 'Line: ' + f.ferry_name;
+                        currentFerryBooking = data.ferry;
+                        const isPending = data.ferry.payment_status === 'Pending' || data.ferry.status === 'Pending Approval';
+                        const isRejected = data.ferry.status === 'Rejected' || data.ferry.payment_status === 'Rejected';
+                        let badgeClass = "badge bg-warning-subtle text-warning-emphasis border border-warning rounded-pill px-3 py-1.5";
+                        let badgeText = "Pending Payment";
+                        if (isRejected) { badgeClass = "badge bg-danger-subtle text-danger border border-danger rounded-pill px-3 py-1.5"; badgeText = "Payment Rejected"; }
+                        else if (!isPending) { badgeClass = "badge bg-success-subtle text-success rounded-pill px-3 py-1.5"; badgeText = "Assigned"; }
+                        if (ferryBadge) { ferryBadge.className = badgeClass; ferryBadge.textContent = badgeText; }
+                        if (ferryDetail) ferryDetail.textContent = `Line: ${data.ferry.ferry_name}`;
+                        if (ferryActionBtn) ferryActionBtn.innerHTML = "";
+                    } else {
+                        currentFerryBooking = null;
+                        if (ferryBadge) { ferryBadge.className = "badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1.5"; ferryBadge.textContent = "Unassigned"; }
+                        if (ferryDetail) ferryDetail.textContent = "No active transit tokens";
+                        if (ferryActionBtn) ferryActionBtn.innerHTML = `<button class="btn btn-sm btn-outline-primary rounded-pill px-2 py-1 ms-1" onclick="window.location.href='ferry.html'"><i class="bi bi-plus-circle me-1"></i>Reserve</button>`;
                     }
                 }
-            } catch (err) {
-                console.error("User status fetch error:", err);
-            }
+            } catch (err) {}
+        }
+
+        function showBookingLimitModal(msg) {
+            const msgEl = document.getElementById('bookingLimitMsg');
+            if (msgEl && msg) msgEl.textContent = msg;
+            const modalEl = document.getElementById('bookingLimitModal');
+            if (modalEl) bootstrap.Modal.getOrCreateInstance(modalEl).show();
         }
 
         function logout() {
             localStorage.removeItem('user');
-            window.location.reload();
+            window.location.href = 'login.html?reset=true';
         }
 
-        async function renderShuttleCards() {
-            const grid = document.getElementById('shuttleGridContainer');
-            grid.innerHTML = '<div class="text-center my-5 w-100"><div class="spinner-border text-primary"></div><p class="text-muted mt-2">Loading routes...</p></div>';
-
+        async function fetchFerries() {
+            const grid = document.getElementById('ferryGrid');
             try {
-                const res = await fetch(API_BASE_URL + '/api/ferry-groups');
-                const data = await res.json();
-                const groupsList = Array.isArray(data) ? data : (data.groups || data.data || []);
-                if (groupsList && groupsList.length > 0) {
-                    grid.innerHTML = groupsList.map(item => ' ' +
-                        '<div class="col-12 col-md-4 mb-4">' +
-                            '<div class="glass-card shuttle-card p-4 h-100" onclick="fetchFerriesByGroup(' + item.group_id + ')" style="transition: all 0.3s ease; cursor: pointer;">' +
-                                '<div class="shuttle-icon-box text-primary fs-3 mb-2">' +
-                                    '<i class="bi bi-bus-front-fill"></i>' +
-                                '</div>' +
-                                '<h5 class="fw-bold text-dark mb-1">' + escapeHtml(item.group_name) + '</h5>' +
-                                '<p class="text-muted small mb-3">' + escapeHtml(item.description || 'Campus Route') + '</p>' +
-                                '<div class="d-flex justify-content-between align-items-center pt-2 border-top">' +
-                                    '<span class="small text-primary fw-bold">View Lines</span>' +
-                                    '<i class="bi bi-arrow-right-circle-fill text-primary fs-5"></i>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>'
-                    ).join('');
-                } else {
-                    grid.innerHTML = '<div class="glass-card text-center p-4 w-100"><p class="text-muted mb-0">No ferry groups found in Database.</p></div>';
-                }
-            } catch (err) {
-                console.error("Fetch Ferry Groups Error:", err);
-                grid.innerHTML = '<div class="glass-card text-center p-4 text-danger w-100"><p class="mb-0">Error loading routes: ' + escapeHtml(err.message) + '</p></div>';
-            }
-        }
-
-        async function fetchFerriesByGroup(groupId) {
-            selectedGroupId = groupId;
-            goToStep(3);
-            const listContainer = document.getElementById('step3FleetList');
-            if (listContainer) {
-                listContainer.innerHTML = '<div class="text-center my-4"><div class="spinner-border text-primary spinner-border-sm"></div><p class="text-muted small mt-2">Loading line details...</p></div>';
-            }
-
-            try {
-                const res = await fetch(API_BASE_URL + '/api/ferries-by-group/' + groupId);
+                const res = await fetch(API_BASE_URL + '/api/ferries');
                 const data = await res.json();
                 const ferriesList = Array.isArray(data) ? data : (data.ferries || data.data || []);
-                currentGroupFerries = ferriesList;
-                renderStep3Fleets();
-            } catch (err) {
-                console.error("Fetch Ferries by Group Error:", err);
-                if (listContainer) {
-                    listContainer.innerHTML = '<p class="text-danger small p-3">Error loading fleet details: ' + escapeHtml(err.message) + '</p>';
+                if (ferriesList && ferriesList.length > 0) {
+                    ferriesData = ferriesList;
+                    populateRouteFilter(ferriesData);
+                    renderFerries(ferriesData);
+                } else {
+                    grid.innerHTML = '';
+                    document.getElementById('noResults').classList.remove('d-none');
                 }
+            } catch (err) {
+                grid.innerHTML = '<div class="glass-card text-center p-4 text-danger w-100"><p class="mb-0">Database Connection Error: ' + escapeHtml(err.message) + '</p></div>';
             }
         }
 
-        function renderStep3Fleets() {
-            const container = document.getElementById('step3FleetList');
-            if (!container) return;
+        function populateRouteFilter(list) {
+            const filter = document.getElementById('filterRoute');
+            if (!filter) return;
+            const uniqueRoutes = new Set();
+            list.forEach(f => { if (f.route_name) uniqueRoutes.add(f.route_name.trim()); });
+            filter.innerHTML = '<option value="all">All Ferry Lines</option>';
+            uniqueRoutes.forEach(r => {
+                const opt = document.createElement('option');
+                opt.value = r;
+                opt.textContent = r;
+                filter.appendChild(opt);
+            });
+        }
 
-            const activeFerries = (currentGroupFerries || []).filter(f => f.status !== 'Inactive');
-
-            if (!activeFerries || activeFerries.length === 0) {
-                container.innerHTML = '<div class="glass-card text-center p-4"><p class="text-muted mb-0">No active ferries in this route group.</p></div>';
+        function renderFerries(list) {
+            const activeList = (list || []).filter(f => f.status !== 'Inactive');
+            list = activeList;
+            const grid = document.getElementById('ferryGrid');
+            grid.innerHTML = '';
+            if (!list || list.length === 0) {
+                document.getElementById('noResults').classList.remove('d-none');
                 return;
             }
+            document.getElementById('noResults').classList.add('d-none');
 
-            container.innerHTML = activeFerries.map(f => ' ' +
-                '<div class="glass-card p-3 shadow-sm border" onclick="selectFleetInStep3(' + f.ferry_id + ')" style="cursor: pointer;">' +
-                    '<div class="d-flex justify-content-between align-items-center">' +
-                        '<div>' +
-                            '<h6 class="fw-bold text-dark mb-1">' + escapeHtml(f.ferry_name) + '</h6>' +
-                            '<div class="small text-muted"><i class="bi bi-geo-alt me-1"></i>' + escapeHtml(f.route_name || 'UTYCC Route') + '</div>' +
-                        '</div>' +
-                        '<div class="text-end">' +
-                            '<span class="badge bg-success-subtle text-success px-2.5 py-1 rounded-pill">' + f.available_seats + ' / ' + f.capacity + ' Seats</span>' +
-                            '<div class="small fw-bold text-primary mt-1"></div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>'
-            ).join('');
+            list.forEach(f => {
+                const defaultImg = 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80';
+                const imgUrl = (f.image_url && f.image_url.startsWith('http')) ? f.image_url : defaultImg;
+                const depTime = f.departure_time || '06:30 AM';
+                const displayPrice = formatFerryPrice(f.price);
+
+                grid.innerHTML += `
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="glass-card hostel-card ferry-card h-100 overflow-hidden d-flex flex-column">
+                            <div class="position-relative" style="height: 180px;">
+                                <img src="${imgUrl}" class="w-100 h-100 object-fit-cover" alt="Ferry Line">
+                                <div class="position-absolute top-0 end-0 p-3">
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill">
+                                        <i class="bi bi-clock me-1"></i>${escapeHtml(depTime)}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-4 d-flex flex-column flex-grow-1">
+                                <h5 class="fw-bold text-dark mb-1">${escapeHtml(f.ferry_name)}</h5>
+                                <div class="small text-muted mb-2"><i class="bi bi-geo-alt me-1 text-danger"></i>${escapeHtml(f.route_name || 'Campus Transit Route')}</div>
+                                <p class="text-muted small mb-3 flex-grow-1">${escapeHtml(f.description || 'Daily student ferry transit service to UTYCC campus.')}</p>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="small text-muted">Monthly Transit Fee</span>
+                                    <span class="fw-bold text-primary">${displayPrice}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
+                                    <div>
+                                        <div class="small text-muted">Available Seats</div>
+                                        <div class="fw-bold text-primary">${f.available_seats} / ${f.capacity} Seats</div>
+                                    </div>
+                                    <button class="btn btn-primary rounded-pill px-3 py-2 fw-semibold" onclick="handleBookingClick(${f.ferry_id}, '${escapeHtml(f.ferry_name)}', '${escapeHtml(f.route_name)}', '${depTime}', '${displayPrice}')">
+                                        <i class="bi bi-ticket-perforated me-1"></i>Book Seat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
         }
 
-        function selectFleetInStep3(id) {
-            selectedFerryId = id;
-            document.getElementById('rightPlaceholder').style.display = 'none';
-            document.getElementById('rightDetailPanel').style.display = 'block';
-            updateScheduleDetails(id);
+        function filterFerries() {
+            const query = document.getElementById('searchFerry').value.toLowerCase().trim();
+            const filterRoute = document.getElementById('filterRoute').value;
+            const filtered = ferriesData.filter(f => {
+                const name = (f.ferry_name || '').toLowerCase();
+                const route = (f.route_name || '').toLowerCase();
+                const time = (f.departure_time || '').toLowerCase();
+                const matchesSearch = name.includes(query) || route.includes(query) || time.includes(query);
+                let matchesRoute = true;
+                if (filterRoute !== 'all') matchesRoute = (f.route_name || '').trim() === filterRoute.trim();
+                return matchesSearch && matchesRoute;
+            });
+            renderFerries(filtered);
         }
 
-        function updateScheduleDetails(id) {
-            const fleet = currentGroupFerries.find(f => f.ferry_id === id);
-            if (!fleet) return;
-            document.getElementById('detailFerryName').textContent = fleet.ferry_name;
-            document.getElementById('detailFerryRoute').textContent = fleet.route_name || 'UTYCC Route';
-            document.getElementById('detailDepartureTime').textContent = fleet.departure_time || '06:30 AM';
-            document.getElementById('detailAvailableSeats').textContent = fleet.available_seats + ' Seats Available';
-        }
-
-        function goToStep(stepNumber) {
-            document.querySelectorAll('.app-step').forEach(el => el.classList.remove('active'));
-            document.getElementById('step' + stepNumber).classList.add('active');
-            if (stepNumber === 2) {
-                renderShuttleCards();
-            } else if (stepNumber === 3) {
-                document.getElementById('rightDetailPanel').style.display = 'none';
-                document.getElementById('rightPlaceholder').style.display = 'block';
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function openBookingModal() {
+        function handleBookingClick(id, name, route, time, price) {
             const userJson = localStorage.getItem('user');
             if (!userJson) {
-                alert("ဘွတ်ကင်မတင်မီ Login အရင်ဝင်ပေးပါရန် လိုအပ်ပါသည်။");
+                alert("ဘွတ်ကင်မတင်မီ Login ဝင်ပေးပါရန် လိုအပ်ပါသည်!");
                 window.location.href = "login.html";
                 return;
             }
-
-            const fleet = currentGroupFerries.find(f => f.ferry_id === selectedFerryId);
-            if (!fleet) return;
-
-            document.getElementById("modalFerryName").textContent = fleet.ferry_name;
-            document.getElementById("modalFerryRoute").textContent = fleet.route_name || 'UTYCC Route';
-            document.getElementById("modalFerryPrice").textContent = selectedFerryPrice;
-
-            document.getElementById("ferryFormSection").classList.remove("d-none");
-            document.getElementById("ferryPaymentSection").classList.add("d-none");
-            document.getElementById("ferrySuccessSection").classList.add("d-none");
-            document.getElementById("ferryBookingForm").reset();
-
-            if (userJson) {
-                const user = JSON.parse(userJson);
-                if (user.name) document.getElementById("ferryStudentName").value = user.name;
-                if (user.student_id) document.getElementById("ferryStudentId").value = user.student_id;
-                if (user.phone) document.getElementById("ferryStudentPhone").value = user.phone;
-            }
-
-            const modalEl = document.getElementById('ferryBookingModal');
-            const modalObj = bootstrap.Modal.getOrCreateInstance(modalEl);
-            modalObj.show();
-        }
-
-        function goToFerryPayment() {
-            const name = document.getElementById("ferryStudentName").value.trim();
-            const year = document.getElementById("ferryStudentYear").value;
-            const roll = document.getElementById("ferryStudentId").value.trim();
-            const phone = document.getElementById("ferryStudentPhone").value.trim();
-
-            if (!name || !year || !roll || !phone) {
-                alert("ကျေးဇူးပြု၍ အချက်အလက်များကို ပြည့်စုံစွာ ဖြည့်သွင်းပါ။");
+            if (currentFerryBooking) {
+                showBookingLimitModal("သင်သည် Ferry Ticket ရယူထားပြီးဖြစ်သည်။ အကောင့်တစ်ခုလျှင် Booking တစ်ခုသာ တင်ခွင့်ရှိပါသည်။");
                 return;
             }
 
-            // ရွေးချယ်ထားသော ဖယ်ရီလိုင်းပိုင်ရှင်၏ ကိုယ်ပိုင် KBZPay QR Image ကို ရှာဖွေ၍ တိုက်ရိုက်ပြသပေးခြင်း
-            const fleet = (currentGroupFerries || []).find(f => (f.ferry_id === selectedFerryId || f.id === selectedFerryId));
-            const ferryTitle = fleet ? (fleet.ferry_name + ' (' + (fleet.route_name || '') + ')') : 'Mandalay Ferry Line A';
-            const rawQr = fleet ? (fleet.kpay_qr_url || '') : '';
-            const ownerKpayQr = (rawQr && rawQr !== 'qrcode.jpg') ? rawQr.trim() : '';
+            selectedFerryId = id;
+            selectedFerryName = name;
+            selectedRouteName = route;
+            selectedDepartureTime = time || '06:30 AM';
+            selectedFerryPrice = formatFerryPrice(price);
 
-            const qrContainer = document.getElementById('ferryKpayQrBoxContainer');
-            const qrImg = document.getElementById('ferryKpayQrImg');
-            const noQrNotice = document.getElementById('noFerryKpayQrNotice');
+            document.getElementById("modalFerryName").textContent = name;
+            document.getElementById("modalRouteName").textContent = route;
+            document.getElementById("modalDepartureTime").innerHTML = '<i class="bi bi-clock me-1"></i>' + selectedDepartureTime;
+            document.getElementById("modalFerryPrice").textContent = selectedFerryPrice;
 
-            if (ownerKpayQr) {
-                if (qrImg) qrImg.src = ownerKpayQr;
-                if (qrContainer) qrContainer.classList.remove('d-none');
-                if (noQrNotice) noQrNotice.classList.add('d-none');
-            } else {
-                if (qrContainer) qrContainer.classList.add('d-none');
-                if (noQrNotice) noQrNotice.classList.remove('d-none');
+            document.getElementById("formSection").classList.remove("d-none");
+            document.getElementById("paymentSection").classList.add("d-none");
+            document.getElementById("successSection").classList.add("d-none");
+            document.getElementById("bookingForm").reset();
+
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                if (user.student_id) document.getElementById("studentId").value = user.student_id;
+                if (user.name) document.getElementById("studentName").value = user.name;
+                if (user.phone) document.getElementById("studentPhone").value = user.phone;
             }
 
-            document.getElementById('ferryKpayTitle').textContent = ferryTitle;
-            document.getElementById('ferryKpayAmountText').textContent = selectedFerryPrice;
-
-            document.getElementById("ferryFormSection").classList.add("d-none");
-            document.getElementById("ferryPaymentSection").classList.remove("d-none");
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('bookingModal')).show();
         }
 
-        function backToFerryForm() {
-            document.getElementById("ferryPaymentSection").classList.add("d-none");
-            document.getElementById("ferryFormSection").classList.remove("d-none");
+        function goToPayment() {
+            const nameField = document.getElementById("studentName");
+            const yearField = document.getElementById("studentYear");
+            const rollField = document.getElementById("studentId");
+            const phoneField = document.getElementById("studentPhone");
+
+            // Required Input Check
+            if (!nameField.value.trim() || !yearField.value || !rollField.value.trim() || !phoneField.value.trim()) {
+                alert("ကျေးဇူးပြု၍ လိုအပ်သော အချက်အလက်များ (အမည်၊ နှစ်၊ Roll ID၊ ဖုန်းနံပါတ်) အားလုံးကို ဖြည့်သွင်းပါ။");
+                return;
+            }
+
+            updateFerryQrDisplay();
+            document.getElementById('kpayItemTitle').textContent = selectedFerryName + ' (' + selectedRouteName + ')';
+            if (document.getElementById('kpayAmountText')) document.getElementById('kpayAmountText').textContent = selectedFerryPrice;
+
+            document.getElementById("formSection").classList.add("d-none");
+            document.getElementById("paymentSection").classList.remove("d-none");
+        }
+
+        function updateFerryQrDisplay() {
+            const payMethodSelect = document.getElementById("paymentMethodSelect");
+            const payMethod = payMethodSelect ? payMethodSelect.value : "KBZPay (KPay QR)";
+            const targetFerry = (ferriesData || []).find(f => (f.ferry_id === selectedFerryId || f.id === selectedFerryId));
+            let qrUrl = targetFerry ? (targetFerry.kpay_qr_url || '') : '';
+            let methodName = 'KBZPay';
+            let frameTitle = 'Use KBZPay Scan to pay me';
+            let frameBg = '#0056b3';
+            let txnLabel = 'KBZPay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
+
+            if (payMethod.includes('Wave')) {
+                methodName = 'WavePay';
+                frameTitle = 'Use WavePay Scan to pay me';
+                frameBg = '#f58220';
+                txnLabel = 'WavePay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
+            } else if (payMethod.includes('AYA')) {
+                methodName = 'AYA Pay';
+                frameTitle = 'Use AYA Pay Scan to pay me';
+                frameBg = '#d32f2f';
+                txnLabel = 'AYA Pay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
+            } else if (payMethod.includes('CB')) {
+                methodName = 'CB Pay';
+                frameTitle = 'Use CB Pay Scan to pay me';
+                frameBg = '#0288d1';
+                txnLabel = 'CB Pay / Slip Transaction ID (နောက်ဆုံး ၆ လုံးမှ ၁၂ လုံး) *';
+            }
+
+            const cleanQr = (qrUrl && qrUrl !== 'qrcode.jpg') ? qrUrl.trim() : 'qrcode.jpg';
+            const headerLabel = document.getElementById('ferryPayHeaderLabel');
+            if (headerLabel) headerLabel.textContent = methodName + ' Payment Gateway';
+            const methodText = document.getElementById('ferryPayMethodNameText');
+            if (methodText) methodText.textContent = methodName;
+
+            const qrContainer = document.getElementById('kpayQrBoxContainer');
+            const qrImg = document.getElementById('kpayQrImg');
+            const qrFrameTitle = document.getElementById('ferryQrFrameTitle');
+            if (qrFrameTitle) qrFrameTitle.textContent = frameTitle;
+            const qrFrameBadge = document.getElementById('ferryQrFrameBadge');
+            if (qrFrameBadge) qrFrameBadge.innerHTML = `<span class="badge bg-white text-primary px-2.5 py-1 fw-bold shadow-sm">${methodName}</span>`;
+            if (qrContainer) qrContainer.style.background = frameBg;
+            const txnInputLabel = document.getElementById('ferryTxnLabel');
+            if (txnInputLabel) txnInputLabel.textContent = txnLabel;
+            if (qrImg) qrImg.src = cleanQr;
+        }
+
+        function backToForm() {
+            document.getElementById("paymentSection").classList.add("d-none");
+            document.getElementById("formSection").classList.remove("d-none");
         }
 
         async function submitFerryBooking() {
-            const name = document.getElementById("ferryStudentName").value.trim();
-            const year = document.getElementById("ferryStudentYear").value;
-            const roll = document.getElementById("ferryStudentId").value.trim();
-            const phone = document.getElementById("ferryStudentPhone").value.trim();
-            const payMethod = document.getElementById("ferryPayMethodSelect").value;
+            const name = document.getElementById("studentName").value.trim();
+            const year = document.getElementById("studentYear").value;
+            const roll = document.getElementById("studentId").value.trim();
+            const phone = document.getElementById("studentPhone").value.trim();
+            const payMethod = document.getElementById("paymentMethodSelect").value;
             const txnId = document.getElementById("paymentTransactionId").value.trim();
 
-// Strictly check that the Transaction ID is between 6 and 12 numeric digits
-if (!txnId || txnId.length < 6 || txnId.length > 12 || !/^[0-9]{6,12}$/.test(txnId)) {
-    alert("ကျေးဇူးပြု၍ KBZPay / Slip Transaction ID ဂဏန်း ၆ လုံးမှ ၁၂ လုံးအတွင်းသာ မှန်ကန်စွာ ထည့်သွင်းပေးပါ။");
-    document.getElementById("paymentTransactionId").focus();
-    return;
-}
+            if (!txnId) {
+                alert("ကျေးဇူးပြု၍ Transaction ID ကို ဖြည့်သွင်းပေးပါ။ (Required)");
+                document.getElementById("paymentTransactionId").focus();
+                return;
+            }
 
-            const submitBtn = document.getElementById('submitFerryPayBtn');
+            const submitBtn = document.getElementById('submitPayBtn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
 
             try {
-                const res = await fetch(API_BASE_URL + '/api/book-ferry', {
+                const res = await fetch(API_BASE_URL + '/api/ferry/book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -727,27 +772,21 @@ if (!txnId || txnId.length < 6 || txnId.length > 12 || !/^[0-9]{6,12}$/.test(txn
                         amount: selectedFerryPrice
                     })
                 });
-
                 const data = await res.json();
                 if (data.success) {
-                    document.getElementById("ferryPaymentSection").classList.add("d-none");
-                    document.getElementById("ferrySuccessSection").classList.remove("d-none");
+                    document.getElementById("paymentSection").classList.add("d-none");
+                    document.getElementById("successSection").classList.remove("d-none");
                     fetchUserStatus(roll);
-                    fetchFerriesByGroup(selectedGroupId);
+                    fetchFerries();
                 } else {
                     alert(data.message || "Booking failed");
                 }
             } catch (err) {
-                console.error("Booking error:", err);
                 alert("Network error occurred.");
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Confirm & Submit Payment';
             }
-        }
-
-        function closeCenterModal() {
-            goToStep(2);
         }
     </script>
 </body>

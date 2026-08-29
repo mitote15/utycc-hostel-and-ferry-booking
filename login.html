@@ -18,52 +18,38 @@
         --primary-blue: #0284c7;
         --primary-hover: #0369a1;
         --accent-teal: #0d9488;
-        --accent-emerald: #059669;
-        --accent-amber: #d97706;
         --bg-light: #f8fafc;
         --bg-glass: rgba(255, 255, 255, 0.85);
         --border-glass: rgba(14, 165, 233, 0.18);
-        --border-glow: rgba(2, 132, 199, 0.35);
-        --text-main: #0f172a;
-        --text-muted: #475569;
         --shadow-glass: 0 10px 30px -5px rgba(2, 132, 199, 0.08);
-        --shadow-glow: 0 12px 35px rgba(2, 132, 199, 0.18);
       }
      
       body {
         font-family: 'Inter', sans-serif;
         background-color: var(--bg-light);
-        color: var(--text-main);
+        color: #0f172a;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         background-image: radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.08) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.08) 0px, transparent 50%);
       }
      
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      .font-heading {
+      h1, h2, h3, h4, h5, .font-heading {
         font-family: 'Space Grotesk', sans-serif;
       }
      
       .navbar-glass {
         background: var(--bg-glass);
         backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border-glass);
       }
      
       .card-glass {
         background: var(--bg-glass);
         backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
         border: 1px solid var(--border-glass);
         border-radius: 1.25rem;
         box-shadow: var(--shadow-glass);
-        transition: all 0.3s ease;
       }
      
       .btn-glow {
@@ -77,26 +63,22 @@
       .btn-glow:hover {
         background: linear-gradient(135deg, var(--primary-hover), #0f766e);
         color: white;
-        box-shadow: var(--shadow-glow);
         transform: translateY(-1px);
       }
      
       .nav-pills .nav-link {
-        color: var(--text-muted);
+        color: #475569;
         border-radius: 0.75rem;
         font-weight: 600;
         padding: 0.6rem 1.2rem;
-        transition: all 0.2s ease;
       }
      
       .nav-pills .nav-link.active {
         background-color: var(--primary-blue);
         color: white;
-        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
       }
      
-      .form-control:focus,
-      .form-select:focus {
+      .form-control:focus, .form-select:focus {
         border-color: var(--primary-blue);
         box-shadow: 0 0 0 0.25rem rgba(2, 132, 199, 0.15);
       }
@@ -118,64 +100,6 @@
         background: #0f172a;
         color: #94a3b8;
       }
-      /* Responsive Mobile Styles */
-        @media (max-width: 991.98px) {
-            .navbar-enterprise {
-                margin: 8px 0.5rem 0 0.5rem;
-                width: calc(100% - 1rem);
-                border-radius: 16px;
-            }
-            .navbar-collapse {
-                background: #ffffff;
-                padding: 1.25rem;
-                border-radius: 16px;
-                margin-top: 10px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                border: 1px solid var(--border-glass);
-            }
-            .hero-enterprise {
-                padding: 6.5rem 0.5rem 4rem 0.5rem;
-            }
-            .hero-enterprise h1 {
-                font-size: 2.2rem !important;
-            }
-            .hero-enterprise p.lead {
-                font-size: 0.95rem !important;
-            }
-        }
-
-        @media (max-width: 575.98px) {
-            .hero-enterprise h1 {
-                font-size: 1.85rem !important;
-            }
-            .glass-card {
-                padding: 1.25rem !important;
-                border-radius: 16px !important;
-            }
-            .service-card-interactive {
-                padding: 1.25rem !important;
-            }
-            .about-image-container .image-wrapper img {
-                height: 250px !important;
-            }
-            .offcanvas-end {
-                width: 100% !important;
-            }
-            .scroll-fade-effect {
-                bottom: 16px;
-                right: 16px;
-                width: 44px;
-                height: 44px;
-                font-size: 1.2rem;
-            }
-            .hero-btn-container {
-                flex-direction: column;
-                width: 100%;
-            }
-            .hero-btn-container .btn {
-                width: 100%;
-            }
-        }
     </style>
   </head>
   <body>
@@ -191,15 +115,9 @@
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-collapse nav nav-pills ms-auto gap-1 me-3">
-            <li class="nav-item">
-              <a class="nav-link" href="home.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="hostel.html">Hostels</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="ferry.html">Ferries</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="hostel.html">Hostels</a></li>
+            <li class="nav-item"><a class="nav-link" href="ferry.html">Ferries</a></li>
           </ul>
           <a class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold" href="admin-login.html"><i class="bi bi-person-badge-fill me-1"></i> Admin Portal</a>
         </div>
@@ -239,20 +157,25 @@
             <div class="tab-content" id="authTabsContent">
               <!-- Login Pane -->
               <div class="tab-pane fade show active" id="login-pane" role="tabpanel">
-                <form id="loginForm" onsubmit="handleLogin(event)">
+                <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
                   <div class="mb-3">
                     <label class="form-label fw-semibold small text-muted">Student ID / Roll No.</label>
                     <div class="input-group">
                       <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-card-text"></i></span>
-                      <input type="text" id="loginStudentId" class="form-control border-start-0 ps-0" placeholder="e.g., 5ECE-12" required />
+                      <input type="text" id="loginStudentId" class="form-control border-start-0 ps-0 text-uppercase" placeholder="e.g., 5ECE-12" required />
                     </div>
                   </div>
                   <div class="mb-4">
                     <label class="form-label fw-semibold small text-muted">Password</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-key"></i></span>
-                      <input type="password" id="loginPassword" class="form-control border-start-0 ps-0" placeholder="••••••••" required />
-                    </div>
+                    
+                    <!-- Login Password Field -->
+                  <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-key"></i></span>
+                    <input type="password" id="loginPassword" class="form-control border-start-0 ps-0" placeholder="••••••••" required />
+                    <button class="btn btn-outline-secondary bg-white text-muted" type="button" onclick="togglePassword('loginPassword', this)">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
                   </div>
                   <button type="submit" class="btn btn-glow w-100 py-2 fw-semibold rounded-3 mb-3">Sign In <i class="bi bi-arrow-right ms-1"></i></button>
                 </form>
@@ -260,7 +183,7 @@
 
               <!-- Register Pane -->
               <div class="tab-pane fade" id="register-pane" role="tabpanel">
-                <form id="registerForm" onsubmit="handleRegister(event)">
+                <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
                   <div class="mb-3">
                     <label class="form-label fw-semibold small text-muted">Full Name</label>
                     <div class="input-group">
@@ -272,7 +195,7 @@
                     <label class="form-label fw-semibold small text-muted">Student Roll ID</label>
                     <div class="input-group">
                       <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-card-heading"></i></span>
-                      <input type="text" id="regStudentId" class="form-control border-start-0 ps-0" placeholder="e.g., 5CPE-05" required />
+                      <input type="text" id="regStudentId" class="form-control border-start-0 ps-0 text-uppercase" placeholder="e.g., 5CPE-05" required />
                     </div>
                   </div>
                   <div class="mb-3">
@@ -281,20 +204,27 @@
                       <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
                       <input type="email" id="regEmail" class="form-control border-start-0 ps-0" placeholder="student@gmail.com" required />
                     </div>
+                    <div class="form-text text-muted" style="font-size: 0.75rem;">Must be a valid @gmail.com address.</div>
                   </div>
                   <div class="mb-3">
                     <label class="form-label fw-semibold small text-muted">Phone Number</label>
                     <div class="input-group">
                       <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-telephone"></i></span>
-                      <input type="tel" id="regPhone" class="form-control border-start-0 ps-0" placeholder="09123456789 or +959123456789" required />
+                      <input type="tel" id="regPhone" class="form-control border-start-0 ps-0" placeholder="09123456789" required />
                     </div>
+                    <div class="form-text text-muted" style="font-size: 0.75rem;">Format: 09XXXXXXXXX or +959XXXXXXXXX</div>
                   </div>
                   <div class="mb-4">
                     <label class="form-label fw-semibold small text-muted">Create Password</label>
+                   <!-- Register Password Field -->
                     <div class="input-group">
                       <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-lock"></i></span>
                       <input type="password" id="regPassword" class="form-control border-start-0 ps-0" placeholder="••••••••" minlength="6" maxlength="16" required />
+                      <button class="btn btn-outline-secondary bg-white text-muted" type="button" onclick="togglePassword('regPassword', this)">
+                        <i class="bi bi-eye"></i>
+                      </button>
                     </div>
+                    <div class="form-text text-muted" style="font-size: 0.75rem;">6 to 16 characters long.</div>
                   </div>
                   <button type="submit" class="btn btn-glow w-100 py-2 fw-semibold rounded-3 mb-3">Create Student Account <i class="bi bi-check-circle ms-1"></i></button>
                 </form>
@@ -340,12 +270,29 @@
       function hideAlert() {
         document.getElementById('authAlert').classList.add('d-none')
       }
+
+      function togglePassword(fieldId, btn) {
+        const field = document.getElementById(fieldId);
+        const icon = btn.querySelector('i');
+        if (field.type === 'password') {
+          field.type = 'text';
+          icon.className = 'bi bi-eye-slash';
+        } else {
+          field.type = 'password';
+          icon.className = 'bi bi-eye';
+        }
+      }
      
       async function handleLogin(e) {
         e.preventDefault()
         const studentId = document.getElementById('loginStudentId').value.trim()
         const password = document.getElementById('loginPassword').value.trim()
      
+        if (!studentId || !password) {
+          showAlert('Please fill in all required fields.')
+          return
+        }
+
         try {
           const res = await fetch(API_BASE_URL + '/api/login', {
             method: 'POST',
@@ -375,22 +322,27 @@
         const phone = document.getElementById('regPhone').value.trim()
         const password = document.getElementById('regPassword').value.trim()
 
-        // Validation for Phone Number: must start with 09... or +959... and contain numeric digits only
+        if (!name || !studentId || !email || !phone || !password) {
+          showAlert('Please complete all fields in the registration form.')
+          return
+        }
+
+        // Real Phone Number Validation (09... or +959...)
         const phoneRegex = /^(09\d{7,9}|\+959\d{7,9})$/
         if (!phoneRegex.test(phone)) {
-          showAlert('Phone number must start with 09 or +959 followed by numeric digits.')
+          showAlert('Phone number must start with 09 or +959 followed by valid digits.')
           return
         }
 
-        // Validation for Email: must end with @gmail.com
+        // Real University Email Validation (@gmail.com)
         if (!email.toLowerCase().endsWith('@gmail.com')) {
-          showAlert('University Email must end with @gmail.com.')
+          showAlert('University Email must be a valid @gmail.com address.')
           return
         }
 
-        // Validation for Password: 6 to 16 characters long
+        // Real Password Length Validation (6-16 characters)
         if (password.length < 6 || password.length > 16) {
-          showAlert('Password must be 6 to 16 characters long.')
+          showAlert('Password must be between 6 and 16 characters long.')
           return
         }
      

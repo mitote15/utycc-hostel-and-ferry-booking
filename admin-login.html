@@ -131,20 +131,12 @@
                         <button type="button" class="btn-close" onclick="hideAlert()"></button>
                     </div>
 
-                    <!-- Super Admin Credentials Info -->
-                    <div class="bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3 p-3 mb-4">
-                        <div class="fw-bold text-primary small mb-1 d-flex align-items-center">
-                            <i class="bi bi-shield-check me-1"></i> Default Super Admin Credentials
-                        </div>
-                        
-                    </div>
-
-                    <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                    <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" novalidate>
                         <div class="mb-3">
                             <label class="form-label fw-semibold small text-muted">Target Console Role</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-shield-lock"></i></span>
-                                <select id="adminRole" class="form-select border-start-0 ps-0">
+                                <select id="adminRole" class="form-select border-start-0 ps-0" required>
                                     <option value="super_admin">Super Administrator (Unique)</option>
                                     <option value="hostel">Hostel Administrator</option>
                                     <option value="ferry">Ferry Administrator</option>
@@ -159,13 +151,18 @@
                                 <input type="text" id="adminUsername" class="form-control border-start-0 ps-0" placeholder="Enter username" required>
                             </div>
                         </div>
+
                         <div class="mb-4">
                             <label class="form-label fw-semibold small text-muted">Password</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-key"></i></span>
                                 <input type="password" id="adminPassword" class="form-control border-start-0 ps-0" placeholder="••••••••" required>
+                                <button class="btn btn-outline-secondary bg-white text-muted" type="button" onclick="togglePassword('adminPassword', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
                             </div>
                         </div>
+
                         <button type="submit" class="btn btn-glow w-100 py-2 fw-semibold rounded-3 mb-3">
                             Login to Console <i class="bi bi-shield-check ms-1"></i>
                         </button>
@@ -185,7 +182,7 @@
     <!-- Footer -->
     <footer class="py-4">
         <div class="container text-center">
-            <p class="mb-0 small">© 2026 UTYCC Smart Campus Enterprise Portal. All rights reserved.</p>
+            <p class="mb-0 small">&copy; 2026 UTYCC Smart Campus Enterprise Portal. All rights reserved.</p>
         </div>
     </footer>
 
@@ -211,11 +208,28 @@
             document.getElementById('adminAlert').classList.add('d-none');
         }
 
+        function togglePassword(fieldId, btn) {
+            const field = document.getElementById(fieldId);
+            const icon = btn.querySelector('i');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.className = 'bi bi-eye-slash';
+            } else {
+                field.type = 'password';
+                icon.className = 'bi bi-eye';
+            }
+        }
+
         async function handleAdminLogin(e) {
             e.preventDefault();
             const role = document.getElementById('adminRole').value;
             const username = document.getElementById('adminUsername').value.trim();
             const password = document.getElementById('adminPassword').value.trim();
+
+            if (!username || !password) {
+                showAlert('Please fill in all required fields.');
+                return;
+            }
 
             try {
                 const res = await fetch(API_BASE_URL + '/api/admin/login', {
